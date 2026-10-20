@@ -48,7 +48,7 @@ export default function MapExplorer() {
           localFontFamily: getComputedStyle(document.body).fontFamily,
           projection: "globe",
           center: [12, 20],
-          zoom: Math.min(MAX_EXPLORER_ZOOM, worldZoom(container.current.clientWidth) + 0.5),
+          zoom: Math.min(MAX_EXPLORER_ZOOM, worldZoom(container.current.clientWidth) + 1.4),
           minZoom: worldZoom(container.current.clientWidth), maxZoom: MAX_EXPLORER_ZOOM,
           bearing: 0, pitch: 0,
           dragRotate: false, pitchWithRotate: false, touchPitch: false,
@@ -155,6 +155,8 @@ export default function MapExplorer() {
   return (
     <main className="explorer" aria-label="Basecamp map explorer">
       <div className="star-field" aria-hidden="true">
+        <div className="sky-sun">☀️</div>
+        <div className="sky-moon">🌙</div>
         {[
           [7, 24], [21, 12], [38, 8], [61, 11], [83, 19], [94, 36],
           [12, 48], [29, 34], [77, 40], [88, 58], [5, 72], [20, 83],

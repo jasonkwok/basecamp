@@ -12,6 +12,9 @@ button:focus-visible, .mapboxgl-canvas:focus-visible { outline: 3px solid #b34b2
 .star-field { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .star-field span { position: absolute; font-size: 15px; opacity: .65; transform: rotate(-12deg); }
 .star-field span:nth-child(3n) { font-size: 21px; opacity: .8; transform: rotate(10deg); }
+.sky-sun, .sky-moon { position: absolute; line-height: 1; }
+.sky-sun { top: 15%; right: 12%; font-size: clamp(22px, 2.5vw, 34px); opacity: .4; transform: rotate(12deg); }
+.sky-moon { bottom: 23%; left: 10%; font-size: clamp(22px, 2.5vw, 34px); opacity: .4; transform: rotate(-15deg); }
 .explorer .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-attrib { margin: 0 10px 8px 0; }
 .explorer .mapboxgl-ctrl-attrib { font-size: 10px; line-height: 20px; background: #fffbeed9; color: #354a42; border-radius: 6px 0 0 0; }
 .explorer .mapboxgl-ctrl-attrib a { color: inherit; }

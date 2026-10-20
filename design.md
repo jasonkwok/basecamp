@@ -2,6 +2,10 @@
 
 Status: Initial design direction. This document will evolve as product and visual decisions are refined.
 
+Current implementation milestone: [map explorer checklist](map-explorer-checklist.md) — build the initial interactive map landing page, before adding mountains.
+
+Map-specific visual and usability proposals: [map explorer research](map-explorer-research.md), emphasizing a playful storybook atlas and simple exploration controls.
+
 ## Product vision
 
 **Basecamp** is an interactive mountain exploration and trip-planning platform that helps adventurers discover their next climb. Explore iconic mountains around the world through a playful, interactive map, get personalized recommendations from an AI mountain guide based on your experience and preferences, and build detailed, day-by-day hiking itineraries. From discovering your next adventure to planning the journey, Basecamp makes mountain exploration accessible, fun, and personalized.

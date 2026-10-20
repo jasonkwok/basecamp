@@ -5,7 +5,7 @@ import type { Map as MapboxMap, Marker } from "mapbox-gl";
 import { MOUNTAINS, type Summit } from "../data/mountains";
 import { MOUNTAIN_TAGS, type MountainTagId } from "../data/mountain-tags";
 import MountainProfile from "./mountain-profile";
-import { DIFFICULTY_LEVELS } from "../data/difficulty-levels";
+import { DIFFICULTY_LEVELS, type DifficultyLevel } from "../data/difficulty-levels";
 import { clusterMountains } from "./cluster-mountains";
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -25,8 +25,21 @@ export default function MapExplorer() {
   const nearbyHeading = useRef<HTMLHeadingElement>(null);
   const selectedSummitId = useRef<string | null>(null);
   const [collection, setCollection] = useState<MountainTagId | "all">("all");
+  const [search, setSearch] = useState("");
+  const [difficultyFilter, setDifficultyFilter] = useState<DifficultyLevel | "all">("all");
+  const [altitudeFilter, setAltitudeFilter] = useState("all");
+  const [regionFilter, setRegionFilter] = useState("all");
   const summitMarkers = useRef(new Map<string, Marker>());
-  const listedSummits = collection === "all" ? MOUNTAINS : MOUNTAINS.filter((summit) => summit.tags.includes(collection));
+  const regions = [...new Set(MOUNTAINS.map((summit) => summit.region))].sort();
+  const listedSummits = MOUNTAINS.filter((summit) => {
+    const matchesTag = collection === "all" || summit.tags.includes(collection);
+    const matchesDifficulty = difficultyFilter === "all" || summit.difficulty.level === difficultyFilter;
+    const matchesAltitude = altitudeFilter === "all" || (altitudeFilter === "under-2500" ? summit.elevationMeters < 2500 : altitudeFilter === "8000-plus" ? summit.elevationMeters >= 8000 : altitudeFilter === "2500-3999" ? summit.elevationMeters >= 2500 && summit.elevationMeters < 4000 : altitudeFilter === "4000-5999" ? summit.elevationMeters >= 4000 && summit.elevationMeters < 6000 : summit.elevationMeters >= 6000 && summit.elevationMeters < 8000);
+    const matchesRegion = regionFilter === "all" || summit.region === regionFilter;
+    const haystack = `${summit.name} ${summit.region} ${summit.location} ${summit.description} ${summit.tags.map((tag) => MOUNTAIN_TAGS[tag].label).join(" ")} ${DIFFICULTY_LEVELS[summit.difficulty.level].label}`.toLocaleLowerCase();
+    return matchesTag && matchesDifficulty && matchesAltitude && matchesRegion && haystack.includes(search.trim().toLocaleLowerCase());
+  });
+  const hasActiveFilters = Boolean(search || collection !== "all" || difficultyFilter !== "all" || altitudeFilter !== "all" || regionFilter !== "all");
   const [atMaxZoom, setAtMaxZoom] = useState(false);
   const [atMinZoom, setAtMinZoom] = useState(true);
 
@@ -314,18 +327,33 @@ export default function MapExplorer() {
       }}>
         <summary>🏔️ Mountains · {MOUNTAINS.length} <span aria-hidden="true">⌃</span></summary>
         <div className="summit-menu">
-          <p>Pick a peak. Find it on the globe.</p>
-          <select aria-label="Mountain collection" value={collection} onChange={(event) => setCollection(event.target.value as MountainTagId | "all")}>
-            <option value="all">All mountains · {MOUNTAINS.length}</option>
-            {Object.entries(MOUNTAIN_TAGS).map(([id, tag]) => <option key={id} value={id}>{tag.label} · {MOUNTAINS.filter((summit) => summit.tags.includes(id as MountainTagId)).length}</option>)}
-          </select>
-          <ul>{listedSummits.map((summit) => (
-            <li key={summit.id}><button disabled={status !== "ready"} onClick={(event) => {
+          <p>Search peaks, then narrow by tag, challenge, height or region.</p>
+          <input className="summit-search" type="search" aria-label="Search mountains" placeholder="Search mountains…" value={search} onChange={(event) => setSearch(event.target.value)} />
+          <div className="summit-filters">
+            <select aria-label="Filter by tag" value={collection} onChange={(event) => setCollection(event.target.value as MountainTagId | "all")}>
+              <option value="all">All tags · {MOUNTAINS.length}</option>
+              {Object.entries(MOUNTAIN_TAGS).map(([id, tag]) => <option key={id} value={id}>{tag.icon} {tag.label} · {MOUNTAINS.filter((summit) => summit.tags.includes(id as MountainTagId)).length}</option>)}
+            </select>
+            <select aria-label="Filter by difficulty" value={difficultyFilter} onChange={(event) => setDifficultyFilter(event.target.value as DifficultyLevel | "all")}>
+              <option value="all">All difficulties</option>
+              {Object.entries(DIFFICULTY_LEVELS).map(([id, level]) => <option key={id} value={id}>{level.icon} {level.label}</option>)}
+            </select>
+            <select aria-label="Filter by elevation" value={altitudeFilter} onChange={(event) => setAltitudeFilter(event.target.value)}>
+              <option value="all">Any elevation</option><option value="under-2500">Under 2,500 m</option><option value="2500-3999">2,500–3,999 m</option><option value="4000-5999">4,000–5,999 m</option><option value="6000-7999">6,000–7,999 m</option><option value="8000-plus">8,000 m+</option>
+            </select>
+            <select aria-label="Filter by region" value={regionFilter} onChange={(event) => setRegionFilter(event.target.value)}>
+              <option value="all">All regions</option>{regions.map((region) => <option key={region} value={region}>{region}</option>)}
+            </select>
+          </div>
+          <div className="summit-result-row"><small className="summit-result-count" aria-live="polite">Showing {listedSummits.length} of {MOUNTAINS.length} peaks</small>{hasActiveFilters ? <button className="summit-clear-filters" onClick={() => { setSearch(""); setCollection("all"); setDifficultyFilter("all"); setAltitudeFilter("all"); setRegionFilter("all"); }}>Clear filters</button> : null}</div>
+          <ul>{listedSummits.map((summit) => {
+            const difficulty = DIFFICULTY_LEVELS[summit.difficulty.level];
+            return <li key={summit.id}><button className="summit-option" disabled={status !== "ready"} onClick={(event) => {
               visitSummit(summit);
               const picker = event.currentTarget.closest("details");
               if (picker) picker.open = false;
-            }}><span>{summit.name}</span><small>{summit.region}</small></button></li>
-          ))}</ul>
+            }}><span className="summit-option-heading"><strong>{summit.name}</strong><small>{summit.region} · {summit.elevationMeters.toLocaleString()} m</small></span><span className="summit-option-badges">{summit.tags.map((tag) => <span key={tag} className="mountain-badge" data-tag={tag} title={MOUNTAIN_TAGS[tag].description}>{MOUNTAIN_TAGS[tag].icon} {MOUNTAIN_TAGS[tag].label}</span>)}<span className="mountain-badge difficulty-badge" data-difficulty={summit.difficulty.level} title={summit.difficulty.ascent}>{difficulty.icon} {difficulty.label}</span></span></button></li>;
+          })}{listedSummits.length === 0 ? <li className="summit-empty">No peaks match these filters. Try widening your search.</li> : null}</ul>
           <small className="summit-note">7 Summits · 14 eight-thousanders · {MOUNTAINS.filter((summit) => summit.tags.includes("popular")).length} popular picks</small>
         </div>
       </details>

@@ -134,7 +134,9 @@
       "name": "Kilimanjaro",
       "region": "Africa",
       "tags": [
-        "seven-summits"
+        "seven-summits",
+        "volcano",
+        "trekking"
       ],
       "coordinates": {
         "longitude": 37.3592,
@@ -175,7 +177,9 @@
       "name": "Elbrus",
       "region": "Europe",
       "tags": [
-        "seven-summits"
+        "seven-summits",
+        "volcano",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 42.4379,
@@ -257,7 +261,8 @@
       "name": "Carstensz Pyramid",
       "region": "Oceania",
       "tags": [
-        "seven-summits"
+        "seven-summits",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 137.1833,
@@ -298,7 +303,8 @@
       "name": "K2",
       "region": "Asia",
       "tags": [
-        "eight-thousander"
+        "eight-thousander",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 76.5133,
@@ -339,7 +345,8 @@
       "name": "Kangchenjunga",
       "region": "Asia",
       "tags": [
-        "eight-thousander"
+        "eight-thousander",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 88.1474,
@@ -380,7 +387,8 @@
       "name": "Lhotse",
       "region": "Asia",
       "tags": [
-        "eight-thousander"
+        "eight-thousander",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 86.9333,
@@ -421,7 +429,8 @@
       "name": "Makalu",
       "region": "Asia",
       "tags": [
-        "eight-thousander"
+        "eight-thousander",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 87.0886,
@@ -462,7 +471,8 @@
       "name": "Cho Oyu",
       "region": "Asia",
       "tags": [
-        "eight-thousander"
+        "eight-thousander",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 86.6608,
@@ -503,7 +513,8 @@
       "name": "Dhaulagiri I",
       "region": "Asia",
       "tags": [
-        "eight-thousander"
+        "eight-thousander",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 83.49,
@@ -544,7 +555,8 @@
       "name": "Manaslu",
       "region": "Asia",
       "tags": [
-        "eight-thousander"
+        "eight-thousander",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 84.5597,
@@ -585,7 +597,8 @@
       "name": "Nanga Parbat",
       "region": "Asia",
       "tags": [
-        "eight-thousander"
+        "eight-thousander",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 74.59,
@@ -626,7 +639,8 @@
       "name": "Annapurna I",
       "region": "Asia",
       "tags": [
-        "eight-thousander"
+        "eight-thousander",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 83.8239,
@@ -667,7 +681,8 @@
       "name": "Gasherbrum I",
       "region": "Asia",
       "tags": [
-        "eight-thousander"
+        "eight-thousander",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 76.6964,
@@ -704,7 +719,8 @@
       "name": "Broad Peak",
       "region": "Asia",
       "tags": [
-        "eight-thousander"
+        "eight-thousander",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 76.5653,
@@ -741,7 +757,8 @@
       "name": "Gasherbrum II",
       "region": "Asia",
       "tags": [
-        "eight-thousander"
+        "eight-thousander",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 76.6533,
@@ -778,7 +795,8 @@
       "name": "Shishapangma",
       "region": "Asia",
       "tags": [
-        "eight-thousander"
+        "eight-thousander",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 85.7797,
@@ -819,7 +837,10 @@
       "name": "Mount Fuji",
       "region": "Asia",
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "trekking",
+        "cultural-site"
       ],
       "coordinates": {
         "longitude": 138.7275,
@@ -856,7 +877,8 @@
       "name": "Mont Blanc",
       "region": "Europe",
       "tags": [
-        "popular"
+        "popular",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 6.865,
@@ -893,7 +915,8 @@
       "name": "Matterhorn",
       "region": "Europe",
       "tags": [
-        "popular"
+        "popular",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 7.6586,
@@ -930,7 +953,8 @@
       "name": "Eiger",
       "region": "Europe",
       "tags": [
-        "popular"
+        "popular",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 8.0053,
@@ -967,7 +991,9 @@
       "name": "Mount Rainier",
       "region": "North America",
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "trekking"
       ],
       "coordinates": {
         "longitude": -121.7603,
@@ -1008,7 +1034,8 @@
       "name": "Mount Whitney",
       "region": "North America",
       "tags": [
-        "popular"
+        "popular",
+        "trekking"
       ],
       "coordinates": {
         "longitude": -118.292,
@@ -1045,7 +1072,8 @@
       "name": "Aoraki / Mount Cook",
       "region": "Oceania",
       "tags": [
-        "popular"
+        "popular",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 170.1419,
@@ -1082,7 +1110,8 @@
       "name": "Mount Kinabalu",
       "region": "Asia",
       "tags": [
-        "popular"
+        "popular",
+        "trekking"
       ],
       "coordinates": {
         "longitude": 116.5586,
@@ -1119,7 +1148,9 @@
       "name": "Mount Rinjani",
       "region": "Asia",
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "trekking"
       ],
       "coordinates": {
         "longitude": 116.4598,
@@ -1156,7 +1187,9 @@
       "name": "Mount Bromo",
       "region": "Asia",
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "trekking"
       ],
       "coordinates": {
         "longitude": 112.95,
@@ -1193,7 +1226,8 @@
       "name": "Fansipan",
       "region": "Asia",
       "tags": [
-        "popular"
+        "popular",
+        "trekking"
       ],
       "coordinates": {
         "longitude": 103.775,
@@ -1230,7 +1264,10 @@
       "name": "Mount Olympus",
       "region": "Europe",
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "trekking",
+        "cultural-site"
       ],
       "coordinates": {
         "longitude": 22.3586,
@@ -1267,7 +1304,8 @@
       "name": "Toubkal",
       "region": "Africa",
       "tags": [
-        "popular"
+        "popular",
+        "trekking"
       ],
       "coordinates": {
         "longitude": -7.9151,
@@ -1304,7 +1342,8 @@
       "name": "Mount Kenya",
       "region": "Africa",
       "tags": [
-        "popular"
+        "popular",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": 37.3075,
@@ -1341,7 +1380,9 @@
       "name": "Mount Damavand",
       "region": "Asia",
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "cultural-site"
       ],
       "coordinates": {
         "longitude": 52.109,
@@ -1378,7 +1419,9 @@
       "name": "Mount Ararat",
       "region": "Asia",
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "cultural-site"
       ],
       "coordinates": {
         "longitude": 44.2983,
@@ -1415,7 +1458,8 @@
       "name": "Fitz Roy",
       "region": "South America",
       "tags": [
-        "popular"
+        "popular",
+        "technical-climb"
       ],
       "coordinates": {
         "longitude": -73.0432,
@@ -1452,7 +1496,8 @@
       "name": "Mount Kosciuszko",
       "region": "Oceania",
       "tags": [
-        "popular"
+        "popular",
+        "trekking"
       ],
       "coordinates": {
         "longitude": 148.2636,
@@ -1489,7 +1534,8 @@
       "name": "Ben Nevis",
       "region": "Europe",
       "tags": [
-        "popular"
+        "popular",
+        "trekking"
       ],
       "coordinates": {
         "longitude": -5.0035,
@@ -1526,7 +1572,8 @@
       "name": "Table Mountain",
       "region": "Africa",
       "tags": [
-        "popular"
+        "popular",
+        "trekking"
       ],
       "coordinates": {
         "longitude": 18.4099,
@@ -1569,7 +1616,9 @@
         "latitude": -13.163
       },
       "tags": [
-        "popular"
+        "popular",
+        "trekking",
+        "cultural-site"
       ],
       "description": "An Inca citadel perched above the Urubamba River, surrounded by steep green Andean ridges.",
       "kind": "destination",
@@ -1610,7 +1659,8 @@
         "latitude": -13.156
       },
       "tags": [
-        "popular"
+        "popular",
+        "cultural-site"
       ],
       "description": "The distinctive steep peak rising behind the terraces of Machu Picchu.",
       "kind": "mountain",
@@ -1647,7 +1697,9 @@
         "latitude": 19.03
       },
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "technical-climb"
       ],
       "description": "Mexico’s highest mountain, a snow-topped volcano above the central plateau.",
       "kind": "mountain",
@@ -1684,7 +1736,9 @@
         "latitude": 19.179
       },
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "trekking"
       ],
       "description": "A sprawling volcanic ridge whose profile inspired the name Sleeping Woman.",
       "kind": "mountain",
@@ -1721,7 +1775,9 @@
         "latitude": 19.109
       },
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "trekking"
       ],
       "description": "A broad Mexican volcano with two lakes tucked inside its crater.",
       "kind": "mountain",
@@ -1758,7 +1814,9 @@
         "latitude": -0.681
       },
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "technical-climb"
       ],
       "description": "An almost symmetrical Andean volcano rising above Ecuador’s páramo grasslands.",
       "kind": "mountain",
@@ -1795,7 +1853,9 @@
         "latitude": -1.469
       },
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "technical-climb"
       ],
       "description": "Ecuador’s highest peak, whose summit is unusually far from Earth’s centre because of the equatorial bulge.",
       "kind": "mountain",
@@ -1832,7 +1892,8 @@
         "latitude": -16.2625
       },
       "tags": [
-        "popular"
+        "popular",
+        "technical-climb"
       ],
       "description": "A dramatic snow peak near La Paz, towering over the Bolivian Altiplano.",
       "kind": "mountain",
@@ -1869,7 +1930,8 @@
         "latitude": -8.879
       },
       "tags": [
-        "popular"
+        "popular",
+        "technical-climb"
       ],
       "description": "A sharply fluted ice pyramid in Peru’s Cordillera Blanca.",
       "kind": "mountain",
@@ -1906,7 +1968,8 @@
         "latitude": -9.121
       },
       "tags": [
-        "popular"
+        "popular",
+        "technical-climb"
       ],
       "description": "Peru’s highest mountain, with two snowy summits above the Callejón de Huaylas.",
       "kind": "mountain",
@@ -1943,7 +2006,8 @@
         "latitude": -13.789
       },
       "tags": [
-        "popular"
+        "popular",
+        "technical-climb"
       ],
       "description": "A sacred glaciated massif above colourful lakes in the Vilcanota range.",
       "kind": "mountain",
@@ -1980,7 +2044,8 @@
         "latitude": 27.861
       },
       "tags": [
-        "popular"
+        "popular",
+        "technical-climb"
       ],
       "description": "A striking Himalayan pyramid overlooking the Khumbu valley.",
       "kind": "mountain",
@@ -2017,7 +2082,8 @@
         "latitude": 27.921
       },
       "tags": [
-        "popular"
+        "popular",
+        "technical-climb"
       ],
       "description": "Also called Imja Tse, this snowy summit rises like an island among Khumbu glaciers.",
       "kind": "mountain",
@@ -2054,7 +2120,8 @@
         "latitude": 27.70917
       },
       "tags": [
-        "popular"
+        "popular",
+        "technical-climb"
       ],
       "description": "A high trekking peak with expansive views across Nepal’s eastern Himalaya.",
       "kind": "mountain",
@@ -2091,7 +2158,8 @@
         "latitude": -8.242
       },
       "tags": [
-        "popular"
+        "popular",
+        "volcano"
       ],
       "description": "A volcanic cone inside a vast caldera overlooking Lake Batur in Bali.",
       "kind": "mountain",
@@ -2128,7 +2196,9 @@
         "latitude": -8.343
       },
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "trekking"
       ],
       "description": "Bali’s highest volcano and a deeply important sacred mountain.",
       "kind": "mountain",
@@ -2165,7 +2235,9 @@
         "latitude": -8.108
       },
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "trekking"
       ],
       "description": "Java’s highest volcano, rising above forests and the Bromo-Tengger landscape.",
       "kind": "mountain",
@@ -2202,7 +2274,9 @@
         "latitude": -1.697
       },
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "trekking"
       ],
       "description": "Sumatra’s highest peak, surrounded by the forests of Kerinci Seblat.",
       "kind": "mountain",
@@ -2239,7 +2313,8 @@
         "latitude": 23.47
       },
       "tags": [
-        "popular"
+        "popular",
+        "volcano"
       ],
       "description": "Taiwan’s highest peak, also known as Jade Mountain.",
       "kind": "mountain",
@@ -2276,7 +2351,8 @@
         "latitude": 16.597
       },
       "tags": [
-        "popular"
+        "popular",
+        "trekking"
       ],
       "description": "A Luzon summit known for grassy slopes and cloud-filled valleys.",
       "kind": "mountain",
@@ -2313,7 +2389,8 @@
         "latitude": 6.988
       },
       "tags": [
-        "popular"
+        "popular",
+        "trekking"
       ],
       "description": "The highest mountain in the Philippines, rising above Mindanao.",
       "kind": "mountain",
@@ -2350,7 +2427,9 @@
         "latitude": 33.362
       },
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "trekking"
       ],
       "description": "A broad shield volcano at the centre of Jeju Island.",
       "kind": "mountain",
@@ -2387,7 +2466,8 @@
         "latitude": 38.119
       },
       "tags": [
-        "popular"
+        "popular",
+        "trekking"
       ],
       "description": "Granite ridges and forested valleys surround this celebrated Korean mountain.",
       "kind": "mountain",
@@ -2424,7 +2504,9 @@
         "latitude": 41.409
       },
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "technical-climb"
       ],
       "description": "A large isolated volcano dominating the skyline of northern California.",
       "kind": "mountain",
@@ -2461,7 +2543,9 @@
         "latitude": 45.374
       },
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "technical-climb"
       ],
       "description": "Oregon’s highest peak, a snowy volcano above the Columbia River region.",
       "kind": "mountain",
@@ -2498,7 +2582,9 @@
         "latitude": 48.777
       },
       "tags": [
-        "popular"
+        "popular",
+        "volcano",
+        "technical-climb"
       ],
       "description": "A heavily glaciated Cascade volcano in Washington state.",
       "kind": "mountain",
@@ -2535,7 +2621,8 @@
         "latitude": 38.841
       },
       "tags": [
-        "popular"
+        "popular",
+        "trekking"
       ],
       "description": "A prominent Colorado fourteener above Colorado Springs.",
       "kind": "mountain",
@@ -2572,7 +2659,8 @@
         "latitude": 40.255
       },
       "tags": [
-        "popular"
+        "popular",
+        "technical-climb"
       ],
       "description": "A sheer-faced Rocky Mountain summit above Colorado’s alpine lakes.",
       "kind": "mountain",
@@ -2609,7 +2697,8 @@
         "latitude": 43.741
       },
       "tags": [
-        "popular"
+        "popular",
+        "technical-climb"
       ],
       "description": "The jagged centrepiece of Wyoming’s Teton Range.",
       "kind": "mountain",
@@ -2646,7 +2735,9 @@
         "latitude": 44.27
       },
       "tags": [
-        "popular"
+        "popular",
+        "trekking",
+        "technical-climb"
       ],
       "description": "New England’s highest mountain, famous for its exposed summit weather.",
       "kind": "mountain",

@@ -223,7 +223,7 @@ Use stable IDs so map selection, guide recommendations, mountain profiles, and e
 - Canonical records in `app/data/mountains.json`, validated by `app/data/mountains.ts`; category definitions in `app/data/mountain-tags.ts`. Profiles show elevation, coordinates, a short blurb, sources, and an editorial rating tied to an ascent context.
 - Profiles include editorial trip length ranges in days or approximate months, with the named route and itinerary assumptions. Difficulty and altitude info buttons open field-guide modals with level explanations and the current level highlighted. Machu Picchu is a destination with site elevation, distinct from Huayna Picchu.
 - Overlapping illustrations group by screen footprint. Open a group to browse its peaks; choosing one centers its actual location and makes it the visible representative. The cluster remains browsable at the regional zoom limit.
-- Difficulty bands are Beginner 🌱, Intermediate 🥾, Difficult 🧗, Expert 💀, and Extreme ☠️. Ratings describe the specified ascent rather than all activity on a mountain. The picker supports browsing by badge collection. Profiles are available; detailed routes, guide chat, and planning remain later iterations.
+- Difficulty bands are Beginner 🌱, Intermediate 🥾, Difficult 🧗, Expert 💀, and Extreme ☠️. Ratings describe the specified ascent rather than all activity on a mountain. The picker supports text search and combined tag, difficulty, elevation, and region filters; each result shows its tags and ascent difficulty. Profiles are available; detailed routes, guide chat, and planning remain later iterations.
 
 ## Open decisions
 

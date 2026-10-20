@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { Map as MapboxMap } from "mapbox-gl";
+import type { Map as MapboxMap, Marker } from "mapbox-gl";
+import { MOUNTAINS, type Summit } from "../data/mountains";
+import { MOUNTAIN_TAGS, type MountainTagId } from "../data/mountain-tags";
+import MountainProfile from "./mountain-profile";
+import { DIFFICULTY_LEVELS } from "../data/difficulty-levels";
+import { clusterMountains } from "./cluster-mountains";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 type Status = "loading" | "ready" | "error";
@@ -15,13 +20,74 @@ export default function MapExplorer() {
   const [message, setMessage] = useState("Unfolding your atlas…");
   const [attempt, setAttempt] = useState(0);
   const [help, setHelp] = useState(false);
+  const [profileSummit, setProfileSummit] = useState<Summit | null>(null);
+  const [nearbySummits, setNearbySummits] = useState<Summit[]>([]);
+  const nearbyHeading = useRef<HTMLHeadingElement>(null);
+  const selectedSummitId = useRef<string | null>(null);
+  const [collection, setCollection] = useState<MountainTagId | "all">("all");
+  const summitMarkers = useRef(new Map<string, Marker>());
+  const listedSummits = collection === "all" ? MOUNTAINS : MOUNTAINS.filter((summit) => summit.tags.includes(collection));
   const [atMaxZoom, setAtMaxZoom] = useState(false);
   const [atMinZoom, setAtMinZoom] = useState(true);
+
+  useEffect(() => {
+    if (nearbySummits.length) nearbyHeading.current?.focus();
+  }, [nearbySummits]);
 
   useEffect(() => {
     const controller = new AbortController();
     let disposed = false;
     let instance: MapboxMap | undefined;
+    const markers: Marker[] = [];
+    const markerIndex = summitMarkers.current;
+    const records = new Map<string, {
+      element: HTMLDivElement; button: HTMLButtonElement; name: HTMLSpanElement;
+      badges: HTMLSpanElement; nearby: HTMLSpanElement;
+    }>();
+    function updateClusters() {
+      if (!instance || disposed || records.size === 0) return;
+      const center = instance.getCenter();
+      const radians = Math.PI / 180;
+      const centerLat = center.lat * radians;
+      const { clientWidth: width, clientHeight: height } = instance.getContainer();
+      const points = MOUNTAINS.flatMap((summit) => {
+        const latitude = summit.coordinates[1] * radians;
+        const longitudeDelta = (summit.coordinates[0] - center.lng) * radians;
+        const facing = Math.sin(latitude) * Math.sin(centerLat) + Math.cos(latitude) * Math.cos(centerLat) * Math.cos(longitudeDelta);
+        const point = instance!.project(summit.coordinates);
+        if (facing <= 0 || point.x < -200 || point.x > width + 200 || point.y < -200 || point.y > height + 200) return [];
+        return [{ summit, x: point.x, y: point.y }];
+      });
+      const visibleIds = new Set<string>();
+      for (const group of clusterMountains(points)) {
+        const selected = group.find((summit) => summit.id === selectedSummitId.current);
+        const representative = selected ?? group[0];
+        const record = records.get(representative.id)!;
+        visibleIds.add(representative.id);
+        const isGroup = group.length > 1;
+        record.element.classList.toggle("is-selected", Boolean(selected));
+        record.element.dataset.clusterCount = String(group.length);
+        record.name.textContent = selected || !isGroup ? representative.name : `${group.length} peaks`;
+        record.badges.hidden = isGroup && !selected;
+        record.nearby.hidden = !isGroup;
+        record.nearby.textContent = selected ? `+${group.length - 1} nearby · explore` : "See nearby mountains";
+        record.button.setAttribute("aria-label", isGroup ? `${group.length} nearby peaks. ${group.map((summit) => summit.name).join(", ")}` : `${representative.name}, ${representative.region}. ${representative.tags.map((tag) => MOUNTAIN_TAGS[tag].description).join(". ")}`);
+        record.button.onclick = () => {
+          if (isGroup) {
+            setProfileSummit(null);
+            setNearbySummits([...group].sort((a, b) => a.name.localeCompare(b.name)));
+          } else {
+            selectedSummitId.current = representative.id;
+            setNearbySummits([]);
+            setProfileSummit(representative);
+            const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 650;
+            instance?.easeTo({ center: representative.coordinates, zoom: Math.max(instance.getZoom(), 3.5), duration });
+            updateClusters();
+          }
+        };
+      }
+      for (const [id, record] of records) record.element.hidden = !visibleIds.has(id);
+    }
     const timeout = window.setTimeout(() => {
       if (!disposed) {
         setMessage("The map is taking a little longer. Check your connection and try again.");
@@ -117,6 +183,64 @@ export default function MapExplorer() {
         instance.on("load", () => {
           window.clearTimeout(timeout);
           if (!disposed && instance) {
+            for (const summit of MOUNTAINS) {
+              const element = document.createElement("div");
+              element.className = "mountain-marker";
+              element.dataset.summitId = summit.id;
+              const button = document.createElement("button");
+              button.type = "button";
+              button.className = "mountain-hit-area";
+              const illustration = document.createElement("img");
+              illustration.src = "/mountain-marker.svg";
+              illustration.alt = "";
+              illustration.width = 112;
+              illustration.height = 90;
+              const label = document.createElement("span");
+              label.className = "mountain-label";
+              const name = document.createElement("span");
+              name.textContent = summit.name;
+              const badges = document.createElement("span");
+              badges.className = "mountain-badges";
+              for (const tagId of summit.tags) {
+                const tag = MOUNTAIN_TAGS[tagId];
+                const badge = document.createElement("span");
+                badge.className = "mountain-badge";
+                badge.dataset.tag = tagId;
+                badge.title = tag.description;
+                const icon = document.createElement("span");
+                icon.className = "badge-emblem";
+                icon.textContent = tag.icon;
+                const text = document.createElement("span");
+                text.textContent = tag.label;
+                badge.append(icon, text);
+                badges.append(badge);
+              }
+              const nearby = document.createElement("span");
+              const difficulty = DIFFICULTY_LEVELS[summit.difficulty.level];
+              const difficultyBadge = document.createElement("span");
+              difficultyBadge.className = "mountain-badge difficulty-badge";
+              difficultyBadge.dataset.difficulty = summit.difficulty.level;
+              difficultyBadge.textContent = `${difficulty.icon} ${difficulty.label}`;
+              difficultyBadge.title = `${difficulty.fullLabel} · ${summit.difficulty.ascent}`;
+              badges.append(difficultyBadge);
+              nearby.className = "mountain-nearby";
+              nearby.hidden = true;
+              label.append(name, badges, nearby);
+              const location = document.createElement("span");
+              location.className = "mountain-location";
+              button.append(illustration, location, label);
+              element.append(button);
+              records.set(summit.id, { element, button, name, badges, nearby });
+              const marker = new mapboxgl.Marker({
+                element, anchor: "bottom", offset: [0, 24],
+                occludedOpacity: 0,
+              }).setLngLat(summit.coordinates).addTo(instance);
+              markers.push(marker);
+              markerIndex.set(summit.id, marker);
+            }
+            updateClusters();
+            instance.on("move", updateClusters);
+            instance.on("resize", updateClusters);
             setAtMinZoom(instance.getZoom() <= instance.getMinZoom() + 0.01);
             setAtMaxZoom(instance.getZoom() >= MAX_EXPLORER_ZOOM - 0.01);
             setStatus("ready");
@@ -141,6 +265,8 @@ export default function MapExplorer() {
       disposed = true;
       controller.abort();
       window.clearTimeout(timeout);
+      markers.forEach((marker) => marker.remove());
+      markerIndex.clear();
       instance?.remove();
       map.current = null;
     };
@@ -150,6 +276,17 @@ export default function MapExplorer() {
     const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 650;
     const width = container.current?.clientWidth ?? 1200;
     map.current?.easeTo({ center: [12, 20], zoom: worldZoom(width), bearing: 0, pitch: 0, duration });
+  }
+
+  function visitSummit(summit: Summit) {
+    setProfileSummit(summit);
+    selectedSummitId.current = summit.id;
+    setNearbySummits([]);
+    for (const [id, marker] of summitMarkers.current) {
+      marker.getElement().classList.toggle("is-selected", id === summit.id);
+    }
+    const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 900;
+    map.current?.easeTo({ center: summit.coordinates, zoom: 3.5, duration });
   }
 
   return (
@@ -172,6 +309,36 @@ export default function MapExplorer() {
         <span className="brand-mark" aria-hidden="true">🏔️</span>
         <div><h1>Basecamp<span className="brand-dot">.</span></h1><p>Your next adventure starts here.</p></div>
       </header>
+      <details className="summit-picker" onToggle={(event) => {
+        if (event.currentTarget.open) { setProfileSummit(null); setNearbySummits([]); }
+      }}>
+        <summary>🏔️ Mountains · {MOUNTAINS.length} <span aria-hidden="true">⌃</span></summary>
+        <div className="summit-menu">
+          <p>Pick a peak. Find it on the globe.</p>
+          <select aria-label="Mountain collection" value={collection} onChange={(event) => setCollection(event.target.value as MountainTagId | "all")}>
+            <option value="all">All mountains · {MOUNTAINS.length}</option>
+            {Object.entries(MOUNTAIN_TAGS).map(([id, tag]) => <option key={id} value={id}>{tag.label} · {MOUNTAINS.filter((summit) => summit.tags.includes(id as MountainTagId)).length}</option>)}
+          </select>
+          <ul>{listedSummits.map((summit) => (
+            <li key={summit.id}><button disabled={status !== "ready"} onClick={(event) => {
+              visitSummit(summit);
+              const picker = event.currentTarget.closest("details");
+              if (picker) picker.open = false;
+            }}><span>{summit.name}</span><small>{summit.region}</small></button></li>
+          ))}</ul>
+          <small className="summit-note">7 Summits · 14 eight-thousanders · {MOUNTAINS.filter((summit) => summit.tags.includes("popular")).length} popular picks</small>
+        </div>
+      </details>
+      {nearbySummits.length > 0 ? <section className="nearby-panel" aria-labelledby="nearby-heading" onKeyDown={(event) => {
+        if (event.key === "Escape") { setNearbySummits([]); map.current?.getCanvas().focus(); }
+      }}>
+        <div className="nearby-header"><h2 id="nearby-heading" ref={nearbyHeading} tabIndex={-1}>{nearbySummits.length} nearby peaks</h2><button aria-label="Close nearby peaks" onClick={() => { setNearbySummits([]); map.current?.getCanvas().focus(); }}>×</button></div>
+        <p>A whole range of possibilities. Pick a mountain to bring it into view.</p>
+        <ul>{nearbySummits.map((summit) => <li key={summit.id}><button onClick={() => { visitSummit(summit); map.current?.getCanvas().focus(); }}>
+          <strong>{summit.name}</strong><span className="nearby-badges">{summit.tags.map((tag) => <span key={tag} className="mountain-badge" data-tag={tag}>{MOUNTAIN_TAGS[tag].icon} {MOUNTAIN_TAGS[tag].label}</span>)}</span>
+        </button></li>)}</ul>
+      </section> : null}
+      {profileSummit ? <MountainProfile summit={profileSummit} onClose={() => { setProfileSummit(null); map.current?.getCanvas().focus(); }} /> : null}
       <nav className="map-tools" aria-label="Map controls">
         <div className="zoom-tools">
           <button aria-label="Zoom in" title={atMaxZoom ? "Closest explorer view" : "Zoom in"} disabled={status !== "ready" || atMaxZoom} onClick={() => map.current?.zoomIn({ duration: 0 })}>+</button>

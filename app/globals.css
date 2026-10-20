@@ -37,7 +37,39 @@ button:focus-visible, .mapboxgl-canvas:focus-visible { outline: 3px solid #b34b2
 .map-status > span { font-size: 36px; }
 .map-status h2 { font-size: 21px; font-weight: 800; margin: 12px 0; }
 .map-status p { font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+.mountain-marker { width: 176px; height: 158px; pointer-events: none; }
+.mountain-marker.is-selected { z-index: 2; }
+.mountain-marker.is-selected .mountain-label { border-color: #a56a35; box-shadow: 0 3px 0 #a56a35; }
+.mountain-marker img { position: absolute; bottom: 28px; left: 8px; width: 160px; height: 128px; filter: drop-shadow(0 3px 0 #24473740); }
+.mountain-location { position: absolute; left: calc(50% - 4px); bottom: 20px; width: 8px; height: 8px; border-radius: 50%; background: #edaa69; border: 2px solid #fffbee; }
+.mountain-label { position: absolute; top: calc(100% - 18px); left: 50%; transform: translateX(-50%); white-space: nowrap; padding: 3px 12px; border: 2px solid #3f7055; border-radius: 9px; background: #fffbee; color: #244737; font-family: var(--font-nunito), Arial, sans-serif; font-size: 21px; font-weight: 900; line-height: 24px; box-shadow: 0 3px 0 #244737; }
+.summit-picker { position: absolute; left: 28px; bottom: 58px; z-index: 1; }
+.mountain-badges { display: flex; justify-content: center; gap: 6px; margin: 5px 0 3px; }
+.mountain-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px 2px 3px; border: 1.5px solid #80562f; border-radius: 8px; background: #f6d697; color: #654321; font-size: 10px; line-height: 17px; font-weight: 900; letter-spacing: .2px; box-shadow: 0 2px 0 #80562f; }
+.badge-emblem { display: grid; place-items: center; width: 17px; height: 17px; border-radius: 50%; background: #fff3cd; font-size: 12px; }
+.mountain-badge[data-tag="eight-thousander"] { background: #d4ecf4; border-color: #497a91; color: #285269; box-shadow: 0 2px 0 #497a91; }
+.mountain-badge[data-tag="eight-thousander"] .badge-emblem { background: #f5fcff; }
+.summit-picker summary { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 10px 16px; border: 2px solid #3f7055; border-radius: 16px; background: #e5f2cf; box-shadow: 0 3px 0 #3f7055; font-weight: 900; cursor: pointer; list-style: none; }
+.summit-picker summary::-webkit-details-marker { display: none; }
+.summit-picker summary:focus-visible { outline: 3px solid #b34b23; outline-offset: 4px; }
+.summit-picker[open] summary > span { transform: rotate(180deg); }
+.summit-menu { position: absolute; bottom: calc(100% + 12px); left: 0; width: 270px; max-height: min(470px, calc(100svh - 240px)); overflow-y: auto; padding: 14px; border: 2px solid #3f7055; border-radius: 20px; background: #fffbee; box-shadow: 3px 4px 0 #3f7055; }
+.summit-menu p { font-size: 12px; margin: 0 0 10px; }
+.summit-menu select { width: 100%; min-height: 44px; margin-bottom: 8px; padding: 6px 8px; border: 1.5px solid #3f7055; border-radius: 10px; background: #e5f2cf; color: #244737; font: inherit; font-size: 13px; font-weight: 800; }
+.summit-menu select:focus-visible { outline: 3px solid #b34b23; outline-offset: 2px; }
+.summit-menu ul { list-style: none; padding: 0; margin: 0; }
+.summit-menu button { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 8px; border: 0; border-radius: 10px; background: transparent; color: #244737; font: inherit; font-size: 13px; font-weight: 800; text-align: left; cursor: pointer; }
+.summit-menu button:hover:not(:disabled) { background: #e5f2cf; }
+.summit-menu button:disabled { opacity: .5; cursor: default; }
+.summit-menu button small { font-size: 10px; font-weight: 600; white-space: nowrap; }
+.summit-note { display: block; margin-top: 10px; font-size: 10px; }
 @media (max-width: 640px) {
+  .mountain-marker img { width: 136px; height: 109px; left: 20px; }
+  .mountain-label { font-size: 17px; line-height: 22px; }
+  .summit-picker { left: 16px; bottom: 34px; }
+  .summit-picker summary { font-size: 12px; padding: 8px 12px; }
+  .summit-menu { width: min(270px, calc(100vw - 72px)); }
+
   body { padding: 20px; }
   .explorer { height: calc(100svh - 40px); border-radius: 20px; }
   .explorer .map-surface { border-radius: 18px; }
@@ -50,3 +82,69 @@ button:focus-visible, .mapboxgl-canvas:focus-visible { outline: 3px solid #b34b2
   .map-status { top: 44%; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
+.mountain-marker[hidden], .mountain-badges[hidden], .mountain-nearby[hidden] { display: none; }
+.mountain-hit-area { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; pointer-events: auto; }
+.mountain-hit-area:hover img { filter: drop-shadow(0 4px 0 #fffbee80); }
+.mountain-hit-area:focus-visible { outline: none; }
+.mountain-hit-area:focus-visible .mountain-label { outline: 3px solid #edaa69; outline-offset: 4px; }
+.mountain-nearby { display: block; margin: 5px 0 2px; font-size: 11px; line-height: 18px; font-weight: 800; color: #80562f; }
+.mountain-badge[data-tag="popular"] { background: #f3d9cc; border-color: #9d675b; color: #734438; box-shadow: 0 2px 0 #9d675b; }
+.mountain-badge[data-tag="popular"] .badge-emblem { background: #fff0e7; }
+.nearby-panel { position: absolute; left: 28px; bottom: 120px; z-index: 5; width: min(340px, calc(100% - 56px)); max-height: min(560px, calc(100svh - 300px)); overflow-y: auto; padding: 18px; border: 2px solid #3f7055; border-radius: 22px; background: #fffbee; box-shadow: 4px 5px 0 #244737; }
+.nearby-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.nearby-header h2 { font-size: 20px; font-weight: 900; margin: 0; }
+.nearby-header > button { width: 44px; height: 44px; flex-shrink: 0; border: 1.5px solid #3f7055; border-radius: 14px; background: #e5f2cf; font-size: 24px; cursor: pointer; }
+.nearby-panel p { margin: 8px 0 14px; font-size: 13px; line-height: 1.5; }
+.nearby-panel ul { margin: 0; padding: 0; list-style: none; }
+.nearby-panel li > button { display: flex; flex-direction: column; gap: 8px; width: 100%; min-height: 60px; padding: 10px; border: 0; border-radius: 12px; background: transparent; text-align: left; font: inherit; color: #244737; cursor: pointer; }
+.nearby-panel li > button:hover { background: #e5f2cf; }
+.nearby-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+@media (max-width: 640px) { .nearby-panel { left: 16px; bottom: 92px; width: calc(100% - 32px); max-height: calc(100svh - 300px); } }
+.mountain-profile { position: absolute; left: 28px; bottom: 120px; z-index: 4; width: min(360px, calc(100% - 56px)); max-height: min(720px, calc(100svh - 270px)); overflow-y: auto; overscroll-behavior: contain; padding: 20px; border: 2px solid #3f7055; border-radius: 24px; background: #fffbee; box-shadow: 4px 5px 0 #244737; color: #244737; }
+.profile-topline { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.profile-topline > span { font-size: 10px; font-weight: 900; letter-spacing: 2px; }
+.profile-topline > button { width: 44px; height: 44px; border: 1.5px solid #3f7055; border-radius: 14px; background: #e5f2cf; font-size: 24px; cursor: pointer; }
+.profile-illustration { height: 84px; margin: -12px 0 0; background: url('/mountain-marker.svg') center / auto 84px no-repeat; }
+.mountain-profile h2 { margin: 8px 0 4px; font-size: 28px; font-weight: 900; line-height: 1.15; letter-spacing: -.7px; }
+.mountain-profile h2:focus { outline: none; }
+.profile-location { margin: 0 0 12px; font-size: 12px; font-weight: 700; }
+.profile-badges { display: flex; flex-wrap: wrap; gap: 7px; }
+.profile-description { font-size: 14px; line-height: 1.65; margin: 16px 0; }
+.profile-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 10px; margin: 0; padding: 14px; background: #e5f2cf; border-radius: 16px; }
+.profile-facts dt { font-size: 10px; text-transform: uppercase; letter-spacing: .6px; font-weight: 800; }
+.profile-facts dd { margin: 4px 0 0; font-size: 14px; font-weight: 900; }
+.profile-elevation { grid-column: 1 / -1; }
+.profile-elevation dd { font-size: 32px; line-height: 1.2; }
+.profile-elevation dd > span { font-size: 18px; }
+.profile-elevation small { display: block; margin-top: 3px; font-size: 11px; font-weight: 600; }
+.profile-location-note { font-size: 10px; line-height: 1.5; margin: 10px 0; }
+.profile-sources { font-size: 12px; }
+.profile-sources summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 800; }
+.profile-sources summary::after { content: '+'; margin-left: auto; }
+.profile-sources[open] summary::after { content: '−'; }
+.profile-sources ul { padding-left: 18px; margin: 0; }
+.profile-sources a { display: inline-block; padding: 6px 0; text-decoration: underline; text-underline-offset: 3px; }
+.profile-sources :focus-visible { outline: 3px solid #b34b23; outline-offset: 3px; }
+@media (max-width: 640px) { .mountain-profile { left: 16px; bottom: 92px; width: calc(100% - 32px); max-height: calc(100svh - 280px); padding: 16px; } }
+.mountain-badges { flex-wrap: wrap; max-width: 250px; }
+.difficulty-badge[data-difficulty="beginner"] { background: #e5f2cf; color: #244737; border-color: #3f7055; box-shadow: 0 2px 0 #3f7055; }
+.difficulty-badge[data-difficulty="intermediate"] { background: #d4ecf4; color: #285269; border-color: #497a91; box-shadow: 0 2px 0 #497a91; }
+.difficulty-badge[data-difficulty="difficult"] { background: #f6d697; color: #654321; border-color: #80562f; box-shadow: 0 2px 0 #80562f; }
+.difficulty-badge[data-difficulty="expert"] { background: #eadfed; color: #573b60; border-color: #83668d; box-shadow: 0 2px 0 #83668d; }
+.profile-difficulty { padding: 14px; margin: 14px 0; border: 1.5px dashed #83a873; border-radius: 16px; }
+.difficulty-caption { display: block; font-size: 9px; font-weight: 900; letter-spacing: 1px; }
+.difficulty-rating { display: block; margin: 6px 0 10px; font-size: 18px; font-weight: 900; }
+.profile-difficulty p { margin: 6px 0; font-size: 12px; line-height: 1.5; }
+.profile-difficulty small { display: block; margin-top: 10px; font-size: 10px; line-height: 1.5; }
+.difficulty-badge[data-difficulty="extreme"] { background: #f3d3c9; color: #7b3028; border-color: #a65c4f; box-shadow: 0 2px 0 #a65c4f; }
+@media (min-width: 641px) { .mountain-profile { max-height: min(680px, calc(100svh - 350px)); } }
+.profile-topline { position: sticky; top: -20px; z-index: 1; padding: 5px 0; background: #fffbee; }
+@media (max-width: 640px) { .profile-topline { top: -16px; } }
+
+.info-button{display:inline-flex;align-items:center;justify-content:center;width:23px;height:23px;margin-left:5px;border:1.5px solid #3f7055;border-radius:50%;background:#edf4df;color:#3f7055;font-size:14px;font-weight:900;font-style:normal;text-transform:none;cursor:pointer;vertical-align:middle;letter-spacing:0}
+.info-button:hover{background:#d8e8c6}.info-button:focus-visible{outline:3px solid #b66a3c;outline-offset:3px}
+.profile-trip{margin:18px 0;padding:15px;border-radius:18px;background:#edf1df;color:#315b44}.profile-trip strong{display:block;font-size:21px;margin:7px 0}.profile-trip p,.profile-trip small{font-size:12px;line-height:1.6}.profile-trip p{margin:8px 0}
+.mountain-guide{position:fixed;inset:0;width:min(660px,calc(100vw - 40px));max-height:calc(100svh - 48px);margin:auto;padding:24px;border:4px solid #3f7055;border-radius:28px;background:#fff9e9;color:#315b44;box-shadow:0 18px 70px #183c4344;overflow-y:auto;overscroll-behavior:contain;font-family:inherit}
+.mountain-guide::backdrop{background:#243f4b77;backdrop-filter:blur(4px)}.guide-topline{display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:900;letter-spacing:1px}.guide-topline button{width:36px;height:36px;border-radius:50%;border:1px solid #3f7055;background:#edf1df;color:#315b44;font-size:25px;cursor:pointer}.mountain-guide h2{font-size:29px;line-height:1.15;margin:15px 0}.mountain-guide p{font-size:14px;line-height:1.6}.guide-current{padding:12px;background:#e8efdb;border-radius:12px}.guide-bands{list-style:none;padding:0;margin:18px 0;display:grid;gap:10px}.guide-bands li{padding:14px;border:2px solid #dce3cc;border-radius:16px}.guide-bands li[data-current=true]{border-color:#3f7055;background:#e8efdb}.guide-bands h3{margin:0;font-size:18px}.guide-bands h3 small{display:inline-block;margin-left:6px;font-size:11px}.guide-bands p{margin:6px 0 0}.guide-references a{text-decoration:underline}.mountain-guide button:focus-visible{outline:3px solid #b66a3c;outline-offset:3px}
+@media(max-width:600px){.mountain-guide{padding:18px;width:calc(100vw - 24px);max-height:calc(100svh - 24px);border-radius:22px}.mountain-guide h2{font-size:25px}}
+.guide-topline{position:sticky;top:0;z-index:1;background:#fff9e9;padding:4px 0 8px}

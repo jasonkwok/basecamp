@@ -1,0 +1,2676 @@
+{
+  "schemaVersion": 1,
+  "mountains": [
+    {
+      "id": "everest",
+      "name": "Everest",
+      "region": "Asia",
+      "tags": [
+        "seven-summits",
+        "eight-thousander"
+      ],
+      "coordinates": {
+        "longitude": 86.925,
+        "latitude": 27.9881
+      },
+      "location": "Nepal / China",
+      "elevationMeters": 8848.86,
+      "description": "The highest summit above sea level, rising on the Himalayan crest between Nepal and Tibet.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Everest"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q513"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "extreme",
+        "ascent": "South Col expedition ascent",
+        "rationale": "Extreme altitude, glacier travel and exposed climbing.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Everest",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 55,
+        "maxDays": 70,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Everest"
+      }
+    },
+    {
+      "id": "aconcagua",
+      "name": "Aconcagua",
+      "region": "South America",
+      "tags": [
+        "seven-summits"
+      ],
+      "coordinates": {
+        "longitude": -70.0117,
+        "latitude": -32.6531
+      },
+      "location": "Argentina",
+      "elevationMeters": 6961,
+      "description": "A towering Andean peak in Mendoza, Aconcagua is the highest mountain in the Americas.",
+      "sources": [
+        {
+          "label": "Argentina government · elevation",
+          "url": "https://www.argentina.gob.ar/node/490344"
+        },
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Aconcagua"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q39739"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Normal Route expedition ascent",
+        "rationale": "Very high altitude, acclimatization and prolonged exposure to mountain weather.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Aconcagua",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 18,
+        "maxDays": 22,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Aconcagua"
+      }
+    },
+    {
+      "id": "denali",
+      "name": "Denali",
+      "region": "North America",
+      "tags": [
+        "seven-summits"
+      ],
+      "coordinates": {
+        "longitude": -151.0063,
+        "latitude": 63.0691
+      },
+      "location": "United States · Alaska",
+      "elevationMeters": 6190,
+      "description": "North America’s highest mountain rises above Alaska’s glaciers, with a vast snowy massif and two main summits.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Denali"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q130018"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "West Buttress expedition ascent",
+        "rationale": "Remote glacier travel, load carrying and severe cold at high altitude.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Denali",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 18,
+        "maxDays": 24,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Denali"
+      }
+    },
+    {
+      "id": "kilimanjaro",
+      "name": "Kilimanjaro",
+      "region": "Africa",
+      "tags": [
+        "seven-summits"
+      ],
+      "coordinates": {
+        "longitude": 37.3592,
+        "latitude": -3.0667
+      },
+      "location": "Tanzania",
+      "elevationMeters": 5895,
+      "description": "Africa’s highest mountain is a volcanic massif with three cones. Its highest point, Uhuru Peak, sits on Kibo.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Kilimanjaro"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q7296"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Multi-day trekking ascent to Uhuru Peak",
+        "rationale": "A sustained trek to very high altitude requiring acclimatization.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Kilimanjaro",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 7,
+        "maxDays": 9,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://www.alpineascents.com/climbs/mount-kilimanjaro/"
+      }
+    },
+    {
+      "id": "elbrus",
+      "name": "Elbrus",
+      "region": "Europe",
+      "tags": [
+        "seven-summits"
+      ],
+      "coordinates": {
+        "longitude": 42.4379,
+        "latitude": 43.3525
+      },
+      "location": "Russia",
+      "elevationMeters": 5642,
+      "description": "A twin-summited volcano in the Caucasus, Elbrus is the European peak in the Seven Summits collection.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Elbrus"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q43105"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Glaciated south-side summit ascent",
+        "rationale": "Glacier travel, snow skills and very high altitude.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Elbrus",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 8,
+        "maxDays": 12,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Elbrus"
+      }
+    },
+    {
+      "id": "vinson",
+      "name": "Vinson",
+      "region": "Antarctica",
+      "tags": [
+        "seven-summits"
+      ],
+      "coordinates": {
+        "longitude": -85.6172,
+        "latitude": -78.5256
+      },
+      "location": "Antarctica",
+      "elevationMeters": 4892,
+      "description": "Antarctica’s highest mountain rises in the Sentinel Range of the Ellsworth Mountains, surrounded by immense ice fields.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Vinson_Massif"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q163758"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Normal Route expedition ascent",
+        "rationale": "Remote Antarctic glacier travel, expedition logistics and extreme cold.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Vinson_Massif",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 14,
+        "maxDays": 21,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Vinson_Massif"
+      }
+    },
+    {
+      "id": "carstensz-pyramid",
+      "name": "Carstensz Pyramid",
+      "region": "Oceania",
+      "tags": [
+        "seven-summits"
+      ],
+      "coordinates": {
+        "longitude": 137.1833,
+        "latitude": -4.0833
+      },
+      "location": "Indonesia · New Guinea",
+      "elevationMeters": 4884,
+      "description": "Also known as Puncak Jaya, this limestone peak in New Guinea is the highest mountain in Oceania.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Puncak_Jaya"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q1045888"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Normal Route rock-climbing ascent",
+        "rationale": "Technical rock climbing and exposed terrain in a remote setting.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Puncak_Jaya",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 10,
+        "maxDays": 14,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Puncak_Jaya"
+      }
+    },
+    {
+      "id": "k2",
+      "name": "K2",
+      "region": "Asia",
+      "tags": [
+        "eight-thousander"
+      ],
+      "coordinates": {
+        "longitude": 76.5133,
+        "latitude": 35.8811
+      },
+      "location": "Pakistan / China",
+      "elevationMeters": 8611,
+      "description": "The world’s second-highest mountain is a dramatic pyramid in the Karakoram, on the Pakistan–China border.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/K2"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q43512"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "extreme",
+        "ascent": "Abruzzi Spur expedition ascent",
+        "rationale": "Technical climbing, extreme altitude and sustained exposure.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/K2",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 40,
+        "maxDays": 60,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/K2"
+      }
+    },
+    {
+      "id": "kangchenjunga",
+      "name": "Kangchenjunga",
+      "region": "Asia",
+      "tags": [
+        "eight-thousander"
+      ],
+      "coordinates": {
+        "longitude": 88.1474,
+        "latitude": 27.703
+      },
+      "location": "Nepal / India",
+      "elevationMeters": 8586,
+      "description": "A sprawling Himalayan massif on the Nepal–India border, Kangchenjunga is the world’s third-highest mountain.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Kangchenjunga"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q82019"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "extreme",
+        "ascent": "Southwest-face expedition ascent",
+        "rationale": "Remote technical mountaineering at extreme altitude.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Kangchenjunga",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 40,
+        "maxDays": 60,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Kangchenjunga"
+      }
+    },
+    {
+      "id": "lhotse",
+      "name": "Lhotse",
+      "region": "Asia",
+      "tags": [
+        "eight-thousander"
+      ],
+      "coordinates": {
+        "longitude": 86.9333,
+        "latitude": 27.9617
+      },
+      "location": "Nepal / China",
+      "elevationMeters": 8516,
+      "description": "Everest’s near neighbour is the world’s fourth-highest mountain. The two peaks are joined by the South Col.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Lhotse"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q168702"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "extreme",
+        "ascent": "Normal Route expedition ascent",
+        "rationale": "Steep snow and ice climbing at extreme altitude.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Lhotse",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 40,
+        "maxDays": 60,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Lhotse"
+      }
+    },
+    {
+      "id": "makalu",
+      "name": "Makalu",
+      "region": "Asia",
+      "tags": [
+        "eight-thousander"
+      ],
+      "coordinates": {
+        "longitude": 87.0886,
+        "latitude": 27.8892
+      },
+      "location": "Nepal / China",
+      "elevationMeters": 8485,
+      "description": "A distinctive four-sided pyramid east of Everest, Makalu is the world’s fifth-highest mountain.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Makalu"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q169986"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "extreme",
+        "ascent": "Northwest-ridge expedition ascent",
+        "rationale": "Technical high-altitude climbing and an exposed summit ridge.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Makalu",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 40,
+        "maxDays": 60,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Makalu"
+      }
+    },
+    {
+      "id": "cho-oyu",
+      "name": "Cho Oyu",
+      "region": "Asia",
+      "tags": [
+        "eight-thousander"
+      ],
+      "coordinates": {
+        "longitude": 86.6608,
+        "latitude": 28.0942
+      },
+      "location": "Nepal / China",
+      "elevationMeters": 8188,
+      "description": "This broad Himalayan summit stands west of Everest along the Nepal–Tibet border.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Cho_Oyu"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q170089"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "extreme",
+        "ascent": "Northwest-face expedition ascent",
+        "rationale": "Extreme altitude and glacier, snow and ice travel.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Cho_Oyu",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 40,
+        "maxDays": 60,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Cho_Oyu"
+      }
+    },
+    {
+      "id": "dhaulagiri-i",
+      "name": "Dhaulagiri I",
+      "region": "Asia",
+      "tags": [
+        "eight-thousander"
+      ],
+      "coordinates": {
+        "longitude": 83.49,
+        "latitude": 28.6967
+      },
+      "location": "Nepal",
+      "elevationMeters": 8167,
+      "description": "A huge snow-covered massif in Nepal, Dhaulagiri I rises west of the deep Kali Gandaki valley.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Dhaulagiri"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q165440"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "extreme",
+        "ascent": "Northeast-ridge expedition ascent",
+        "rationale": "Remote high-altitude climbing on snow and glacier terrain.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Dhaulagiri",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 40,
+        "maxDays": 60,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Dhaulagiri"
+      }
+    },
+    {
+      "id": "manaslu",
+      "name": "Manaslu",
+      "region": "Asia",
+      "tags": [
+        "eight-thousander"
+      ],
+      "coordinates": {
+        "longitude": 84.5597,
+        "latitude": 28.55
+      },
+      "location": "Nepal",
+      "elevationMeters": 8163,
+      "description": "Manaslu rises in Nepal’s Mansiri Himal, its snowy ridges overlooking valleys of the Gorkha region.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Manaslu"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q170070"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "extreme",
+        "ascent": "Northeast-face expedition ascent",
+        "rationale": "Extreme altitude, glacier travel and snow-and-ice terrain.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Manaslu",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 40,
+        "maxDays": 60,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Manaslu"
+      }
+    },
+    {
+      "id": "nanga-parbat",
+      "name": "Nanga Parbat",
+      "region": "Asia",
+      "tags": [
+        "eight-thousander"
+      ],
+      "coordinates": {
+        "longitude": 74.59,
+        "latitude": 35.2392
+      },
+      "location": "Pakistan",
+      "elevationMeters": 8126,
+      "description": "At the western end of the Himalayas, Nanga Parbat rises dramatically above the Indus valley.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Nanga_Parbat"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q130736"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "extreme",
+        "ascent": "Kinshofer Route expedition ascent",
+        "rationale": "Technical mountain terrain and extreme-altitude expedition demands.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Nanga_Parbat",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 40,
+        "maxDays": 60,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Nanga_Parbat"
+      }
+    },
+    {
+      "id": "annapurna-i",
+      "name": "Annapurna I",
+      "region": "Asia",
+      "tags": [
+        "eight-thousander"
+      ],
+      "coordinates": {
+        "longitude": 83.8239,
+        "latitude": 28.5961
+      },
+      "location": "Nepal",
+      "elevationMeters": 8091,
+      "description": "The highest peak of the Annapurna massif, Annapurna I was the first eight-thousander to be climbed.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Annapurna_I"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q16466024"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "extreme",
+        "ascent": "North-face expedition ascent",
+        "rationale": "Complex snow-and-ice terrain and extreme-altitude mountaineering.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Annapurna_I",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 40,
+        "maxDays": 60,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Annapurna_I"
+      }
+    },
+    {
+      "id": "gasherbrum-i",
+      "name": "Gasherbrum I",
+      "region": "Asia",
+      "tags": [
+        "eight-thousander"
+      ],
+      "coordinates": {
+        "longitude": 76.6964,
+        "latitude": 35.7244
+      },
+      "location": "Pakistan / China",
+      "elevationMeters": 8080,
+      "description": "Also called Hidden Peak, Gasherbrum I belongs to the remote Gasherbrum group in the Karakoram.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Gasherbrum_I"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "extreme",
+        "ascent": "Japanese Couloir expedition ascent",
+        "rationale": "Remote glacier approach, steep climbing and extreme altitude.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Gasherbrum_I",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 40,
+        "maxDays": 60,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Gasherbrum_I"
+      }
+    },
+    {
+      "id": "broad-peak",
+      "name": "Broad Peak",
+      "region": "Asia",
+      "tags": [
+        "eight-thousander"
+      ],
+      "coordinates": {
+        "longitude": 76.5653,
+        "latitude": 35.8136
+      },
+      "location": "Pakistan / China",
+      "elevationMeters": 8051,
+      "description": "Named for its long summit ridge, Broad Peak rises near K2 above the Baltoro glacier region.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Broad_Peak"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "extreme",
+        "ascent": "Normal Route expedition ascent",
+        "rationale": "A long high-altitude ascent and exposed summit ridge.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Broad_Peak",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 40,
+        "maxDays": 60,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Broad_Peak"
+      }
+    },
+    {
+      "id": "gasherbrum-ii",
+      "name": "Gasherbrum II",
+      "region": "Asia",
+      "tags": [
+        "eight-thousander"
+      ],
+      "coordinates": {
+        "longitude": 76.6533,
+        "latitude": 35.7583
+      },
+      "location": "Pakistan / China",
+      "elevationMeters": 8035,
+      "description": "A snowy Karakoram pyramid in the Gasherbrum group, close to Gasherbrum I and Broad Peak.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Gasherbrum_II"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "extreme",
+        "ascent": "Southwest-ridge expedition ascent",
+        "rationale": "Remote glacier travel and climbing at extreme altitude.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Gasherbrum_II",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 40,
+        "maxDays": 60,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Gasherbrum_II"
+      }
+    },
+    {
+      "id": "shishapangma",
+      "name": "Shishapangma",
+      "region": "Asia",
+      "tags": [
+        "eight-thousander"
+      ],
+      "coordinates": {
+        "longitude": 85.7797,
+        "latitude": 28.3522
+      },
+      "location": "China · Tibet",
+      "elevationMeters": 8027,
+      "description": "The lowest of the classic fourteen eight-thousanders, Shishapangma stands entirely within Tibet.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Shishapangma"
+        },
+        {
+          "label": "Geographic record",
+          "url": "https://www.wikidata.org/wiki/Q105124"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "extreme",
+        "ascent": "North-side main-summit expedition ascent",
+        "rationale": "Extreme-altitude mountaineering; the main summit is distinct from the central summit.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Shishapangma",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 40,
+        "maxDays": 60,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Shishapangma"
+      }
+    },
+    {
+      "id": "mount-fuji",
+      "name": "Mount Fuji",
+      "region": "Asia",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": 138.7275,
+        "latitude": 35.3608
+      },
+      "location": "Japan",
+      "elevationMeters": 3776,
+      "description": "Japan’s highest mountain is a famously symmetrical volcano and a lasting symbol of the country.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Fuji"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "intermediate",
+        "ascent": "Yoshida Trail during the official summer climbing season",
+        "rationale": "A sustained high-altitude hike requiring fitness and pacing.",
+        "sourceUrl": "https://www.fujisan-climb.jp/en/health-and-safety/",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 2,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://www.fujisan-climb.jp/en/health-and-safety/"
+      }
+    },
+    {
+      "id": "mont-blanc",
+      "name": "Mont Blanc",
+      "region": "Europe",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": 6.865,
+        "latitude": 45.8328
+      },
+      "location": "France / Italy",
+      "elevationMeters": 4807.3,
+      "description": "The highest mountain in the Alps has a rounded, ice-covered summit whose measured height changes with snow conditions.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Mont_Blanc"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Goûter Route summit ascent",
+        "rationale": "Glacier travel, exposed alpine terrain and high altitude.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mont_Blanc",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 5,
+        "maxDays": 7,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mont_Blanc"
+      }
+    },
+    {
+      "id": "matterhorn",
+      "name": "Matterhorn",
+      "region": "Europe",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": 7.6586,
+        "latitude": 45.9764
+      },
+      "location": "Switzerland / Italy",
+      "elevationMeters": 4478,
+      "description": "A striking pyramidal peak above Zermatt and Breuil-Cervinia, the Matterhorn is one of the Alps’ most recognizable silhouettes.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Matterhorn"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Hörnli Ridge summit ascent",
+        "rationale": "Sustained exposed rock scrambling and technical alpine climbing.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Matterhorn",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 5,
+        "maxDays": 7,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Matterhorn"
+      }
+    },
+    {
+      "id": "eiger",
+      "name": "Eiger",
+      "region": "Europe",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": 8.0053,
+        "latitude": 46.5775
+      },
+      "location": "Switzerland",
+      "elevationMeters": 3967,
+      "description": "This Bernese Alps peak is famous for its immense north face above the village of Grindelwald.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Eiger"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Mittellegi Ridge summit ascent",
+        "rationale": "Technical climbing on a narrow and exposed alpine ridge.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Eiger",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 4,
+        "maxDays": 6,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Eiger"
+      }
+    },
+    {
+      "id": "mount-rainier",
+      "name": "Mount Rainier",
+      "region": "North America",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": -121.7603,
+        "latitude": 46.8517
+      },
+      "location": "United States · Washington",
+      "elevationMeters": 4391,
+      "description": "Also known as Tahoma, this glacier-covered volcano dominates the skyline of Washington’s Cascade Range.",
+      "sources": [
+        {
+          "label": "2025 elevation survey",
+          "url": "https://arxiv.org/abs/2512.06567"
+        },
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Rainier"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Disappointment Cleaver summit ascent",
+        "rationale": "Technical glacier-travel and rope skills are required.",
+        "sourceUrl": "https://www.nps.gov/mora/planyourvisit/climbing.htm",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 3,
+        "maxDays": 4,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://www.nps.gov/mora/planyourvisit/climbing.htm"
+      }
+    },
+    {
+      "id": "mount-whitney",
+      "name": "Mount Whitney",
+      "region": "North America",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": -118.292,
+        "latitude": 36.5786
+      },
+      "location": "United States · California",
+      "elevationMeters": 4421,
+      "description": "The highest summit in the contiguous United States rises among the granite peaks of California’s Sierra Nevada.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Whitney"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Mount Whitney Trail in snow-free summer conditions",
+        "rationale": "A long summit hike with major elevation gain and high altitude.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Whitney",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 2,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Whitney"
+      }
+    },
+    {
+      "id": "aoraki-mount-cook",
+      "name": "Aoraki / Mount Cook",
+      "region": "Oceania",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": 170.1419,
+        "latitude": -43.595
+      },
+      "location": "New Zealand",
+      "elevationMeters": 3724,
+      "description": "New Zealand’s highest mountain rises in the Southern Alps, surrounded by glaciers and sharply cut alpine ridges.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Aoraki_/_Mount_Cook"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "High Peak alpine summit ascent",
+        "rationale": "Technical glacier, snow and ice climbing in a serious alpine setting.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Aoraki_/_Mount_Cook",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 5,
+        "maxDays": 7,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Aoraki_/_Mount_Cook"
+      }
+    },
+    {
+      "id": "mount-kinabalu",
+      "name": "Mount Kinabalu",
+      "region": "Asia",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": 116.5586,
+        "latitude": 6.075
+      },
+      "location": "Malaysia · Borneo",
+      "elevationMeters": 4095,
+      "description": "A granite massif in Sabah, Mount Kinabalu rises above Borneo’s tropical forests. Its highest summit is Low’s Peak.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Kinabalu"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Timpohon summit trail to Low’s Peak",
+        "rationale": "A steep, sustained ascent with high altitude and fixed-rope sections.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Kinabalu",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Kinabalu"
+      }
+    },
+    {
+      "id": "mount-rinjani",
+      "name": "Mount Rinjani",
+      "region": "Asia",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": 116.4598,
+        "latitude": -8.4144
+      },
+      "location": "Indonesia · Lombok",
+      "elevationMeters": 3726,
+      "description": "Lombok’s towering volcano overlooks the large Segara Anak crater lake and the island’s surrounding landscapes.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Rinjani"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Sembalun summit trekking ascent",
+        "rationale": "Long, steep trekking with loose volcanic ground near the summit.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Rinjani",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 3,
+        "maxDays": 4,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Rinjani"
+      }
+    },
+    {
+      "id": "mount-bromo",
+      "name": "Mount Bromo",
+      "region": "Asia",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": 112.95,
+        "latitude": -7.9417
+      },
+      "location": "Indonesia · Java",
+      "elevationMeters": 2329,
+      "description": "This active volcano sits inside the broad Tengger caldera, surrounded by a volcanic plain known as the Sea of Sand.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Bromo"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "beginner",
+        "ascent": "Established crater viewpoint path and stairs, when open",
+        "rationale": "A comparatively short approach and staircase; access depends on volcanic restrictions.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Bromo",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 1,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Bromo"
+      }
+    },
+    {
+      "id": "fansipan",
+      "name": "Fansipan",
+      "region": "Asia",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": 103.775,
+        "latitude": 22.3033
+      },
+      "location": "Vietnam",
+      "elevationMeters": 3147.3,
+      "description": "Vietnam’s highest mountain rises in the Hoàng Liên Sơn range near Sa Pa.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Fansipan"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Tram Ton trekking ascent, excluding the cable car",
+        "rationale": "A sustained mountain trek with steep ground and substantial elevation gain.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Fansipan",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Fansipan"
+      }
+    },
+    {
+      "id": "mount-olympus",
+      "name": "Mount Olympus",
+      "region": "Europe",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": 22.3586,
+        "latitude": 40.0856
+      },
+      "location": "Greece",
+      "elevationMeters": 2917.727,
+      "description": "Greece’s highest mountain is a multi-peaked massif associated with the gods of ancient Greek mythology. Its highest summit is Mytikas.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Olympus"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Final scrambling ascent to Mytikas in dry summer conditions",
+        "rationale": "Exposed scrambling to the highest summit, beyond the walking routes to lower peaks.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Olympus",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Olympus"
+      }
+    },
+    {
+      "id": "toubkal",
+      "name": "Toubkal",
+      "region": "Africa",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": -7.9151,
+        "latitude": 31.0596
+      },
+      "location": "Morocco",
+      "elevationMeters": 4167,
+      "description": "North Africa’s highest mountain rises in Morocco’s High Atlas, south of Marrakesh.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Toubkal"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Standard ascent from Imlil in snow-free conditions",
+        "rationale": "A steep high-altitude ascent; snow conditions require a different assessment.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Toubkal",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Toubkal"
+      }
+    },
+    {
+      "id": "mount-kenya",
+      "name": "Mount Kenya",
+      "region": "Africa",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": 37.3075,
+        "latitude": -0.1508
+      },
+      "location": "Kenya",
+      "elevationMeters": 5199,
+      "description": "An ancient volcanic massif near the equator, Mount Kenya has jagged summits and high alpine valleys. Batian is its highest point.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Kenya"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Technical ascent of Batian, not the Point Lenana trek",
+        "rationale": "The catalog marks Batian, a technical climbing summit rather than a trekking summit.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Kenya",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 5,
+        "maxDays": 7,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Kenya"
+      }
+    },
+    {
+      "id": "mount-damavand",
+      "name": "Mount Damavand",
+      "region": "Asia",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": 52.109,
+        "latitude": 35.951
+      },
+      "location": "Iran",
+      "elevationMeters": 5610,
+      "description": "Iran’s highest mountain is a prominent volcanic cone in the Alborz range, northeast of Tehran.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Damavand"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "South Route in summer conditions",
+        "rationale": "A high-altitude volcanic ascent with sustained climbing and acclimatization demands.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Damavand",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 5,
+        "maxDays": 7,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Damavand"
+      }
+    },
+    {
+      "id": "mount-ararat",
+      "name": "Mount Ararat",
+      "region": "Asia",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": 44.2983,
+        "latitude": 39.7019
+      },
+      "location": "Türkiye",
+      "elevationMeters": 5137,
+      "description": "A large volcanic massif in eastern Türkiye, Mount Ararat consists of Greater Ararat and the smaller Little Ararat.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Ararat"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "South-side summit ascent",
+        "rationale": "High-altitude ascent involving snow and glaciated summit terrain.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Ararat",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 5,
+        "maxDays": 7,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Ararat"
+      }
+    },
+    {
+      "id": "fitz-roy",
+      "name": "Fitz Roy",
+      "region": "South America",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": -73.0432,
+        "latitude": -49.2713
+      },
+      "location": "Argentina / Chile",
+      "elevationMeters": 3405,
+      "description": "Also called Cerro Chaltén, this dramatic granite peak rises above Patagonia near the town of El Chaltén.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Fitz_Roy"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Technical summit rock-climbing ascent",
+        "rationale": "Technical granite climbing and exposed alpine terrain; the viewpoint trek is a separate activity.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Fitz_Roy",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 10,
+        "maxDays": 20,
+        "basis": "editorial",
+        "context": "Typical expedition itinerary including approach, acclimatization and weather allowance; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Fitz_Roy"
+      }
+    },
+    {
+      "id": "mount-kosciuszko",
+      "name": "Mount Kosciuszko",
+      "region": "Oceania",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": 148.2636,
+        "latitude": -36.4558
+      },
+      "location": "Australia",
+      "elevationMeters": 2228,
+      "description": "Mainland Australia’s highest mountain stands in the Snowy Mountains of New South Wales.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Kosciuszko"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "beginner",
+        "ascent": "Thredbo summit walking route in snow-free conditions",
+        "rationale": "A maintained walking route; winter snow changes the demands substantially.",
+        "sourceUrl": "https://www.nationalparks.nsw.gov.au/things-to-do/walking-tracks/kosciuszko-walk-thredbo-to-mount-kosciuszko",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 1,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://www.nationalparks.nsw.gov.au/things-to-do/walking-tracks/kosciuszko-walk-thredbo-to-mount-kosciuszko"
+      }
+    },
+    {
+      "id": "ben-nevis",
+      "name": "Ben Nevis",
+      "region": "Europe",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": -5.0035,
+        "latitude": 56.7968
+      },
+      "location": "United Kingdom · Scotland",
+      "elevationMeters": 1345,
+      "description": "The highest mountain in the British Isles rises above Fort William in the Scottish Highlands.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Ben_Nevis"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "intermediate",
+        "ascent": "Mountain Track in snow-free summer conditions",
+        "rationale": "A long mountain walk with substantial ascent and navigation demands.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Ben_Nevis",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 1,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Ben_Nevis"
+      }
+    },
+    {
+      "id": "table-mountain",
+      "name": "Table Mountain",
+      "region": "Africa",
+      "tags": [
+        "popular"
+      ],
+      "coordinates": {
+        "longitude": 18.4099,
+        "latitude": -33.9622
+      },
+      "location": "South Africa",
+      "elevationMeters": 1084.6,
+      "description": "Cape Town’s famous flat-topped mountain overlooks the city and Atlantic coast. Its highest point is Maclear’s Beacon.",
+      "sources": [
+        {
+          "label": "Mountain overview",
+          "url": "https://en.wikipedia.org/wiki/Table_Mountain"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "intermediate",
+        "ascent": "Platteklip Gorge walking ascent",
+        "rationale": "A steep and sustained stair-like ascent, rather than a cable-car visit.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Table_Mountain",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 1,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Table_Mountain"
+      }
+    },
+    {
+      "id": "machu-picchu",
+      "name": "Machu Picchu",
+      "region": "South America",
+      "location": "Peru",
+      "elevationMeters": 2430,
+      "coordinates": {
+        "longitude": -72.545,
+        "latitude": -13.163
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "An Inca citadel perched above the Urubamba River, surrounded by steep green Andean ridges.",
+      "kind": "destination",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Machu_Picchu"
+        },
+        {
+          "label": "Peru Ministry of Culture · site and visitor routes",
+          "url": "https://www.machupicchu.gob.pe/circuits-and-routes/?lang=en"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "intermediate",
+        "ascent": "Inca Trail trek to the archaeological site",
+        "rationale": "Stone stairways and sustained trekking over high passes; the site elevation is lower than the trek’s high point.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Machu_Picchu",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 4,
+        "maxDays": 5,
+        "basis": "editorial",
+        "context": "Classic Inca Trail itinerary to the citadel; excludes travel to the trailhead and prior acclimatization. A direct site visit is much shorter.",
+        "sourceUrl": "https://repositorio.promperu.gob.pe/server/api/core/bitstreams/b449690e-9c48-4c76-8ac4-77a78d65c608/content"
+      }
+    },
+    {
+      "id": "huayna-picchu",
+      "name": "Huayna Picchu",
+      "region": "South America",
+      "location": "Peru",
+      "elevationMeters": 2693,
+      "coordinates": {
+        "longitude": -72.547,
+        "latitude": -13.156
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "The distinctive steep peak rising behind the terraces of Machu Picchu.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Huayna_Picchu"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Permitted summit trail from Machu Picchu",
+        "rationale": "Very steep stone steps and exposed sections require sure footing.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Huayna_Picchu",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 1,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Huayna_Picchu"
+      }
+    },
+    {
+      "id": "pico-de-orizaba",
+      "name": "Pico de Orizaba",
+      "region": "North America",
+      "location": "Mexico",
+      "elevationMeters": 5636,
+      "coordinates": {
+        "longitude": -97.27,
+        "latitude": 19.03
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "Mexico’s highest mountain, a snow-topped volcano above the central plateau.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Pico_de_Orizaba"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "North-side glacier ascent",
+        "rationale": "Glacier travel, crampon skills and very high altitude require mountaineering experience.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Pico_de_Orizaba",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 3,
+        "maxDays": 5,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Pico_de_Orizaba"
+      }
+    },
+    {
+      "id": "iztaccihuatl",
+      "name": "Iztaccíhuatl",
+      "region": "North America",
+      "location": "Mexico",
+      "elevationMeters": 5230,
+      "coordinates": {
+        "longitude": -98.642,
+        "latitude": 19.179
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "A sprawling volcanic ridge whose profile inspired the name Sleeping Woman.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Iztaccihuatl"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "La Arista del Sol ascent",
+        "rationale": "A long high-altitude ridge with scrambling and potentially icy terrain.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Iztaccihuatl",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Iztaccihuatl"
+      }
+    },
+    {
+      "id": "nevado-de-toluca",
+      "name": "Nevado de Toluca",
+      "region": "North America",
+      "location": "Mexico",
+      "elevationMeters": 4680,
+      "coordinates": {
+        "longitude": -99.758,
+        "latitude": 19.109
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "A broad Mexican volcano with two lakes tucked inside its crater.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Nevado_de_Toluca"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Pico del Fraile summit scramble",
+        "rationale": "High altitude and exposed rocky scrambling distinguish the summit from a crater walk.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Nevado_de_Toluca",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 2,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Nevado_de_Toluca"
+      }
+    },
+    {
+      "id": "cotopaxi",
+      "name": "Cotopaxi",
+      "region": "South America",
+      "location": "Ecuador",
+      "elevationMeters": 5897,
+      "coordinates": {
+        "longitude": -78.437,
+        "latitude": -0.681
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "An almost symmetrical Andean volcano rising above Ecuador’s páramo grasslands.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Cotopaxi"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Normal glacier route, when permitted",
+        "rationale": "Crevassed glacier terrain and extreme altitude demand technical skills and acclimatization.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Cotopaxi",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Cotopaxi"
+      }
+    },
+    {
+      "id": "chimborazo",
+      "name": "Chimborazo",
+      "region": "South America",
+      "location": "Ecuador",
+      "elevationMeters": 6263.47,
+      "coordinates": {
+        "longitude": -78.817,
+        "latitude": -1.469
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "Ecuador’s highest peak, whose summit is unusually far from Earth’s centre because of the equatorial bulge.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Chimborazo"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Normal glacier summit route",
+        "rationale": "Extreme altitude, ice and crevasses require experienced expedition preparation.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Chimborazo",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Chimborazo"
+      }
+    },
+    {
+      "id": "huayna-potosi",
+      "name": "Huayna Potosí",
+      "region": "South America",
+      "location": "Bolivia",
+      "elevationMeters": 6088,
+      "coordinates": {
+        "longitude": -68.15375,
+        "latitude": -16.2625
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "A dramatic snow peak near La Paz, towering over the Bolivian Altiplano.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Huayna_Potosi"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Normal Route glacier ascent",
+        "rationale": "Steep snow and glacier travel at over 6,000 metres require technical preparation.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Huayna_Potosi",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 3,
+        "maxDays": 4,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Huayna_Potosi"
+      }
+    },
+    {
+      "id": "alpamayo",
+      "name": "Alpamayo",
+      "region": "South America",
+      "location": "Peru",
+      "elevationMeters": 5947,
+      "coordinates": {
+        "longitude": -77.653,
+        "latitude": -8.879
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "A sharply fluted ice pyramid in Peru’s Cordillera Blanca.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Alpamayo"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Southwest-face technical ascent",
+        "rationale": "Sustained steep snow and ice climbing with serious objective hazards.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Alpamayo",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 6,
+        "maxDays": 8,
+        "basis": "editorial",
+        "context": "Typical itinerary including approach and acclimatization; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Alpamayo"
+      }
+    },
+    {
+      "id": "huascaran",
+      "name": "Huascarán",
+      "region": "South America",
+      "location": "Peru",
+      "elevationMeters": 6768,
+      "coordinates": {
+        "longitude": -77.605,
+        "latitude": -9.121
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "Peru’s highest mountain, with two snowy summits above the Callejón de Huaylas.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Huascaran"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "South summit Normal Route",
+        "rationale": "Complex glacier travel, avalanche exposure and extreme altitude.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Huascaran",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 6,
+        "maxDays": 8,
+        "basis": "editorial",
+        "context": "Typical itinerary including approach and acclimatization; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Huascaran"
+      }
+    },
+    {
+      "id": "ausangate",
+      "name": "Ausangate",
+      "region": "South America",
+      "location": "Peru",
+      "elevationMeters": 6384,
+      "coordinates": {
+        "longitude": -71.231,
+        "latitude": -13.789
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "A sacred glaciated massif above colourful lakes in the Vilcanota range.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Ausangate"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Technical summit expedition",
+        "rationale": "Steep ice and remote glacier terrain; substantially harder than the circuit trek.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Ausangate",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 6,
+        "maxDays": 9,
+        "basis": "editorial",
+        "context": "Typical itinerary including approach and acclimatization; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Ausangate"
+      }
+    },
+    {
+      "id": "ama-dablam",
+      "name": "Ama Dablam",
+      "region": "Asia",
+      "location": "Nepal",
+      "elevationMeters": 6812,
+      "coordinates": {
+        "longitude": 86.861,
+        "latitude": 27.861
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "A striking Himalayan pyramid overlooking the Khumbu valley.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Ama_Dablam"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Southwest Ridge expedition",
+        "rationale": "Exposed rock, snow and ice with sustained technical climbing at extreme altitude.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Ama_Dablam",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 24,
+        "maxDays": 30,
+        "basis": "editorial",
+        "context": "Typical itinerary including approach and acclimatization; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Ama_Dablam"
+      }
+    },
+    {
+      "id": "island-peak",
+      "name": "Island Peak",
+      "region": "Asia",
+      "location": "Nepal",
+      "elevationMeters": 6165,
+      "coordinates": {
+        "longitude": 86.936,
+        "latitude": 27.921
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "Also called Imja Tse, this snowy summit rises like an island among Khumbu glaciers.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Imja_Tse"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Normal Route via the headwall",
+        "rationale": "Glacier crossings and steep fixed-rope snow climbing above 6,000 metres.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Imja_Tse",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 16,
+        "maxDays": 20,
+        "basis": "editorial",
+        "context": "Typical itinerary including approach and acclimatization; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Imja_Tse"
+      }
+    },
+    {
+      "id": "mera-peak",
+      "name": "Mera Peak",
+      "region": "Asia",
+      "location": "Nepal",
+      "elevationMeters": 6476,
+      "coordinates": {
+        "longitude": 86.86833,
+        "latitude": 27.70917
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "A high trekking peak with expansive views across Nepal’s eastern Himalaya.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Mera_Peak"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Mera North glacier ascent",
+        "rationale": "Long glacier travel and extreme altitude despite relatively moderate climbing angles.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mera_Peak",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 16,
+        "maxDays": 21,
+        "basis": "editorial",
+        "context": "Typical itinerary including approach and acclimatization; international travel excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mera_Peak"
+      }
+    },
+    {
+      "id": "mount-batur",
+      "name": "Mount Batur",
+      "region": "Asia",
+      "location": "Indonesia",
+      "elevationMeters": 1717,
+      "coordinates": {
+        "longitude": 115.375,
+        "latitude": -8.242
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "A volcanic cone inside a vast caldera overlooking Lake Batur in Bali.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Batur"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "intermediate",
+        "ascent": "Standard summit walking route, when open",
+        "rationale": "Steep volcanic paths and loose footing require reasonable hiking fitness.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Batur",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 1,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Batur"
+      }
+    },
+    {
+      "id": "mount-agung",
+      "name": "Mount Agung",
+      "region": "Asia",
+      "location": "Indonesia",
+      "elevationMeters": 3031,
+      "coordinates": {
+        "longitude": 115.508,
+        "latitude": -8.343
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "Bali’s highest volcano and a deeply important sacred mountain.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Agung"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Besakih summit route, when permitted",
+        "rationale": "Long steep climbing with exposed volcanic terrain and substantial elevation gain.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Agung",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 2,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Agung"
+      }
+    },
+    {
+      "id": "mount-semeru",
+      "name": "Mount Semeru",
+      "region": "Asia",
+      "location": "Indonesia",
+      "elevationMeters": 3676,
+      "coordinates": {
+        "longitude": 112.922,
+        "latitude": -8.108
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "Java’s highest volcano, rising above forests and the Bromo-Tengger landscape.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Semeru"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Summit trekking itinerary, only when permitted",
+        "rationale": "Loose steep volcanic slopes and altitude; volcanic access restrictions can prevent ascent.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Semeru",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 3,
+        "maxDays": 4,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Semeru"
+      }
+    },
+    {
+      "id": "mount-kerinci",
+      "name": "Mount Kerinci",
+      "region": "Asia",
+      "location": "Indonesia",
+      "elevationMeters": 3805,
+      "coordinates": {
+        "longitude": 101.264,
+        "latitude": -1.697
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "Sumatra’s highest peak, surrounded by the forests of Kerinci Seblat.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Kerinci"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Kersik Tuo summit trek, when permitted",
+        "rationale": "Muddy rainforest paths, steep upper slopes and altitude make this a strenuous trek.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Kerinci",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Kerinci"
+      }
+    },
+    {
+      "id": "yushan",
+      "name": "Yushan",
+      "region": "Asia",
+      "location": "Taiwan",
+      "elevationMeters": 3952.43,
+      "coordinates": {
+        "longitude": 120.957,
+        "latitude": 23.47
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "Taiwan’s highest peak, also known as Jade Mountain.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Yu_Shan"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Main Peak via Paiyun Lodge",
+        "rationale": "High-altitude trekking with a steep exposed final section.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Yu_Shan",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Yu_Shan"
+      }
+    },
+    {
+      "id": "mount-pulag",
+      "name": "Mount Pulag",
+      "region": "Asia",
+      "location": "Philippines",
+      "elevationMeters": 2928,
+      "coordinates": {
+        "longitude": 120.883,
+        "latitude": 16.597
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "A Luzon summit known for grassy slopes and cloud-filled valleys.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Pulag"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "intermediate",
+        "ascent": "Ambangeg Trail trek",
+        "rationale": "Sustained mountain walking with cold conditions and moderate altitude.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Pulag",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Pulag"
+      }
+    },
+    {
+      "id": "mount-apo",
+      "name": "Mount Apo",
+      "region": "Asia",
+      "location": "Philippines",
+      "elevationMeters": 2954,
+      "coordinates": {
+        "longitude": 125.271,
+        "latitude": 6.988
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "The highest mountain in the Philippines, rising above Mindanao.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Apo"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Multi-day summit trek",
+        "rationale": "Long rainforest approaches and rough volcanic boulder terrain.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Apo",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 3,
+        "maxDays": 4,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Apo"
+      }
+    },
+    {
+      "id": "hallasan",
+      "name": "Hallasan",
+      "region": "Asia",
+      "location": "South Korea",
+      "elevationMeters": 1947.06,
+      "coordinates": {
+        "longitude": 126.53,
+        "latitude": 33.362
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "A broad shield volcano at the centre of Jeju Island.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Hallasan"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "intermediate",
+        "ascent": "Seongpanak summit trail",
+        "rationale": "A long maintained trail with substantial climbing and changing mountain weather.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Hallasan",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 1,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Hallasan"
+      }
+    },
+    {
+      "id": "seoraksan",
+      "name": "Seoraksan",
+      "region": "Asia",
+      "location": "South Korea",
+      "elevationMeters": 1708,
+      "coordinates": {
+        "longitude": 128.465,
+        "latitude": 38.119
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "Granite ridges and forested valleys surround this celebrated Korean mountain.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Seoraksan"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Daecheongbong via Osaek",
+        "rationale": "A very steep and sustained ascent on rocky steps.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Seoraksan",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 2,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Seoraksan"
+      }
+    },
+    {
+      "id": "mount-shasta",
+      "name": "Mount Shasta",
+      "region": "North America",
+      "location": "United States",
+      "elevationMeters": 4322,
+      "coordinates": {
+        "longitude": -122.195,
+        "latitude": 41.409
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "A large isolated volcano dominating the skyline of northern California.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Shasta"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Avalanche Gulch snow ascent",
+        "rationale": "Steep snow travel, ice-axe arrest skills and avalanche assessment are essential.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Shasta",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Shasta"
+      }
+    },
+    {
+      "id": "mount-hood",
+      "name": "Mount Hood",
+      "region": "North America",
+      "location": "United States",
+      "elevationMeters": 3429,
+      "coordinates": {
+        "longitude": -121.696,
+        "latitude": 45.374
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "Oregon’s highest peak, a snowy volcano above the Columbia River region.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Hood"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "South Side summit ascent",
+        "rationale": "Steep exposed snow and ice with rockfall and changing upper-mountain conditions.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Hood",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 2,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Hood"
+      }
+    },
+    {
+      "id": "mount-baker",
+      "name": "Mount Baker",
+      "region": "North America",
+      "location": "United States",
+      "elevationMeters": 3288,
+      "coordinates": {
+        "longitude": -121.814,
+        "latitude": 48.777
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "A heavily glaciated Cascade volcano in Washington state.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Baker"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Coleman-Deming glacier route",
+        "rationale": "Crevasse rescue, glacier navigation and steep snow skills.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Baker",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 3,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Baker"
+      }
+    },
+    {
+      "id": "pikes-peak",
+      "name": "Pikes Peak",
+      "region": "North America",
+      "location": "United States",
+      "elevationMeters": 4299.83,
+      "coordinates": {
+        "longitude": -105.044,
+        "latitude": 38.841
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "A prominent Colorado fourteener above Colorado Springs.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Pikes_Peak"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Barr Trail walking ascent",
+        "rationale": "Very long mountain walking with major elevation gain and very high altitude.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Pikes_Peak",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Pikes_Peak"
+      }
+    },
+    {
+      "id": "longs-peak",
+      "name": "Longs Peak",
+      "region": "North America",
+      "location": "United States",
+      "elevationMeters": 4346.4,
+      "coordinates": {
+        "longitude": -105.616,
+        "latitude": 40.255
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "A sheer-faced Rocky Mountain summit above Colorado’s alpine lakes.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Longs_Peak"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Keyhole Route in dry summer conditions",
+        "rationale": "Long approach and exposed scrambling with serious fall consequences.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Longs_Peak",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 2,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Longs_Peak"
+      }
+    },
+    {
+      "id": "grand-teton",
+      "name": "Grand Teton",
+      "region": "North America",
+      "location": "United States",
+      "elevationMeters": 4199,
+      "coordinates": {
+        "longitude": -110.803,
+        "latitude": 43.741
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "The jagged centrepiece of Wyoming’s Teton Range.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Grand_Teton"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Owen-Spalding summit climb",
+        "rationale": "Exposed technical rock climbing and rappelling require rope skills.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Grand_Teton",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Grand_Teton"
+      }
+    },
+    {
+      "id": "mount-washington",
+      "name": "Mount Washington",
+      "region": "North America",
+      "location": "United States",
+      "elevationMeters": 1916.7,
+      "coordinates": {
+        "longitude": -71.303,
+        "latitude": 44.27
+      },
+      "tags": [
+        "popular"
+      ],
+      "description": "New England’s highest mountain, famous for its exposed summit weather.",
+      "kind": "mountain",
+      "sources": [
+        {
+          "label": "Landmark and route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Washington"
+        }
+      ],
+      "reviewedAt": "2026-10-20",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Tuckerman Ravine Trail in snow-free conditions",
+        "rationale": "Steep rocky hiking and rapidly changing severe weather.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Washington",
+        "ratingType": "editorial"
+      },
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 1,
+        "basis": "editorial",
+        "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Washington"
+      }
+    }
+  ]
+}

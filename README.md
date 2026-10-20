@@ -22,6 +22,8 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Learn More
 
+See [skills.md](skills.md) for recommended development skills and when to use them throughout the project. Agent workflow instructions live in [AGENTS.md](AGENTS.md), and product direction lives in [design.md](design.md).
+
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
@@ -31,6 +33,47 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Production: [basecamp-pearl-rho.vercel.app](https://basecamp-pearl-rho.vercel.app)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The GitHub repository `jasonkwok/basecamp` is connected to the Vercel project `basecamp` in the `jason-personal1` team. The framework preset must be **Next.js**.
+
+### Deploy through GitHub
+
+Vercel automatically deploys pushes to `main` to production. After committing your changes on `main`, run:
+
+```bash
+git push origin main
+```
+
+Check the deployment status in the [Vercel dashboard](https://vercel.com/jason-personal1/basecamp).
+
+### Deploy manually with the Vercel CLI
+
+From the repository root, with the Vercel CLI installed and authenticated (`vercel login`), verify that your checkout is clean and matches GitHub's `main`:
+
+```bash
+git switch main
+git pull --ff-only origin main
+git status --short
+git rev-parse HEAD
+gh api repos/jasonkwok/basecamp/commits/main --jq .sha
+```
+
+The status output should be empty and both commit hashes should match. A CLI deployment uploads the local files, so uncommitted changes would also be deployed.
+
+Verify the linked project before deploying:
+
+```bash
+vercel project inspect --non-interactive
+```
+
+It should report `jason-personal1/basecamp` with the Next.js framework preset. For a new checkout, link it first with `vercel link --project basecamp --scope jason-personal1`, then inspect it again.
+
+Deploy to production and check the public URL:
+
+```bash
+vercel deploy --prod --yes --scope jason-personal1
+curl -I https://basecamp-pearl-rho.vercel.app
+```
+
+Confirm the deployment reports `READY` and the production URL returns HTTP 200.

@@ -18,7 +18,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project uses `next/font` to self-host Nunito for the interface and rounded map labels.
 
 ## Learn More
 
@@ -77,3 +77,18 @@ curl -I https://basecamp-pearl-rho.vercel.app
 ```
 
 Confirm the deployment reports `READY` and the production URL returns HTTP 200.
+
+## Map explorer configuration
+
+The landing page uses Mapbox GL JS. Vercel Connect stores the dedicated public Mapbox token in the `mapbox/basecamp-map` API-key connector, attached to Basecamp in Development, Preview, and Production.
+
+`MAPBOX_CONNECTOR=mapbox/basecamp-map` is configured in Vercel. For local development, refresh the environment and development OIDC token before starting:
+
+```bash
+vercel env pull .env.local --yes --scope jason-personal1
+npm run dev
+```
+
+The server-only `/api/map-config` handler requests the credential through `@vercel/connect` using Vercel OIDC. It deliberately returns only a public `pk.` Mapbox token for browser rendering and rejects secret tokens. No Mapbox token is committed or embedded at build time. Configure the public token's allowed URLs in Mapbox for localhost and the intended deployment domains. If local Connect authentication expires, pull the environment again and restart the server.
+
+The explorer uses a globe view. Zoom stays between a screen-sized world overview and level 5 for regional mountain browsing; roads, buildings, businesses, and settlement labels are hidden. Mountain data is not included yet.

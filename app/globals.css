@@ -1,26 +1,49 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root { --background: #f7f4eb; --foreground: #3f7055; }
+@theme inline { --color-background: var(--background); --color-foreground: var(--foreground); --font-sans: var(--font-nunito), Arial, sans-serif; --font-mono: monospace; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 36px; background: #3f7055; color: var(--foreground); font-family: var(--font-nunito), Arial, sans-serif; }
+:is(.map-tools, .help-card, .map-status) button { font: inherit; font-weight: 700; color: inherit; cursor: pointer; min-height: 44px; border: 1.5px solid #3f7055; border-radius: 16px; background: #e5f2cf; padding: 0 16px; box-shadow: 0 3px 0 #3f7055; }
+:is(.map-tools, .help-card, .map-status) button:hover:not(:disabled) { background: #c9e7ac; }
+:is(.map-tools, .help-card, .map-status) button:disabled { opacity: .5; cursor: default; }
+button:focus-visible, .mapboxgl-canvas:focus-visible { outline: 3px solid #b34b23; outline-offset: 4px; }
+.explorer { height: calc(100svh - 72px); min-height: 412px; position: relative; overflow: hidden; background: #40596f; border-radius: 26px; }
+.explorer .map-surface { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; border-radius: 24px; background: transparent; }
+.star-field { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.star-field span { position: absolute; font-size: 15px; opacity: .65; transform: rotate(-12deg); }
+.star-field span:nth-child(3n) { font-size: 21px; opacity: .8; transform: rotate(10deg); }
+.explorer .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-attrib { margin: 0 10px 8px 0; }
+.explorer .mapboxgl-ctrl-attrib { font-size: 10px; line-height: 20px; background: #fffbeed9; color: #354a42; border-radius: 6px 0 0 0; }
+.explorer .mapboxgl-ctrl-attrib a { color: inherit; }
+.explorer .mapboxgl-ctrl-attrib.mapboxgl-compact { border-radius: 12px; }
+.atlas-brand { position: absolute; top: max(24px, env(safe-area-inset-top)); left: 28px; display: flex; align-items: center; gap: 16px; pointer-events: none; padding: 18px 24px; background: #e5f2cf; border: 2px solid #3f7055; border-radius: 26px 34px 30px 18px; box-shadow: 4px 5px 0 #3f7055; }
+.brand-mark { display: grid; place-items: center; width: 72px; height: 72px; font-size: 52px; line-height: 1; background: #f7f8df; border: 1.5px solid #83a873; border-radius: 24px; transform: rotate(-6deg); }
+.atlas-brand h1 { font-size: 40px; font-weight: 900; letter-spacing: -1.5px; margin: 0; line-height: 1.1; }
+.brand-dot { color: #47924e; }
+.atlas-brand p { font-size: 16px; font-weight: 700; margin: 6px 0 0; }
+.map-tools { position: absolute; right: 24px; bottom: 85px; display: flex; flex-direction: column; align-items: stretch; gap: 12px; }
+.zoom-tools { display: flex; gap: 8px; }
+.zoom-tools button { font-size: 26px; flex: 1; }
+.map-tools > button:last-child { font-size: 12px; }
+.help-card { position: absolute; right: 210px; bottom: 85px; max-width: 290px; background: #fffbee; padding: 20px; border: 1.5px solid #3f7055; border-radius: 18px; box-shadow: 3px 4px 0 #3f7055; }
+.help-card h2 { font-size: 18px; font-weight: 800; margin: 0 0 8px; }
+.help-card p { font-size: 13px; line-height: 1.6; }
+.pan-tools { display: flex; gap: 8px; }
+.pan-tools button { min-width: 44px; padding: 0 10px; }
+.map-status { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(380px, calc(100% - 40px)); padding: 28px; background: #fffbee; border: 2px solid #3f7055; border-radius: 24px; box-shadow: 4px 5px 0 #3f7055; text-align: center; }
+.map-status > span { font-size: 36px; }
+.map-status h2 { font-size: 21px; font-weight: 800; margin: 12px 0; }
+.map-status p { font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+@media (max-width: 640px) {
+  body { padding: 20px; }
+  .explorer { height: calc(100svh - 40px); border-radius: 20px; }
+  .explorer .map-surface { border-radius: 18px; }
+  .atlas-brand { top: max(16px, env(safe-area-inset-top)); left: 16px; max-width: calc(100% - 32px); gap: 10px; padding: 12px 14px; }
+  .atlas-brand h1 { font-size: 32px; }
+  .atlas-brand p { font-size: 13px; }
+  .brand-mark { width: 54px; height: 58px; flex-shrink: 0; font-size: 38px; border-radius: 18px; }
+  .map-tools { right: 16px; bottom: max(70px, calc(env(safe-area-inset-bottom) + 55px)); }
+  .help-card { right: 16px; bottom: 320px; max-width: calc(100% - 32px); }
+  .map-status { top: 44%; }
 }
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: Arial, Helvetica, sans-serif;
-  --font-mono: monospace;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }

@@ -6,6 +6,10 @@ Current implementation milestone: [map explorer checklist](map-explorer-checklis
 
 Map-specific visual and usability proposals: [map explorer research](map-explorer-research.md), emphasizing a playful storybook atlas and simple exploration controls.
 
+Map explorer implementation direction: use Vercel Connect for Mapbox credentials and a globe-only view. Keep exploration focused on mountain discovery with zoom bounded between the world overview and a regional close-up, plus simplified geography; street-level detail is outside the explorer's scope.
+
+Current explorer styling: coordinated medium forest green (`#3f7055`) for land, the page frame, and branding; mint oceans; cream outlines and labels; rounded Nunito typography; and static star emojis on a uniform twilight-blue sky. Use the mountain emoji logo and slogan “Your next adventure starts here.” Start closer than the widest world view. Keep required Mapbox attribution visible.
+
 ## Product vision
 
 **Basecamp** is an interactive mountain exploration and trip-planning platform that helps adventurers discover their next climb. Explore iconic mountains around the world through a playful, interactive map, get personalized recommendations from an AI mountain guide based on your experience and preferences, and build detailed, day-by-day hiking itineraries. From discovering your next adventure to planning the journey, Basecamp makes mountain exploration accessible, fun, and personalized.

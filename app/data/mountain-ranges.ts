@@ -70,21 +70,43 @@ type Coordinates = readonly [longitude: number, latitude: number];
 export function findMountainRangeForGroup(coordinates: readonly Coordinates[]) {
   if (coordinates.length === 0) return null;
 
-  const matches = MOUNTAIN_RANGES.filter((range) =>
-    coordinates.every(([longitude, latitude]) =>
-      longitude >= range.bounds.west &&
-      longitude <= range.bounds.east &&
-      latitude >= range.bounds.south &&
-      latitude <= range.bounds.north,
-    ),
+  const matches = MOUNTAIN_RANGES.map((range) => ({
+    range,
+    peakCount: coordinates.filter(([longitude, latitude]) =>
+      isInsideRange(longitude, latitude, range),
+    ).length,
+  })).filter(({ peakCount }) => peakCount > 0);
+
+  const completeMatches = matches.filter(
+    ({ peakCount }) => peakCount === coordinates.length,
   );
 
   // Prefer the smaller region where broad range boundaries overlap.
+  if (completeMatches.length > 0) {
+    return completeMatches.reduce((smallest, match) =>
+      rangeArea(match.range) < rangeArea(smallest.range) ? match : smallest,
+    ).range;
+  }
+
+  // Keep a range label when panning adds an outside peak to its screen cluster.
+  const highestPeakCount = Math.max(...matches.map(({ peakCount }) => peakCount));
+  const leadingMatches = matches.filter(
+    ({ peakCount }) => peakCount === highestPeakCount,
+  );
+
+  return leadingMatches.length === 1 ? leadingMatches[0].range : null;
+}
+
+function isInsideRange(
+  longitude: number,
+  latitude: number,
+  range: MountainRange,
+) {
   return (
-    matches.sort(
-      (first, second) =>
-        rangeArea(first) - rangeArea(second),
-    )[0] ?? null
+    longitude >= range.bounds.west &&
+    longitude <= range.bounds.east &&
+    latitude >= range.bounds.south &&
+    latitude <= range.bounds.north
   );
 }
 

@@ -33,7 +33,7 @@ test("global map shows the seven requested mountain ranges", () => {
   }
 });
 
-test("clusters name a range only when all peaks share its area", () => {
+test("clusters prefer exact range matches and reject ties", () => {
   assert.equal(
     findMountainRangeForGroup([
       [86.9, 27.9],
@@ -54,5 +54,16 @@ test("clusters name a range only when all peaks share its area", () => {
       [-70, -20],
     ]),
     null,
+  );
+});
+
+test("range names survive an outside peak joining the screen cluster", () => {
+  assert.equal(
+    findMountainRangeForGroup([
+      [86.9, 27.9],
+      [87.0, 28.0],
+      [110, 30],
+    ])?.name,
+    "Himalayas",
   );
 });

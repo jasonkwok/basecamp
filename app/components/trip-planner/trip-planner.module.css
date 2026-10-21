@@ -1,0 +1,112 @@
+.planner {
+  width: min(760px, calc(100vw - 32px));
+}
+.form fieldset {
+  display: grid;
+  gap: 16px;
+  margin: 20px 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.form legend {
+  margin-bottom: 16px;
+  font-weight: 900;
+}
+.form label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  font-weight: 800;
+}
+.form input,
+.form select {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1.5px solid #83a873;
+  border-radius: 12px;
+  background: #fffdf6;
+  color: #244737;
+  font: inherit;
+  font-weight: 600;
+}
+.form :is(input, select):focus-visible {
+  outline: 3px solid #b34b23;
+  outline-offset: 3px;
+}
+.form small,
+.status {
+  color: #52664c;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.actions button {
+  min-height: 48px;
+  padding: 12px 18px;
+  border: 2px solid #244737;
+  border-radius: 14px;
+  background: #ffd48a;
+  color: #244737;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+.actions button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+.error {
+  padding: 14px;
+  border: 1.5px solid #a65c4f;
+  border-radius: 12px;
+  background: #f3d3c9;
+  color: #7b3028;
+}
+.result {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 2px solid #dce3cc;
+}
+.result h3 {
+  font-size: 24px;
+  font-weight: 900;
+}
+.result h4 {
+  margin: 18px 0 8px;
+  font-weight: 900;
+}
+.result ul {
+  padding-left: 20px;
+  list-style: disc;
+}
+.days {
+  display: grid;
+  gap: 14px;
+  padding: 0;
+  list-style: none;
+}
+.days > li {
+  padding: 16px;
+  border: 2px solid #dce3cc;
+  border-radius: 16px;
+}
+.days h4 {
+  margin-top: 0;
+}
+@media (max-width: 480px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

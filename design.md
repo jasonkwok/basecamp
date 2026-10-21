@@ -1,8 +1,8 @@
 # Basecamp
 
-Status: Explorer implemented; trip planner research and proposed architecture updated October 21, 2026. AI planning is not implemented.
+Status: Explorer implemented; a basic AI-assisted itinerary MVP is now available. The broader itinerary, cost-analysis, and equipment plan below remains the proposed roadmap.
 
-Explorer milestone reference: [map explorer checklist](map-explorer-checklist.md). The current catalog contains 70 entries. Next proposed milestone: the form-led trip planner described below; implementation has not started.
+Explorer milestone reference: [map explorer checklist](map-explorer-checklist.md). The current catalog contains 70 entries. Current planner milestone: a form-led, single-request itinerary MVP; the fuller planning workspace remains future work.
 
 Map-specific visual and usability proposals: [map explorer research](map-explorer-research.md), emphasizing a playful storybook atlas and simple exploration controls.
 
@@ -29,7 +29,7 @@ Current explorer styling: coordinated medium forest green (`#3f7055`) for land, 
 - The initial catalog should contain at least 100 mountains, covering iconic and popular destinations worldwide.
 - A clickable AI mountain guide helps users find their next mountain based on their experience and preferences.
 - An expedition planner will create editable itineraries, cost analyses, and equipment lists, using the traveler’s departure location and intended travel dates.
-- Selecting a mountain shows a prominent top-of-page “📝 Plan your [mountain] adventure!” action, opening a mountain-specific WIP modal. AI-powered planning will be integrated in a later milestone.
+- Selecting a mountain shows a prominent top-of-page “📝 Plan your [mountain] adventure!” action, opening a mountain-specific early-preview form that generates a basic itinerary through AI SDK and Vercel AI Gateway.
 - Mapbox is the mapping candidate. Investigate using it through Vercel Connect.
 - Use Next.js as the application framework.
 - Use Vercel's AI tooling for recommendations and trip planning. The recommended initial combination is AI SDK with AI Gateway, as detailed below.
@@ -94,7 +94,7 @@ Recommendations should be grounded in available data. Distinguish general planni
 
 ## 3. Plan an expedition
 
-Planning research updated October 21, 2026. This section is a proposed implementation plan, not an implemented feature. The current planner is a WIP modal. The confirmed goal is a trip itinerary, cost analysis, and equipment preparation, informed by where the traveler is coming from and their intended dates.
+Planning research updated October 21, 2026. This section describes the full proposed planner. The initial MVP described below implements only a small subset. The confirmed goal is a trip itinerary, cost analysis, and equipment preparation, informed by where the traveler is coming from and their intended dates.
 
 ### Entry and planning experience
 
@@ -174,7 +174,15 @@ Proposed first version keeps the current draft through modal closure and navigat
 3. **Current travel data:** evaluate and add departure-location resolution, flight/lodging/FX adapters, and bounded source research where it improves the plan. Keep estimates usable when a provider is unavailable. Assess licensing, credentials, coverage, and ongoing request cost before selecting integrations.
 4. **Refinement and persistence:** optional conversational revisions using the same planning service, durable saved plans, sharing/export, and targeted refresh of outdated cost items.
 
-No implementation, dependency installation, model requests, credential creation, or provider provisioning is authorized by this research update.
+### Current MVP scope
+
+The early-preview modal now asks for departure city/country, outbound and return dates, adult party size, trip objective, experience, currency, and either a per-person budget or explicit “I’m not sure yet”. It supports 1–21 calendar days and up to 12 travelers.
+
+A server-only POST handler validates the request, loads the canonical mountain context, and uses AI SDK 7 structured output through AI Gateway. The default is `openai/gpt-4.1-mini`, verified in the live Gateway catalog during implementation, with an optional server-side `AI_GATEWAY_MODEL` override. Vercel OIDC supplies authentication; local development requires a fresh pulled token. Generation has a 50-second timeout, a 5,000-token output cap, and no application retries.
+
+The result shows dated itinerary days, budget considerations without fabricated price quotes, a packing starter list, and assumptions. Unsupported or infeasible objectives can return clarification instead of invented climbing instructions. Cancellation, recoverable errors, date-count validation, and preservation of the previous successful result during failed regeneration are included. Dates are assigned by the server. Closing the modal discards the draft.
+
+Live travel research, numerical cost estimates, editable results, durable storage, and revision merging are not implemented. The endpoint has a best-effort per-instance limit of five requests per IP per hour; add shared rate/spend controls before public rollout. This MVP does not implement all completion criteria or the full research pipeline described below.
 
 ## Visual and interaction direction
 
@@ -218,7 +226,7 @@ Before implementing, read the relevant version-matched guides in `node_modules/n
 
 ### AI SDK and AI Gateway
 
-Research reviewed October 21, 2026 against current official documentation. The repository currently has neither `ai` nor `@ai-sdk/react` installed. Choose and verify the stable package version and Node.js requirements during implementation; the latest documentation currently describes AI SDK 7. This plan does not pin a model or copy version-specific sample code into the application.
+Research reviewed October 21, 2026 against current official documentation. The MVP uses `ai` 7 and Zod, with Node.js 22 or later required by the SDK. It uses a normal JSON request/response, so `@ai-sdk/react` is not needed. Verify installed package documentation when extending the integration. The default model is documented in the current MVP scope; future model choices remain configurable.
 
 Recommended architecture: **Next.js App Router + AI SDK + AI Gateway**, with a form-led planner and an application-controlled generation pipeline.
 
@@ -273,7 +281,7 @@ Treat retrieved pages as untrusted data, never as instructions. Allow only suppo
 
 #### Model selection and routing
 
-Use one configurable primary model initially. During implementation, inspect the live Gateway catalog and benchmark candidates for structured-output reliability, grounded itinerary quality, latency, and total request cost. Evaluate short hikes, multi-day treks, and unsupported expedition cases rather than selecting only by a model's leaderboard position. No exact model is selected by this document.
+Use one configurable primary model initially. During implementation, inspect the live Gateway catalog and benchmark candidates for structured-output reliability, grounded itinerary quality, latency, and total request cost. Evaluate short hikes, multi-day treks, and unsupported expedition cases rather than selecting only by a model's leaderboard position. The MVP default is noted above; broader model benchmarking remains a follow-up.
 
 Test a compatible fallback against the same schema, tool availability, grounding rules, and quality gates. Provider fallback for the same model and fallback to a different model are separate choices. A successful model response with incorrect travel content is not repaired by availability failover. Log the actual model/provider used. [Provider routing and fallbacks](https://vercel.com/docs/ai-gateway/models-and-providers/provider-options).
 
@@ -297,7 +305,7 @@ Verify the complete flow from individual mountain selection through form, server
 - Missing or fabricated source IDs, malformed model output, tool failure, cancellation, duplicate submissions, stale responses, and bounded fallback/retry.
 - Date/party/route changes after editing, equipment-to-cost synchronization, packed-state preservation, mobile use, keyboard focus, and accessible validation errors.
 
-Use AI SDK test mocks for predictable request/error paths, plus a small reviewed evaluation set for grounding, feasibility, completeness, and clarity. Record latency and cost from an authorized live pilot before setting production targets. [AI SDK testing](https://ai-sdk.dev/docs/ai-sdk-core/testing). No paid pilot is part of this documentation task.
+Use AI SDK test mocks for predictable request/error paths, plus a small reviewed evaluation set for grounding, feasibility, completeness, and clarity. Record latency and cost from an authorized live pilot before setting production targets. [AI SDK testing](https://ai-sdk.dev/docs/ai-sdk-core/testing). One small live Gateway request is used to smoke-test this implementation; a broader production evaluation remains future work.
 
 ### Mapbox and Vercel Connect
 

@@ -91,6 +91,25 @@ npm run dev
 
 The server-only `/api/map-config` handler requests the credential through `@vercel/connect` using Vercel OIDC. It deliberately returns only a public `pk.` Mapbox token for browser rendering and rejects secret tokens. No Mapbox token is committed or embedded at build time. Configure the public token's allowed URLs in Mapbox for localhost and the intended deployment domains. If local Connect authentication expires, pull the environment again and restart the server.
 
-The explorer uses a globe view. Zoom stays between a screen-sized world overview and level 5 for regional mountain browsing; roads, buildings, businesses, and settlement labels are hidden. The catalog contains the Seven Summits (Messner/Oceania list, including Carstensz Pyramid), all 14 classic eight-thousanders, and 50 additional curated popular destinations (70 unique entries), with illustrated markers and a summit picker. The shared catalog lives in `app/data/mountains.json`; `app/data/mountains.ts` validates it. Selecting a peak opens a profile with elevation, coordinates, a short description, category badges, ascent-specific difficulty, trip length estimates, and sources. See [the catalog guide](app/data/README.md) to expand it. Route planning is not included yet.
+The explorer uses a globe view. Zoom stays between a screen-sized world overview and level 5 for regional mountain browsing; roads, buildings, businesses, and settlement labels are hidden. The catalog contains the Seven Summits (Messner/Oceania list, including Carstensz Pyramid), all 14 classic eight-thousanders, and 50 additional curated popular destinations (70 unique entries), with illustrated markers and a summit picker. The shared catalog lives in `app/data/mountains.json`; `app/data/mountains.ts` validates it. Selecting a peak opens a profile with elevation, coordinates, a short description, category badges, ascent-specific difficulty, trip length estimates, and sources. See [the catalog guide](app/data/README.md) to expand it. A basic AI-assisted itinerary preview is available from the selected mountain’s planning button; see below.
 
 Nearby mountain illustrations group by their screen footprint as you pan and zoom. Choose a counted marker to browse its peaks, then select one to center its actual coordinates and show its name and badges. The picker supports text search and combined tag, difficulty, elevation, and region filters; each result shows its tags and difficulty. Popular picks are a geographically varied editorial selection, not an authoritative popularity ranking.
+
+## AI-assisted itinerary MVP
+
+Select an individual mountain, then choose **Plan your [mountain] adventure!** Enter your departure city/country, travel dates, party size, objective, and experience. Budget can be **I’m not sure yet** or a whole-trip per-person amount. The MVP supports trips of up to 21 calendar days.
+
+The server uses Vercel AI SDK structured output through AI Gateway, authenticated with Vercel OIDC. No direct model-provider key is needed on Vercel. For local development, refresh authentication before starting as described above:
+
+```bash
+vercel env pull .env.local --yes --scope jason-personal1
+npm run dev
+```
+
+The default model is `openai/gpt-4.1-mini`, verified with the current Gateway account. Free-credit access covers a subset of models; a valid catalog ID alone does not establish account access. Optionally set the server-only `AI_GATEWAY_MODEL` to another Gateway model ID supporting structured output. Alternatively, store `AI_GATEWAY_API_KEY` in an ignored `.env.development.local` file locally and the Vercel project’s environment settings for deployment. Keeping a local key separate prevents `vercel env pull` from overwriting it. The key takes precedence over OIDC. Never expose either credential through `NEXT_PUBLIC_` variables. The SDK requires Node.js 22 or later.
+
+The result contains a basic itinerary, budget considerations, a packing starter list, and assumptions. It does not fetch live prices, make bookings, verify trail conditions, or save drafts after closing. An infeasible or unsupported objective may return questions or suggested changes instead of an itinerary.
+
+Generation is bounded to one model call, 5,000 output tokens, and 50 seconds. A best-effort per-instance limit allows five requests per IP per hour; use shared application rate limits and Gateway spend controls before public rollout. Authentication errors require refreshed local environment credentials; credit/account errors require checking AI Gateway setup. Inputs and the last valid result remain available after a recoverable error.
+
+Run validation checks with `npm test`, `npm run lint`, and `npm run build`.

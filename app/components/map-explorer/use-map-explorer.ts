@@ -115,7 +115,21 @@ export function useMapExplorer() {
         // User navigation dismisses the trip action; selecting a peak reveals it again.
         // Ignore camera animations that center a newly selected mountain.
         instance.on("movestart", (event) => {
-          if (event.originalEvent) setShowTripPlanner(false);
+          // Resize events also move the camera; keep an open planner on rotation.
+          const navigationEvents = [
+            "keydown",
+            "touchstart",
+            "touchmove",
+            "wheel",
+            "mousedown",
+            "mousemove",
+          ];
+          if (
+            event.originalEvent &&
+            navigationEvents.includes(event.originalEvent.type)
+          ) {
+            setShowTripPlanner(false);
+          }
         });
         instance.on("zoomend", () => {
           if (!disposed && instance) {

@@ -3,8 +3,8 @@
 }
 .form fieldset {
   display: grid;
-  gap: 16px;
-  margin: 20px 0;
+  gap: 24px;
+  margin: 28px 0;
   padding: 0;
   border: 0;
   min-width: 0;
@@ -15,7 +15,7 @@
 }
 .form label {
   display: grid;
-  gap: 6px;
+  gap: 8px;
   min-width: 0;
   font-weight: 800;
 }
@@ -44,10 +44,12 @@
 }
 .row {
   display: grid;
+  align-items: start;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 .actions {
+  margin-top: 24px;
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
@@ -68,11 +70,36 @@
   cursor: wait;
 }
 .error {
-  padding: 14px;
-  border: 1.5px solid #a65c4f;
-  border-radius: 12px;
-  background: #f3d3c9;
-  color: #7b3028;
+  margin: 24px 0 0;
+  padding: 18px 20px;
+  border: 1px solid #c79a8f;
+  border-radius: 14px;
+  background: #fff4ee;
+  color: #783d31;
+  overflow-wrap: anywhere;
+}
+.error strong {
+  display: block;
+  font-weight: 900;
+}
+.error p {
+  margin: 8px 0;
+}
+.error small {
+  color: inherit;
+  display: block;
+  line-height: 1.5;
+}
+.error:focus-visible {
+  outline: 2px solid #783d31;
+  outline-offset: 4px;
+}
+.progress {
+  margin: 12px 0 0;
+  color: #52664c;
+}
+.progress:empty {
+  display: none;
 }
 .result {
   margin-top: 24px;
@@ -80,12 +107,19 @@
   border-top: 2px solid #dce3cc;
 }
 .result h3 {
+  margin: 0 0 18px;
   font-size: 24px;
   font-weight: 900;
+  line-height: 1.2;
 }
 .result h4 {
-  margin: 18px 0 8px;
+  margin: 24px 0 10px;
   font-weight: 900;
+}
+.result .itinerarySectionTitle {
+  margin: 32px 0 12px;
+  font-size: 20px;
+  line-height: 1.25;
 }
 .result ul {
   padding-left: 20px;
@@ -93,20 +127,178 @@
 }
 .days {
   display: grid;
-  gap: 14px;
+  gap: 16px;
+  margin: 0 0 28px;
   padding: 0;
   list-style: none;
 }
 .days > li {
-  padding: 16px;
+  padding: 20px;
   border: 2px solid #dce3cc;
   border-radius: 16px;
 }
 .days h4 {
-  margin-top: 0;
+  margin: 0 0 8px;
+  line-height: 1.25;
 }
 @media (max-width: 480px) {
   .row {
     grid-template-columns: minmax(0, 1fr);
   }
+}
+
+.guidance {
+  padding: 16px;
+  border: 1.5px solid #b9cda4;
+  border-radius: 14px;
+  background: #e8efdb;
+}
+.guidance strong {
+  font-weight: 900;
+}
+.guidance p {
+  margin: 8px 0;
+}
+
+.equipment {
+  margin: 32px 0;
+  padding: 24px;
+  border: 1px solid #cbd2c1;
+  border-radius: 18px;
+  background: #fffdf6;
+}
+.result .equipment h4 {
+  margin: 0 0 12px;
+  font-size: 22px;
+}
+.equipment > p {
+  margin: 10px 0;
+  color: #52664c;
+}
+.equipment a {
+  color: #244737;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.equipment ul {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0 0 0 22px;
+  list-style: disc;
+}
+.equipment li {
+  padding: 0;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.equipment li::marker {
+  color: #3f7055;
+}
+.equipment li strong {
+  font-weight: 900;
+}
+.equipmentNote {
+  color: #52664c;
+  font-size: 14px;
+}
+.warnings {
+  margin: 20px 0;
+  padding: 18px;
+  border: 2px solid #b68334;
+  border-radius: 16px;
+  background: #fff0d1;
+  color: #67411e;
+}
+.warnings[data-critical="true"] {
+  border-color: #a04436;
+  background: #fbe3dc;
+  color: #7b3028;
+}
+.result .warnings h4 {
+  margin-top: 0;
+  font-size: 22px;
+}
+.warnings strong {
+  display: block;
+  font-weight: 900;
+}
+
+.equipmentGroups {
+  display: grid;
+  gap: 28px;
+  margin-top: 24px;
+}
+.equipmentGroup + .equipmentGroup {
+  padding-top: 24px;
+  border-top: 1px solid #cbd2c1;
+}
+.equipmentGroup h5 {
+  margin: 0 0 6px;
+  font-size: 19px;
+  font-weight: 900;
+}
+.equipmentGroup > p {
+  margin: 0;
+  color: #52664c;
+}
+@media (max-width: 480px) {
+  .equipment {
+    padding: 18px;
+  }
+  .actions button {
+    width: 100%;
+  }
+}
+
+.planner > .status {
+  margin: 20px 0 0;
+}
+
+.phaseRange {
+  margin: 0 0 8px;
+  color: #52664c;
+  font-weight: 800;
+}
+.phaseDecision {
+  margin: 16px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid #dce3cc;
+}
+
+.environment {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0;
+  padding: 12px 14px;
+  border-left: 3px solid #8d9d72;
+  background: #f2f4ec;
+}
+.environment > div {
+  display: grid;
+  grid-template-columns: minmax(110px, 0.35fr) 1fr;
+  gap: 12px;
+}
+.environment dt {
+  font-weight: 800;
+}
+.environment dd {
+  margin: 0;
+}
+
+.movement {
+  margin: 18px 0;
+  padding: 16px 0;
+  border-block: 1px solid #dce3cc;
+}
+.movement li {
+  margin: 12px 0;
+}
+.movement li :is(strong, span, a) {
+  display: block;
+}
+.movement a {
+  color: inherit;
+  text-underline-offset: 3px;
+  font-size: 13px;
 }

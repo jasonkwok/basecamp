@@ -1,4 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import {
+  getMountainBudget,
+  formatMountainBudget,
+} from "../../data/mountain-budgets";
 import type { Summit } from "../../data/mountains";
 import { MOUNTAIN_TAGS } from "../../data/mountain-tags";
 import { DIFFICULTY_LEVELS } from "../../data/difficulty-levels";
@@ -27,6 +31,7 @@ export default function MountainProfile({
   }, [summit.id]);
 
   const [longitude, latitude] = summit.coordinates;
+  const budget = getMountainBudget(summit);
   const difficulty = DIFFICULTY_LEVELS[summit.difficulty.level];
 
   return (
@@ -128,6 +133,17 @@ export default function MountainProfile({
         </small>
       </div>
 
+      <div className="profile-trip">
+        <span className="difficulty-caption">ESTIMATED ROUTE BUDGET</span>
+        <strong>{formatMountainBudget(budget)}</strong>
+        <p>Per person · {budget.basis}</p>
+        <small>
+          {budget.confidence === "price-informed"
+            ? "Planning range informed by published operator prices."
+            : "Rough estimate based on comparable trips."}{" "}
+        </small>
+      </div>
+
       <dl className="profile-facts">
         <div className="profile-elevation">
           <dt>
@@ -196,6 +212,18 @@ export default function MountainProfile({
               rel="noopener noreferrer"
             >
               Trip route context ↗
+            </a>
+          </li>
+          <li>
+            <a
+              href={budget.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {budget.confidence === "price-informed"
+                ? "Budget price reference"
+                : "Budget route / comparable-trip context"}{" "}
+              ↗
             </a>
           </li>
         </ul>

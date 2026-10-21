@@ -1,10 +1,10 @@
-import { MAX_TRIP_DAYS } from "../../lib/trip-planner/schema";
+import type { Summit } from "../../data/mountains";
+import TripTimingFields from "./trip-timing-fields";
+import TripExperienceFields from "./trip-experience-fields";
 import styles from "./trip-planner.module.css";
 
 // These fields describe the whole trip, including travel from home and back.
-export default function TripDetailsFields() {
-  const today = new Date().toISOString().slice(0, 10);
-
+export default function TripDetailsFields({ summit }: { summit: Summit }) {
   return (
     <>
       <label>
@@ -19,20 +19,7 @@ export default function TripDetailsFields() {
         />
       </label>
 
-      <div className={styles.row}>
-        <label>
-          Departure date
-          <input name="departureDate" type="date" min={today} required />
-        </label>
-        <label>
-          Return date
-          <input name="returnDate" type="date" min={today} required />
-        </label>
-      </div>
-      <small>
-        Include travel from home and back. Plan trips up to {MAX_TRIP_DAYS}{" "}
-        days.
-      </small>
+      <TripTimingFields tripLength={summit.tripLength} />
 
       <div className={styles.row}>
         <label>
@@ -56,14 +43,7 @@ export default function TripDetailsFields() {
         </label>
       </div>
 
-      <label>
-        Mountain experience
-        <select name="experience" defaultValue="beginner">
-          <option value="beginner">New to mountain trips</option>
-          <option value="regular">Regular hiker</option>
-          <option value="technical">Technical mountaineering experience</option>
-        </select>
-      </label>
+      <TripExperienceFields />
     </>
   );
 }

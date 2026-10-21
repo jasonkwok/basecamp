@@ -1,6 +1,6 @@
 import "server-only";
 
-const MAX_REQUESTS_PER_HOUR = 5;
+const MAX_REQUESTS_PER_HOUR = 20;
 const REQUEST_WINDOW_MS = 60 * 60 * 1000;
 
 // Best-effort protection for the MVP; instances do not share this counter.

@@ -1,4 +1,7 @@
 import "server-only";
+import {
+  getRouteTimes,
+} from "../../data/route-times";
 import { generateText, Output } from "ai";
 import {
   buildItineraryPrompt,
@@ -6,13 +9,17 @@ import {
 } from "./itinerary-prompt";
 import type { Summit } from "../../data/mountains";
 import {
-  itinerarySchema,
+  itineraryGenerationSchema,
   tripDates,
-  tripPlanSchema,
   type TripInput,
 } from "./schema";
+import {
+  hasUnestimatedMovement,
+  prepareGeneratedItinerary,
+  validateGeneratedItinerary,
+} from "./validate-generated-itinerary";
 
-// A small structured-output model keeps this single-call MVP fast and inexpensive.
+// Use one structured-output call and retry once if movement estimates are missing.
 export const DEFAULT_TRIP_MODEL = "openai/gpt-4.1-mini";
 
 export async function generateItinerary(
@@ -20,20 +27,35 @@ export async function generateItinerary(
   summit: Summit,
   signal: AbortSignal,
 ) {
-  const dates = tripDates(input.departureDate, input.returnDate);
-  const result = await generateText({
-    model: process.env.AI_GATEWAY_MODEL || DEFAULT_TRIP_MODEL,
-    output: Output.object({ schema: itinerarySchema }),
-    maxOutputTokens: 5000,
-    maxRetries: 0,
-    timeout: 50_000,
-    abortSignal: signal,
-    system: ITINERARY_INSTRUCTIONS,
-    prompt: buildItineraryPrompt(input, summit, dates),
-  });
+  const { timing } = input;
+  const dates =
+    timing.kind === "exact"
+      ? tripDates(timing.departureDate, timing.returnDate)
+      : [];
+  const requestedDays =
+    timing.kind === "exact" ? dates.length : timing.durationDays;
+  const routeTimes = getRouteTimes(summit.id, input.objective);
+  const prompt = buildItineraryPrompt(input, summit, dates);
+  let result = await requestItinerary(prompt, signal);
+  let itinerary = prepareGeneratedItinerary(result.output, routeTimes);
 
-  // Shape validation alone does not ensure the itinerary covers the requested window.
-  const plan = tripPlanSchema.parse({ itinerary: result.output, dates });
+  // A missing movement estimate gets one focused correction before returning a draft.
+  if (hasUnestimatedMovement(itinerary)) {
+    result = await requestItinerary(
+      `${prompt}\n\nCorrection required: every hiking, mountaineering, or technical-climbing effort without a supplied route-time reference must have a one-hour estimatedHours range. Use null only for travel/rest or a supplied timingId.`,
+      signal,
+      15_000,
+    );
+    itinerary = prepareGeneratedItinerary(result.output, routeTimes);
+  }
+
+  const plan = validateGeneratedItinerary({
+    itinerary,
+    dates,
+    requestedDays,
+    timing,
+    routeTimes,
+  });
 
   // Record only operational metadata, never travel preferences or generated content.
   console.info("Trip itinerary generated", {
@@ -43,4 +65,21 @@ export async function generateItinerary(
   });
 
   return plan;
+}
+
+function requestItinerary(
+  prompt: string,
+  signal: AbortSignal,
+  timeout = 40_000,
+) {
+  return generateText({
+    model: process.env.AI_GATEWAY_MODEL || DEFAULT_TRIP_MODEL,
+    output: Output.object({ schema: itineraryGenerationSchema }),
+    maxOutputTokens: 5000,
+    maxRetries: 0,
+    timeout,
+    abortSignal: signal,
+    system: ITINERARY_INSTRUCTIONS,
+    prompt,
+  });
 }

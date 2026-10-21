@@ -70,26 +70,26 @@ export default function TripPlannerModal({
         </p>
       ) : null}
       <p id="trip-planner-description">
-        Tell us where you’re coming from and when you’d like to travel. We’ll
-        draft a basic itinerary and packing starter list. Budget unknown? That’s
-        fine.
+        Tell us where you’re coming from. Choose exact dates, a rough window, or
+        let us suggest when to go. We’ll draft a basic itinerary and packing
+        starter list, using the route’s USD budget estimate from Field Notes.
       </p>
 
       {summit ? (
         <>
           <TripPlannerForm
-            mountainId={summit.id}
+            summit={summit}
             pending={pending}
+            error={error}
             onGenerate={generate}
             onCancel={cancel}
           />
-          {error ? (
-            <p className={styles.error} role="alert">
-              {error}
-            </p>
-          ) : null}
           {result ? (
-            <TripPlanResult plan={result.plan} input={result.input} />
+            <TripPlanResult
+              plan={result.plan}
+              input={result.input}
+              summit={summit}
+            />
           ) : null}
           <p className={styles.status}>
             This preview generates suggestions, without live prices or bookings.

@@ -4,6 +4,7 @@ import type { Summit } from "../../data/mountains";
 import { applyMapStyle } from "./map-style";
 import { attachMountainMarkers } from "./map-markers";
 import {
+  getSummitCloseZoom,
   getSummitSelectionZoom,
   MAP_START_CENTER,
   MAX_EXPLORER_ZOOM,
@@ -28,8 +29,6 @@ export function useMapExplorer() {
   const [status, setStatus] = useState<Status>("loading");
   const [message, setMessage] = useState("Unfolding your atlas…");
   const [attempt, setAttempt] = useState(0);
-  const [help, setHelp] = useState(false);
-
   const [profileSummit, setProfileSummit] = useState<Summit | null>(null);
   const [nearbySummits, setNearbySummits] = useState<Summit[]>([]);
   const [showTripPlanner, setShowTripPlanner] = useState(false);
@@ -38,9 +37,6 @@ export function useMapExplorer() {
     center: [number, number];
     zoom: number;
   } | null>(null);
-
-  const [atMaxZoom, setAtMaxZoom] = useState(false);
-  const [atMinZoom, setAtMinZoom] = useState(true);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -134,18 +130,10 @@ export function useMapExplorer() {
             setShowTripPlanner(false);
           }
         });
-        instance.on("zoomend", () => {
-          if (!disposed && instance) {
-            setAtMaxZoom(instance.getZoom() >= MAX_EXPLORER_ZOOM - 0.01);
-            setAtMinZoom(instance.getZoom() <= instance.getMinZoom() + 0.01);
-          }
-        });
         // Recalculate the world-view limit when the viewport changes size.
         instance.on("resize", () => {
           if (!disposed && instance && container.current) {
             instance.setMinZoom(worldZoom(container.current.clientWidth));
-
-            setAtMinZoom(instance.getZoom() <= instance.getMinZoom() + 0.01);
           }
         });
 
@@ -184,8 +172,6 @@ export function useMapExplorer() {
               },
             });
 
-            setAtMinZoom(instance.getZoom() <= instance.getMinZoom() + 0.01);
-            setAtMaxZoom(instance.getZoom() >= MAX_EXPLORER_ZOOM - 0.01);
             setStatus("ready");
           }
         });
@@ -229,25 +215,6 @@ export function useMapExplorer() {
     };
   }, [attempt]);
 
-  // Reset only the camera; retain search filters and the current selection.
-  function reset() {
-    setShowTripPlanner(false);
-
-    const duration = window.matchMedia("(prefers-reduced-motion: reduce)")
-      .matches
-      ? 0
-      : 650;
-    const width = container.current?.clientWidth ?? 1200;
-
-    map.current?.easeTo({
-      center: MAP_START_CENTER,
-      zoom: worldZoom(width),
-      bearing: 0,
-      pitch: 0,
-      duration,
-    });
-  }
-
   // Picker and nearby-list selections share the same profile and camera behavior.
   function visitSummit(summit: Summit, group?: Summit[]) {
     const instance = map.current;
@@ -289,6 +256,27 @@ export function useMapExplorer() {
     map.current?.getCanvas().focus();
   }
 
+  function closeSummitProfile() {
+    const instance = map.current;
+
+    selectedSummitId.current = null;
+    setProfileSummit(null);
+    setShowTripPlanner(false);
+    setPreviousGroup(null);
+
+    if (!instance) return;
+
+    const duration = window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches
+      ? 0
+      : 650;
+
+    instance.easeTo({
+      zoom: getSummitCloseZoom(instance.getZoom(), instance.getMinZoom()),
+      duration,
+    });
+  }
+
   function returnToGroup() {
     if (!previousGroup) return;
 
@@ -320,18 +308,14 @@ export function useMapExplorer() {
     map,
     status,
     message,
-    help,
-    setHelp,
     profileSummit,
     showTripPlanner,
     canReturnToGroup: previousGroup !== null,
     returnToGroup,
+    closeSummitProfile,
     setProfileSummit,
     nearbySummits,
     setNearbySummits,
-    atMaxZoom,
-    atMinZoom,
-    reset,
     visitSummit,
     focusMap,
     retry,

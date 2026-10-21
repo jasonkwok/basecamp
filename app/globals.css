@@ -19,7 +19,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-nunito), Arial, sans-serif;
 }
-:is(.map-tools, .help-card, .map-status) button {
+.map-status button {
   font: inherit;
   font-weight: 700;
   color: inherit;
@@ -31,10 +31,10 @@ body {
   padding: 0 16px;
   box-shadow: 0 3px 0 #3f7055;
 }
-:is(.map-tools, .help-card, .map-status) button:hover:not(:disabled) {
+.map-status button:hover:not(:disabled) {
   background: #c9e7ac;
 }
-:is(.map-tools, .help-card, .map-status) button:disabled {
+.map-status button:disabled {
   opacity: 0.5;
   cursor: default;
 }
@@ -152,54 +152,6 @@ button:focus-visible,
   font-size: 16px;
   font-weight: 700;
   margin: 6px 0 0;
-}
-.map-tools {
-  position: absolute;
-  right: 24px;
-  bottom: 85px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 12px;
-}
-.zoom-tools {
-  display: flex;
-  gap: 8px;
-}
-.zoom-tools button {
-  font-size: 26px;
-  flex: 1;
-}
-.map-tools > button:last-child {
-  font-size: 12px;
-}
-.help-card {
-  position: absolute;
-  right: 210px;
-  bottom: 85px;
-  max-width: 290px;
-  background: #fffbee;
-  padding: 20px;
-  border: 1.5px solid #3f7055;
-  border-radius: 18px;
-  box-shadow: 3px 4px 0 #3f7055;
-}
-.help-card h2 {
-  font-size: 18px;
-  font-weight: 800;
-  margin: 0 0 8px;
-}
-.help-card p {
-  font-size: 13px;
-  line-height: 1.6;
-}
-.pan-tools {
-  display: flex;
-  gap: 8px;
-}
-.pan-tools button {
-  min-width: 44px;
-  padding: 0 10px;
 }
 .map-status {
   position: absolute;
@@ -468,15 +420,6 @@ button:focus-visible,
     flex-shrink: 0;
     font-size: 38px;
     border-radius: 18px;
-  }
-  .map-tools {
-    right: 16px;
-    bottom: max(70px, calc(env(safe-area-inset-bottom) + 55px));
-  }
-  .help-card {
-    right: 16px;
-    bottom: 320px;
-    max-width: calc(100% - 32px);
   }
   .map-status {
     top: 44%;

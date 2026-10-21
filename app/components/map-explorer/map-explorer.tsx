@@ -5,7 +5,7 @@ import MountainProfile from "./mountain-profile";
 import NearbyMountains from "./nearby-mountains";
 import ExplorerSky from "./explorer-sky";
 import ExplorerBrand from "./explorer-brand";
-import MapControls from "./map-controls";
+import MapStatus from "./map-status";
 import TripPlannerAction from "../trip-planner/trip-planner-action";
 import { useMapExplorer } from "./use-map-explorer";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -14,21 +14,16 @@ import "mapbox-gl/dist/mapbox-gl.css";
 export default function MapExplorer() {
   const {
     container,
-    map,
     status,
     message,
-    help,
-    setHelp,
     profileSummit,
     showTripPlanner,
     canReturnToGroup,
     returnToGroup,
+    closeSummitProfile,
     setProfileSummit,
     nearbySummits,
     setNearbySummits,
-    atMaxZoom,
-    atMinZoom,
-    reset,
     visitSummit,
     focusMap,
     retry,
@@ -76,7 +71,7 @@ export default function MapExplorer() {
           summit={profileSummit}
           onBack={canReturnToGroup ? returnToGroup : undefined}
           onClose={() => {
-            setProfileSummit(null);
+            closeSummitProfile();
 
             // Return keyboard navigation to the globe after leaving a panel.
             focusMap();
@@ -84,17 +79,7 @@ export default function MapExplorer() {
         />
       ) : null}
 
-      <MapControls
-        map={map}
-        status={status}
-        message={message}
-        atMaxZoom={atMaxZoom}
-        atMinZoom={atMinZoom}
-        help={help}
-        setHelp={setHelp}
-        reset={reset}
-        retry={retry}
-      />
+      <MapStatus status={status} message={message} retry={retry} />
     </main>
   );
 }

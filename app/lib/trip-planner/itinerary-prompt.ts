@@ -32,7 +32,7 @@ Choose the itinerary format to match the objective and scale, across all mountai
 Use days for shorter trips (maximum 21 daily entries), and phases for longer trips or multi-week summit expeditions.
 Exactly one of days or phases is populated for a draft; both are empty for needs-changes.
 A phase has title, startDay, endDay, activities, overnight, and decisionNote. Cover consecutive days from day 1 without gaps or overlaps.
-For multi-week summit plans, do not put the whole climbing period into one broad “acclimatization rotations” phase. Break it into a readable sequence: approach and preparation; each planned climb-high / descend-lower rotation; recovery between rotations; final summit staging; a conditional summit push; descent; and return travel. Keep rotations and recovery in separate phases so the repeated up-and-down work is visible.
+For multi-week summit plans, do not put the whole climbing period into one broad “acclimatization rotations” phase. Break it into a readable sequence: approach and preparation; each planned climb-high / descend-lower rotation; recovery between rotations; final summit staging; a conditional summit push; and descent or exit from the mountain. Keep rotations and recovery in separate phases so the repeated up-and-down work is visible.
 When routeTimes provides camp transitions, use those labels to make the climbing sequence concrete. Include both the upward movement and the return to a lower camp or base camp when the route context supports it. For unsourced movement, use a clearly approximate time band rather than omitting the movement or assigning one short estimate to an entire multi-week phase.
 When expeditionRouteContext supplies a sourced rotation sequence, preserve its climb-higher → return-to-base-camp → recovery pattern as distinct phases. Treat that sequence as one operator's example, not a universal schedule; identify route and timing changes as matters for the chosen operator to confirm.
 Use one phase per meaningful movement or recovery block. Prefer phases of 3–10 days and split any phase longer than 14 days, unless the longer span is explicitly a weather or logistics reserve. The schema supports up to 20 phases. Do not force expedition stages onto a short hike.
@@ -45,19 +45,19 @@ For flexible timing, do not assign calendar dates. Respect the requested season 
 Season year is the starting year: dec-feb spans December of that year through February of the next.
 If durationDays is supplied, cover exactly that many total days. Otherwise suggest a suitable total length of 1–120 days.
 For a flexible window the total duration must fit the bounds; bounds are not fixed travel dates.
-Never shorten an expedition to fit a tight window. Return needs-changes if there is insufficient time for the ascent and travel.
-The Field Notes duration is ascent-specific and excludes some travel; sightseeing can be shorter.
-Include realistic travel, rest, and contingency time. Summit attempts remain conditional, with descent or turnaround possible.
-Unless the preferences say the trip is one-way, include return travel to the origin. Keep it on a separate day when needed; never append “if time allows” to a summit-day descent. If the requested dates cannot fit both the objective and return, explain that and return needs-changes.
+Never shorten an expedition to fit a tight window. Return needs-changes if there is insufficient time for the mountain itinerary.
+The Field Notes duration is ascent-specific and excludes transportation to and from the mountain; sightseeing can be shorter. The selected timing is for mountain activities, not an origin-to-destination journey.
+Include realistic approach, rest, and contingency time when supported by the supplied route context. Do not add external transportation days. Summit attempts remain conditional, with descent or turnaround possible.
+Do not plan travel from the user's home or departure city. The app does not collect an origin or recommend how to reach the mountain. Use the selected timing for the mountain itinerary, and include local trailhead or camp access only when supported by the supplied context.
 In timingNote explain the suggested seasonal window and uncertainties, or how the requested timing affects planning.
 
 Keep descriptions concise and objective-specific for every mountain:
-- Titles name the stage or destination, not generic tourism or motivational copy.
-- Use 1–3 short activity bullets per phase, or 1–2 per day, focused on purpose and logistics.
-- Make each day easy to follow: say where the movement starts, the route or destination, whether it returns to the start, and where the traveler sleeps.
+- Give every day and phase a specific title and 1–3 concise activity bullets. Explain what the traveler does, how the stage progresses, and why it matters; avoid generic filler such as “continue the trek” or “acclimatize” on its own.
+- Make each day easy to follow: name the supplied starting point, route or next stage, whether the traveler returns to the start, and where they sleep. Use camp names and route details only when supplied; otherwise describe the stage purpose and identify details to confirm.
+- Each activity should add a useful detail about movement, preparation, recovery, or a weather/turnaround decision. Do not repeat the title as an activity or pad the itinerary with generic summaries.
 - For a summit day hike, name the trailhead-to-summit route and the return trailhead in the title or activity. Describe the ascent, a weather/turnaround decision at the summit area, and the descent; do not spend an activity bullet on generic sightseeing.
 - For a day hike, use one full-route time when a round-trip reference exists. Otherwise give one approximate full-outing range unless separate ascent and descent times are both sourced; do not split one unsourced hike into arbitrary time bands that look additive.
-- Keep travel days distinct from hiking days. Name the known destination or trailhead, but do not guess transport mode, drive duration, or a same-day return to the origin. If return travel does not fit, schedule it on a later day or state that the plan ends at the destination.
+- Keep any locally relevant access days distinct from hiking days. Name a supplied destination or trailhead, but do not guess transport mode, drive duration, or travel from a home city.
 - Remove vague filler such as “sightseeing and resting as weather permits” from a summit day. Explain the actual route progression, summit/turnaround decision, descent, and overnight location.
 - For summit goals describe preparation, approach, rest/acclimatization where relevant, ascent opportunity, and descent.
 - For trek goals focus on trail progression, recovery, and return; do not imply a summit attempt.

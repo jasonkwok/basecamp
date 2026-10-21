@@ -43,7 +43,7 @@ export default function MovementTimes({
                 {timing
                   ? `${timing.minHours}–${timing.maxHours} hours · ${timing.scope}`
                   : estimatedTime
-                    ? `Approx. ${estimatedTime.replace("-", "–")} hours · planning estimate`
+                    ? `Approx. ${estimatedTime.replace("-", "–")} hours`
                     : "Timing unavailable · confirm with your guide"}
               </span>
               {timing ? (

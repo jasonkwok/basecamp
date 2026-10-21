@@ -71,11 +71,6 @@ export const tripTimingSchema = z.discriminatedUnion("kind", [
 export const tripInputSchema = z
   .object({
     mountainId: z.string().min(1).max(80),
-    origin: z
-      .string()
-      .trim()
-      .min(3, "Enter your departure city and country.")
-      .max(120),
     timing: tripTimingSchema,
     travelers: z.number().int().min(1).max(12),
     objective: z.enum(["visit", "trek", "summit"]),

@@ -76,7 +76,6 @@ export default function TripPlannerForm({
 function readTripInput(fields: FormData, mountainId: string): TripInput {
   return {
     mountainId,
-    origin: String(fields.get("origin")),
     timing: readTripTiming(fields),
     travelers: Number(fields.get("travelers")),
     objective: fields.get("objective") as TripInput["objective"],

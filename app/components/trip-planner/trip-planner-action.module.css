@@ -1,6 +1,6 @@
 .action {
   position: absolute;
-  top: max(152px, calc(env(safe-area-inset-top) + 128px));
+  top: max(132px, calc(env(safe-area-inset-top) + 108px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;
@@ -43,7 +43,7 @@
 }
 @media (max-width: 640px) {
   .action {
-    top: max(124px, calc(env(safe-area-inset-top) + 108px));
+    top: max(108px, calc(env(safe-area-inset-top) + 92px));
     width: calc(100% - 32px);
     min-height: 76px;
     padding: 16px 18px;

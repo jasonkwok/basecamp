@@ -19,11 +19,15 @@ import {
   tripInputSchema,
   tripPlanSchema,
 } from "../app/lib/trip-planner/schema.ts";
+import { createMockItinerary } from "../app/lib/trip-planner/mock-itinerary.ts";
+import {
+  buildItineraryMarkdown,
+  itineraryMarkdownFilename,
+} from "../app/components/trip-planner/itinerary-markdown.ts";
 
 const year = new Date().getUTCFullYear() + 1;
 const input = {
   mountainId: "table-mountain",
-  origin: "London, UK",
   timing: {
     kind: "exact",
     departureDate: `${year}-05-01`,
@@ -35,6 +39,65 @@ const input = {
   currency: "GBP",
   budget: { kind: "unknown" },
 };
+
+test("Markdown export includes trip details, schedule, warnings, and equipment", () => {
+  const summit = catalog.find((mountain) => mountain.id === input.mountainId);
+  const plan = createMockItinerary(input, summit, [
+    `${year}-05-01`,
+    `${year}-05-02`,
+  ], 2);
+  const markdown = buildItineraryMarkdown({
+    plan,
+    input,
+    summit,
+    equipment: {
+      mustHave: ["Waterproof hiking boots"],
+      importantToHave: ["Trekking poles"],
+      niceToHave: [],
+    },
+  });
+
+  assert.match(markdown, /^# Table Mountain adventure plan/m);
+  assert.doesNotMatch(markdown, /London|\*\*From:\*\*/);
+  assert.match(markdown, /## Warnings/);
+  assert.match(markdown, /### Day 1 ·/);
+  assert.match(markdown, /Typical temperature/);
+  assert.match(markdown, /Approx\. 3–4 hours/);
+  assert.doesNotMatch(markdown, /planning estimate/);
+  assert.match(markdown, /Waterproof hiking boots/);
+  assert.match(markdown, /AI-generated planning draft/);
+});
+
+test("long phase exports include exact dates when available", () => {
+  const summit = catalog.find((mountain) => mountain.id === "mount-washington");
+  const phaseInput = {
+    ...input,
+    mountainId: summit.id,
+    timing: { kind: "recommended", durationDays: 30 },
+    objective: "summit",
+  };
+  const dates = Array.from({ length: 30 }, (_, index) => {
+    const date = new Date(Date.UTC(year, 4, 1 + index));
+    return date.toISOString().slice(0, 10);
+  });
+  const plan = createMockItinerary(phaseInput, summit, dates, dates.length);
+  const markdown = buildItineraryMarkdown({
+    plan,
+    input: phaseInput,
+    summit,
+    equipment: { mustHave: [], importantToHave: [], niceToHave: [] },
+  });
+
+  assert.match(markdown, /### Weeks? \d+.*Days \d+–\d+ · May/);
+});
+
+test("itinerary export filename is a safe mountain-name slug", () => {
+  assert.equal(
+    itineraryMarkdownFilename("Aoraki / Mount Cook"),
+    "aoraki-mount-cook-itinerary.md",
+  );
+  assert.equal(itineraryMarkdownFilename("雪山"), "trip-itinerary.md");
+});
 
 test("unknown budget is valid without an amount; known budget requires a positive amount", () => {
   assert.equal(tripInputSchema.safeParse(input).success, true);
@@ -80,7 +143,6 @@ test("rejects impossible or past dates and malformed trip parameters", () => {
     { travelers: 0 },
     { travelers: 1.5 },
     { travelers: 13 },
-    { origin: "  " },
     { currency: "made-up" },
     { objective: "instructions" },
   ]) {
@@ -304,6 +366,28 @@ test("beginners requesting Everest's summit receive a critical warning and no as
     importantToHave: [],
     niceToHave: [],
   });
+});
+
+test("Annapurna I blocks a beginner summit request but allows expert planning", () => {
+  const annapurna = catalog.find((entry) => entry.id === "annapurna-i");
+  const beginnerWarning = assessTripSuitability(
+    { objective: "summit", experience: "beginner" },
+    annapurna,
+  );
+
+  assert.equal(beginnerWarning.severity, "critical");
+  assert.match(beginnerWarning.message, /should not attempt to summit Annapurna I/);
+  const beginnerPlan = createUnsuitableTripPlan(beginnerWarning, []);
+  assert.equal(beginnerPlan.itinerary.status, "needs-changes");
+  assert.deepEqual(beginnerPlan.itinerary.days, []);
+  assert.deepEqual(beginnerPlan.itinerary.phases, []);
+  assert.equal(
+    assessTripSuitability(
+      { objective: "summit", experience: "expert" },
+      annapurna,
+    ),
+    null,
+  );
 });
 
 test("high-altitude trekking experience does not bypass technical or extreme summit checks", () => {

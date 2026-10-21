@@ -6,6 +6,7 @@
       "name": "Everest",
       "region": "Asia",
       "tags": [
+        "popular",
         "seven-summits",
         "eight-thousander"
       ],
@@ -48,6 +49,7 @@
       "name": "Aconcagua",
       "region": "South America",
       "tags": [
+        "popular",
         "seven-summits"
       ],
       "coordinates": {
@@ -93,6 +95,7 @@
       "name": "Denali",
       "region": "North America",
       "tags": [
+        "popular",
         "seven-summits"
       ],
       "coordinates": {
@@ -134,6 +137,7 @@
       "name": "Kilimanjaro",
       "region": "Africa",
       "tags": [
+        "popular",
         "seven-summits",
         "volcano",
         "trekking"
@@ -303,6 +307,7 @@
       "name": "K2",
       "region": "Asia",
       "tags": [
+        "popular",
         "eight-thousander",
         "technical-climb"
       ],
@@ -953,7 +958,6 @@
       "name": "Eiger",
       "region": "Europe",
       "tags": [
-        "popular",
         "technical-climb"
       ],
       "coordinates": {
@@ -1148,7 +1152,6 @@
       "name": "Mount Rinjani",
       "region": "Asia",
       "tags": [
-        "popular",
         "volcano",
         "trekking"
       ],
@@ -1187,7 +1190,6 @@
       "name": "Mount Bromo",
       "region": "Asia",
       "tags": [
-        "popular",
         "volcano",
         "trekking"
       ],
@@ -1226,7 +1228,6 @@
       "name": "Fansipan",
       "region": "Asia",
       "tags": [
-        "popular",
         "trekking"
       ],
       "coordinates": {
@@ -1264,7 +1265,6 @@
       "name": "Mount Olympus",
       "region": "Europe",
       "tags": [
-        "popular",
         "volcano",
         "trekking",
         "cultural-site"
@@ -1342,7 +1342,6 @@
       "name": "Mount Kenya",
       "region": "Africa",
       "tags": [
-        "popular",
         "technical-climb"
       ],
       "coordinates": {
@@ -1380,7 +1379,6 @@
       "name": "Mount Damavand",
       "region": "Asia",
       "tags": [
-        "popular",
         "volcano",
         "cultural-site"
       ],
@@ -1419,7 +1417,6 @@
       "name": "Mount Ararat",
       "region": "Asia",
       "tags": [
-        "popular",
         "volcano",
         "cultural-site"
       ],
@@ -1496,7 +1493,6 @@
       "name": "Mount Kosciuszko",
       "region": "Oceania",
       "tags": [
-        "popular",
         "trekking"
       ],
       "coordinates": {
@@ -1534,7 +1530,6 @@
       "name": "Ben Nevis",
       "region": "Europe",
       "tags": [
-        "popular",
         "trekking"
       ],
       "coordinates": {
@@ -1572,7 +1567,6 @@
       "name": "Table Mountain",
       "region": "Africa",
       "tags": [
-        "popular",
         "trekking"
       ],
       "coordinates": {
@@ -1659,7 +1653,6 @@
         "latitude": -13.156
       },
       "tags": [
-        "popular",
         "cultural-site"
       ],
       "description": "The distinctive steep peak rising behind the terraces of Machu Picchu.",
@@ -1697,7 +1690,6 @@
         "latitude": 19.03
       },
       "tags": [
-        "popular",
         "volcano",
         "technical-climb"
       ],
@@ -1736,7 +1728,6 @@
         "latitude": 19.179
       },
       "tags": [
-        "popular",
         "volcano",
         "trekking"
       ],
@@ -1775,7 +1766,6 @@
         "latitude": 19.109
       },
       "tags": [
-        "popular",
         "volcano",
         "trekking"
       ],
@@ -1853,7 +1843,6 @@
         "latitude": -1.469
       },
       "tags": [
-        "popular",
         "volcano",
         "technical-climb"
       ],
@@ -1892,7 +1881,6 @@
         "latitude": -16.2625
       },
       "tags": [
-        "popular",
         "technical-climb"
       ],
       "description": "A dramatic snow peak near La Paz, towering over the Bolivian Altiplano.",
@@ -1930,7 +1918,6 @@
         "latitude": -8.879
       },
       "tags": [
-        "popular",
         "technical-climb"
       ],
       "description": "A sharply fluted ice pyramid in Peru’s Cordillera Blanca.",
@@ -1968,7 +1955,6 @@
         "latitude": -9.121
       },
       "tags": [
-        "popular",
         "technical-climb"
       ],
       "description": "Peru’s highest mountain, with two snowy summits above the Callejón de Huaylas.",
@@ -2006,7 +1992,6 @@
         "latitude": -13.789
       },
       "tags": [
-        "popular",
         "technical-climb"
       ],
       "description": "A sacred glaciated massif above colourful lakes in the Vilcanota range.",
@@ -2044,7 +2029,6 @@
         "latitude": 27.861
       },
       "tags": [
-        "popular",
         "technical-climb"
       ],
       "description": "A striking Himalayan pyramid overlooking the Khumbu valley.",
@@ -2082,7 +2066,6 @@
         "latitude": 27.921
       },
       "tags": [
-        "popular",
         "technical-climb"
       ],
       "description": "Also called Imja Tse, this snowy summit rises like an island among Khumbu glaciers.",
@@ -2120,7 +2103,6 @@
         "latitude": 27.70917
       },
       "tags": [
-        "popular",
         "technical-climb"
       ],
       "description": "A high trekking peak with expansive views across Nepal’s eastern Himalaya.",
@@ -2158,7 +2140,6 @@
         "latitude": -8.242
       },
       "tags": [
-        "popular",
         "volcano"
       ],
       "description": "A volcanic cone inside a vast caldera overlooking Lake Batur in Bali.",
@@ -2196,7 +2177,6 @@
         "latitude": -8.343
       },
       "tags": [
-        "popular",
         "volcano",
         "trekking"
       ],
@@ -2235,7 +2215,6 @@
         "latitude": -8.108
       },
       "tags": [
-        "popular",
         "volcano",
         "trekking"
       ],
@@ -2274,7 +2253,6 @@
         "latitude": -1.697
       },
       "tags": [
-        "popular",
         "volcano",
         "trekking"
       ],
@@ -2313,7 +2291,6 @@
         "latitude": 23.47
       },
       "tags": [
-        "popular",
         "volcano"
       ],
       "description": "Taiwan’s highest peak, also known as Jade Mountain.",
@@ -2351,7 +2328,6 @@
         "latitude": 16.597
       },
       "tags": [
-        "popular",
         "trekking"
       ],
       "description": "A Luzon summit known for grassy slopes and cloud-filled valleys.",
@@ -2389,7 +2365,6 @@
         "latitude": 6.988
       },
       "tags": [
-        "popular",
         "trekking"
       ],
       "description": "The highest mountain in the Philippines, rising above Mindanao.",
@@ -2427,7 +2402,6 @@
         "latitude": 33.362
       },
       "tags": [
-        "popular",
         "volcano",
         "trekking"
       ],
@@ -2466,7 +2440,6 @@
         "latitude": 38.119
       },
       "tags": [
-        "popular",
         "trekking"
       ],
       "description": "Granite ridges and forested valleys surround this celebrated Korean mountain.",
@@ -2504,7 +2477,6 @@
         "latitude": 41.409
       },
       "tags": [
-        "popular",
         "volcano",
         "technical-climb"
       ],
@@ -2543,7 +2515,6 @@
         "latitude": 45.374
       },
       "tags": [
-        "popular",
         "volcano",
         "technical-climb"
       ],
@@ -2582,7 +2553,6 @@
         "latitude": 48.777
       },
       "tags": [
-        "popular",
         "volcano",
         "technical-climb"
       ],
@@ -2621,7 +2591,6 @@
         "latitude": 38.841
       },
       "tags": [
-        "popular",
         "trekking"
       ],
       "description": "A prominent Colorado fourteener above Colorado Springs.",
@@ -2659,7 +2628,6 @@
         "latitude": 40.255
       },
       "tags": [
-        "popular",
         "technical-climb"
       ],
       "description": "A sheer-faced Rocky Mountain summit above Colorado’s alpine lakes.",
@@ -2697,7 +2665,6 @@
         "latitude": 43.741
       },
       "tags": [
-        "popular",
         "technical-climb"
       ],
       "description": "The jagged centrepiece of Wyoming’s Teton Range.",
@@ -2735,7 +2702,6 @@
         "latitude": 44.27
       },
       "tags": [
-        "popular",
         "trekking",
         "technical-climb"
       ],
@@ -2761,6 +2727,1134 @@
         "basis": "editorial",
         "context": "Typical route itinerary; international travel and any prior acclimatization excluded.",
         "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Washington"
+      }
+    },
+    {
+      "id": "mount-logan",
+      "name": "Mount Logan",
+      "region": "North America",
+      "tags": [
+        "technical-climb"
+      ],
+      "coordinates": {
+        "longitude": -140.405,
+        "latitude": 60.567
+      },
+      "location": "Canada · Yukon",
+      "elevationMeters": 5959,
+      "description": "The highest mountain in Canada, rising in the Saint Elias Mountains near the Alaska border.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Logan"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "King Trench route",
+        "rationale": "A high, remote glaciated expedition requiring glacier travel, crevasse-rescue skills and a long weather window.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Logan",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 20,
+        "maxDays": 30,
+        "basis": "editorial",
+        "context": "A high, remote glaciated expedition requiring glacier travel, crevasse-rescue skills and a long weather window.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Logan"
+      }
+    },
+    {
+      "id": "mount-kazbek",
+      "name": "Mount Kazbek",
+      "region": "Asia",
+      "tags": [
+        "volcano",
+        "technical-climb"
+      ],
+      "coordinates": {
+        "longitude": 44.519,
+        "latitude": 42.697
+      },
+      "location": "Georgia · Caucasus",
+      "elevationMeters": 5054,
+      "description": "A prominent glaciated volcano on the Georgia–Russia border and one of the Caucasus’s best-known high peaks.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Kazbek"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Gergeti Glacier route",
+        "rationale": "Glacier travel, crevasse hazards and high-altitude weather make this a serious mountaineering objective.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Kazbek",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 5,
+        "maxDays": 8,
+        "basis": "editorial",
+        "context": "Glacier travel, crevasse hazards and high-altitude weather make this a serious mountaineering objective.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Kazbek"
+      }
+    },
+    {
+      "id": "triglav",
+      "name": "Mount Triglav",
+      "region": "Europe",
+      "tags": [
+        "technical-climb",
+        "cultural-site"
+      ],
+      "coordinates": {
+        "longitude": 13.836,
+        "latitude": 46.378
+      },
+      "location": "Slovenia · Julian Alps",
+      "elevationMeters": 2864,
+      "description": "Slovenia’s highest mountain and a defining summit of the Julian Alps.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Triglav"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Prag route from Vrata Valley",
+        "rationale": "A long alpine day with steep, exposed scrambling and protected sections; via ferrata equipment and experience are commonly needed.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Triglav",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "A long alpine day with steep, exposed scrambling and protected sections; via ferrata equipment and experience are commonly needed.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Triglav"
+      }
+    },
+    {
+      "id": "mount-etna",
+      "name": "Mount Etna",
+      "region": "Europe",
+      "tags": [
+        "volcano",
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": 14.996,
+        "latitude": 37.751
+      },
+      "location": "Italy · Sicily",
+      "elevationMeters": 3403,
+      "description": "Europe’s highest active volcano, with summit terrain reshaped by frequent eruptions.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Etna"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "intermediate",
+        "ascent": "Guided summit-area trek",
+        "rationale": "Volcanic ash, loose ground and changing access restrictions make a guided route and current local conditions important.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Etna",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 2,
+        "basis": "editorial",
+        "context": "Volcanic ash, loose ground and changing access restrictions make a guided route and current local conditions important.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Etna"
+      }
+    },
+    {
+      "id": "mount-meru",
+      "name": "Mount Meru",
+      "region": "Africa",
+      "tags": [
+        "volcano",
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": 36.746,
+        "latitude": -3.246
+      },
+      "location": "Tanzania · Arusha Region",
+      "elevationMeters": 4566,
+      "description": "A steep volcanic peak inside Arusha National Park, often climbed as a high-altitude trek.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Meru_(Tanzania)"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Momella Gate route",
+        "rationale": "A multi-day ascent through forest and open ridges, with a night summit push and substantial altitude gain.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Meru_(Tanzania)",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 4,
+        "maxDays": 5,
+        "basis": "editorial",
+        "context": "A multi-day ascent through forest and open ridges, with a night summit push and substantial altitude gain.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Meru_(Tanzania)"
+      }
+    },
+    {
+      "id": "mount-cameroon",
+      "name": "Mount Cameroon",
+      "region": "Africa",
+      "tags": [
+        "volcano",
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": 9.17,
+        "latitude": 4.203
+      },
+      "location": "Cameroon · Southwest Region",
+      "elevationMeters": 4040,
+      "description": "An active volcano and West Africa’s highest peak, rising above the Gulf of Guinea.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Cameroon"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Buea summit route",
+        "rationale": "A strenuous ascent through changing rainforest, grassland and volcanic terrain; weather and route conditions can shift quickly.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Cameroon",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "A strenuous ascent through changing rainforest, grassland and volcanic terrain; weather and route conditions can shift quickly.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Cameroon"
+      }
+    },
+    {
+      "id": "mount-roraima",
+      "name": "Mount Roraima",
+      "region": "South America",
+      "tags": [
+        "trekking",
+        "cultural-site"
+      ],
+      "coordinates": {
+        "longitude": -60.845,
+        "latitude": 5.143
+      },
+      "location": "Venezuela · Guyana · Brazil",
+      "elevationMeters": 2810,
+      "description": "A steep-sided tepui whose broad summit plateau sits at the meeting point of three countries.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Roraima"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Paratepui trekking route",
+        "rationale": "The standard approach is a multi-day trek followed by a steep rocky ascent to the plateau; the exposed terrain is often wet.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Roraima",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 6,
+        "maxDays": 8,
+        "basis": "editorial",
+        "context": "The standard approach is a multi-day trek followed by a steep rocky ascent to the plateau; the exposed terrain is often wet.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Roraima"
+      }
+    },
+    {
+      "id": "aneto",
+      "name": "Aneto",
+      "region": "Europe",
+      "tags": [
+        "technical-climb"
+      ],
+      "coordinates": {
+        "longitude": 0.656,
+        "latitude": 42.632
+      },
+      "location": "Spain · Pyrenees",
+      "elevationMeters": 3404,
+      "description": "The highest summit in the Pyrenees, with a glaciated upper route and an exposed summit ridge.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Aneto"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Renclusa Refuge route",
+        "rationale": "The usual ascent crosses glacier terrain and the exposed Mahomet Bridge; crampons, an ice axe and glacier skills are needed in appropriate conditions.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Aneto",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "The usual ascent crosses glacier terrain and the exposed Mahomet Bridge; crampons, an ice axe and glacier skills are needed in appropriate conditions.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Aneto"
+      }
+    },
+    {
+      "id": "gran-paradiso",
+      "name": "Gran Paradiso",
+      "region": "Europe",
+      "tags": [
+        "technical-climb"
+      ],
+      "coordinates": {
+        "longitude": 7.27,
+        "latitude": 45.52
+      },
+      "location": "Italy · Graian Alps",
+      "elevationMeters": 4061,
+      "description": "The highest mountain entirely within Italy and a classic introductory Alpine summit for experienced hikers.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Gran_Paradiso"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Refuge Vittorio Emanuele II route",
+        "rationale": "The standard route crosses a glacier before a short exposed scramble near the summit; rope and glacier equipment are required.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Gran_Paradiso",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "The standard route crosses a glacier before a short exposed scramble near the summit; rope and glacier equipment are required.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Gran_Paradiso"
+      }
+    },
+    {
+      "id": "grossglockner",
+      "name": "Grossglockner",
+      "region": "Europe",
+      "tags": [
+        "technical-climb"
+      ],
+      "coordinates": {
+        "longitude": 12.693,
+        "latitude": 47.074
+      },
+      "location": "Austria · Hohe Tauern",
+      "elevationMeters": 3798,
+      "description": "Austria’s highest mountain, climbed by glaciated routes to a narrow, exposed summit ridge.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Grossglockner"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Normal route via Stüdlhütte",
+        "rationale": "A technical high-alpine climb involving glacier travel, fixed protection and exposed scrambling; guided or equivalent team skills are essential.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Grossglockner",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 2,
+        "maxDays": 3,
+        "basis": "editorial",
+        "context": "A technical high-alpine climb involving glacier travel, fixed protection and exposed scrambling; guided or equivalent team skills are essential.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Grossglockner"
+      }
+    },
+    {
+      "id": "mount-teide",
+      "name": "Mount Teide",
+      "region": "Europe",
+      "tags": [
+        "volcano",
+        "trekking",
+        "cultural-site"
+      ],
+      "coordinates": {
+        "longitude": -16.642,
+        "latitude": 28.272
+      },
+      "location": "Spain · Tenerife",
+      "elevationMeters": 3715,
+      "description": "A volcanic summit on Tenerife and the highest point in Spain.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Teide"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "intermediate",
+        "ascent": "Montaña Blanca route",
+        "rationale": "The long, steep route crosses high volcanic terrain; summit access may require a permit and altitude can affect visitors.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Teide",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 2,
+        "basis": "editorial",
+        "context": "The long, steep route crosses high volcanic terrain; summit access may require a permit and altitude can affect visitors.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Teide"
+      }
+    },
+    {
+      "id": "mount-elgon",
+      "name": "Mount Elgon",
+      "region": "Africa",
+      "tags": [
+        "volcano",
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": 34.533,
+        "latitude": 1.12
+      },
+      "location": "Uganda · Kenya",
+      "elevationMeters": 4321,
+      "description": "An ancient extinct volcano with a broad caldera on the Uganda–Kenya border.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Elgon"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Sasa or Sipi trail",
+        "rationale": "A multi-day trek through forest and moorland to the caldera rim, with wet conditions and limited facilities along the route.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Elgon",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 4,
+        "maxDays": 6,
+        "basis": "editorial",
+        "context": "A multi-day trek through forest and moorland to the caldera rim, with wet conditions and limited facilities along the route.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Elgon"
+      }
+    },
+    {
+      "id": "mount-stanley",
+      "name": "Mount Stanley",
+      "region": "Africa",
+      "tags": [
+        "technical-climb"
+      ],
+      "coordinates": {
+        "longitude": 29.871,
+        "latitude": 0.383
+      },
+      "location": "Uganda · Democratic Republic of the Congo",
+      "elevationMeters": 5109,
+      "description": "The highest peak of the Rwenzori Mountains, on the rugged border between Uganda and the Democratic Republic of the Congo.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Stanley"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Margherita Peak route",
+        "rationale": "A multi-day expedition through wet, remote terrain culminating in glacier travel and technical climbing.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Stanley",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 7,
+        "maxDays": 10,
+        "basis": "editorial",
+        "context": "A multi-day expedition through wet, remote terrain culminating in glacier travel and technical climbing.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Stanley"
+      }
+    },
+    {
+      "id": "pico",
+      "name": "Mount Pico",
+      "region": "Europe",
+      "tags": [
+        "volcano",
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": -28.392,
+        "latitude": 38.468
+      },
+      "location": "Portugal · Azores",
+      "elevationMeters": 2351,
+      "description": "A steep stratovolcano forming Portugal’s highest point on Pico Island in the Azores.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Mount_Pico"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Casa da Montanha route",
+        "rationale": "The marked summit route climbs steep volcanic ground; registration is required and weather can change rapidly.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Pico",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 2,
+        "basis": "editorial",
+        "context": "The marked summit route climbs steep volcanic ground; registration is required and weather can change rapidly.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mount_Pico"
+      }
+    },
+    {
+      "id": "paektu",
+      "name": "Paektu Mountain",
+      "region": "Asia",
+      "tags": [
+        "volcano",
+        "cultural-site"
+      ],
+      "coordinates": {
+        "longitude": 128.078,
+        "latitude": 41.993
+      },
+      "location": "North Korea · China",
+      "elevationMeters": 2744,
+      "description": "A major volcanic peak on the China–North Korea border, known for its large summit caldera lake.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Paektu_Mountain"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "intermediate",
+        "ascent": "North slope visitor route",
+        "rationale": "Visitor access is controlled and route availability depends on local access rules; this entry describes the mountain destination, not an independent wilderness climb.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Paektu_Mountain",
+        "ratingType": "editorial"
+      },
+      "kind": "mountain",
+      "tripLength": {
+        "minDays": 1,
+        "maxDays": 2,
+        "basis": "editorial",
+        "context": "Visitor access is controlled and route availability depends on local access rules; this entry describes the mountain destination, not an independent wilderness climb.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Paektu_Mountain"
+      }
+    },
+    {
+      "id": "tour-du-mont-blanc",
+      "name": "Tour du Mont Blanc",
+      "region": "Europe",
+      "tags": [
+        "popular",
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": 6.87,
+        "latitude": 45.89
+      },
+      "location": "France · Italy · Switzerland",
+      "elevationMeters": 2665,
+      "description": "A 170-kilometre circuit linking alpine valleys and high passes around the Mont Blanc massif.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://www.montourdumontblanc.com/en/"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Classic Tour du Mont Blanc circuit",
+        "rationale": "A demanding hut-to-hut trek with repeated climbs and descents across high passes; stages and rest days vary by itinerary.",
+        "sourceUrl": "https://www.montourdumontblanc.com/en/",
+        "ratingType": "editorial"
+      },
+      "kind": "destination",
+      "tripLength": {
+        "minDays": 7,
+        "maxDays": 12,
+        "basis": "editorial",
+        "context": "A demanding hut-to-hut trek with repeated climbs and descents across high passes; stages and rest days vary by itinerary.",
+        "sourceUrl": "https://www.montourdumontblanc.com/en/"
+      }
+    },
+    {
+      "id": "west-coast-trail",
+      "name": "West Coast Trail",
+      "region": "North America",
+      "tags": [
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": -125.76,
+        "latitude": 48.63
+      },
+      "location": "Canada · Vancouver Island",
+      "elevationMeters": 200,
+      "description": "A rugged coastal backcountry route through Pacific Rim National Park Reserve on Vancouver Island.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://parks.canada.ca/pn-np/bc/pacificrim/activ/sco-wct"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Pachena Bay to Gordon River",
+        "rationale": "The 75-kilometre route typically takes 6–8 days and includes ladders, bridges, tides and wet coastal terrain; permits and orientation are required.",
+        "sourceUrl": "https://parks.canada.ca/pn-np/bc/pacificrim/activ/sco-wct",
+        "ratingType": "editorial"
+      },
+      "kind": "destination",
+      "tripLength": {
+        "minDays": 6,
+        "maxDays": 8,
+        "basis": "editorial",
+        "context": "The 75-kilometre route typically takes 6–8 days and includes ladders, bridges, tides and wet coastal terrain; permits and orientation are required.",
+        "sourceUrl": "https://parks.canada.ca/pn-np/bc/pacificrim/activ/sco-wct"
+      }
+    },
+    {
+      "id": "milford-track",
+      "name": "Milford Track",
+      "region": "Oceania",
+      "tags": [
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": 167.769,
+        "latitude": -44.846
+      },
+      "location": "New Zealand · Fiordland",
+      "elevationMeters": 1154,
+      "description": "A 53.5-kilometre Great Walk through Fiordland valleys, rainforest and alpine passes.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://www.doc.govt.nz/milfordtrack"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "intermediate",
+        "ascent": "Glade Wharf to Sandfly Point",
+        "rationale": "The one-way track is walked over three nights and four days, with booked huts and boat transfers at both ends.",
+        "sourceUrl": "https://www.doc.govt.nz/milfordtrack",
+        "ratingType": "editorial"
+      },
+      "kind": "destination",
+      "tripLength": {
+        "minDays": 4,
+        "maxDays": 4,
+        "basis": "editorial",
+        "context": "The one-way track is walked over three nights and four days, with booked huts and boat transfers at both ends.",
+        "sourceUrl": "https://www.doc.govt.nz/milfordtrack"
+      }
+    },
+    {
+      "id": "laugavegur-trail",
+      "name": "Laugavegur Trail",
+      "region": "Europe",
+      "tags": [
+        "trekking",
+        "volcano"
+      ],
+      "coordinates": {
+        "longitude": -19.061,
+        "latitude": 63.99
+      },
+      "location": "Iceland · Southern Highlands",
+      "elevationMeters": 1050,
+      "description": "A highland route from Landmannalaugar to Þórsmörk through geothermal valleys, lava fields and glacial landscapes.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://www.fi.is/en/hiking-trails/trails/view/laugavegur"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Landmannalaugar to Þórsmörk",
+        "rationale": "The 54-kilometre route is commonly walked in four days between booked huts or campsites; river crossings and exposed weather require preparation.",
+        "sourceUrl": "https://www.fi.is/en/hiking-trails/trails/view/laugavegur",
+        "ratingType": "editorial"
+      },
+      "kind": "destination",
+      "tripLength": {
+        "minDays": 3,
+        "maxDays": 4,
+        "basis": "editorial",
+        "context": "The 54-kilometre route is commonly walked in four days between booked huts or campsites; river crossings and exposed weather require preparation.",
+        "sourceUrl": "https://www.fi.is/en/hiking-trails/trails/view/laugavegur"
+      }
+    },
+    {
+      "id": "pacific-crest-trail",
+      "name": "Pacific Crest Trail",
+      "region": "North America",
+      "tags": [
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": -120.9,
+        "latitude": 37.1
+      },
+      "location": "United States · Mexico to Canada",
+      "elevationMeters": 3350,
+      "description": "A 2,650-mile National Scenic Trail crossing California, Oregon and Washington between Mexico and Canada.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://www.nps.gov/articles/pct_foundation_document.htm"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Pacific Crest Trail thru-hike",
+        "rationale": "A full end-to-end hike takes several months and crosses multiple climate zones; this planner supports schedules up to 120 days. Section hikes are also common.",
+        "sourceUrl": "https://www.nps.gov/articles/pct_foundation_document.htm",
+        "ratingType": "editorial"
+      },
+      "kind": "destination",
+      "tripLength": {
+        "minDays": 90,
+        "maxDays": 116,
+        "basis": "editorial",
+        "context": "A full end-to-end hike takes several months and crosses multiple climate zones; this planner supports schedules up to 120 days. Section hikes are also common.",
+        "sourceUrl": "https://www.nps.gov/articles/pct_foundation_document.htm"
+      }
+    },
+    {
+      "id": "john-muir-trail",
+      "name": "John Muir Trail",
+      "region": "North America",
+      "tags": [
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": -118.292,
+        "latitude": 36.578
+      },
+      "location": "United States · California",
+      "elevationMeters": 4421,
+      "description": "A 211-mile high-Sierra route from Yosemite Valley to the summit of Mount Whitney.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://www.nps.gov/yose/planyourvisit/jmt.htm"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Happy Isles to Mount Whitney",
+        "rationale": "The high-altitude route crosses remote wilderness and requires permits, resupply planning and sustained backpacking fitness.",
+        "sourceUrl": "https://www.nps.gov/yose/planyourvisit/jmt.htm",
+        "ratingType": "editorial"
+      },
+      "kind": "destination",
+      "tripLength": {
+        "minDays": 14,
+        "maxDays": 24,
+        "basis": "editorial",
+        "context": "The high-altitude route crosses remote wilderness and requires permits, resupply planning and sustained backpacking fitness.",
+        "sourceUrl": "https://www.nps.gov/yose/planyourvisit/jmt.htm"
+      }
+    },
+    {
+      "id": "inca-trail",
+      "name": "Inca Trail to Machu Picchu",
+      "region": "South America",
+      "tags": [
+        "popular",
+        "trekking",
+        "cultural-site"
+      ],
+      "coordinates": {
+        "longitude": -72.545,
+        "latitude": -13.254
+      },
+      "location": "Peru · Cusco Region",
+      "elevationMeters": 4215,
+      "description": "A historic stone-paved route crossing high Andean passes before reaching Machu Picchu.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://www.peru.travel/experiences/trekking-routes-tour"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Classic four-day Inca Trail",
+        "rationale": "The classic route takes four days, reaches 4,215 metres at Dead Woman’s Pass, and requires a regulated permit and licensed guide.",
+        "sourceUrl": "https://www.peru.travel/experiences/trekking-routes-tour",
+        "ratingType": "editorial"
+      },
+      "kind": "destination",
+      "tripLength": {
+        "minDays": 4,
+        "maxDays": 4,
+        "basis": "editorial",
+        "context": "The classic route takes four days, reaches 4,215 metres at Dead Woman’s Pass, and requires a regulated permit and licensed guide.",
+        "sourceUrl": "https://www.peru.travel/experiences/trekking-routes-tour"
+      }
+    },
+    {
+      "id": "appalachian-trail",
+      "name": "Appalachian Trail",
+      "region": "North America",
+      "tags": [
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": -75.8,
+        "latitude": 41.2
+      },
+      "location": "United States · Georgia to Maine",
+      "elevationMeters": 2025,
+      "description": "A roughly 2,190-mile footpath following the Appalachian Mountain ridgeline from Georgia to Maine.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://www.nps.gov/appa/planyourvisit/index.htm"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Appalachian Trail thru-hike",
+        "rationale": "A continuous end-to-end hike takes several months; this planner supports schedules up to 120 days. Hikers can also plan shorter sections from many access points.",
+        "sourceUrl": "https://www.nps.gov/appa/planyourvisit/index.htm",
+        "ratingType": "editorial"
+      },
+      "kind": "destination",
+      "tripLength": {
+        "minDays": 90,
+        "maxDays": 116,
+        "basis": "editorial",
+        "context": "A continuous end-to-end hike takes several months; this planner supports schedules up to 120 days. Hikers can also plan shorter sections from many access points.",
+        "sourceUrl": "https://www.nps.gov/appa/planyourvisit/index.htm"
+      }
+    },
+    {
+      "id": "annapurna-circuit",
+      "name": "Annapurna Circuit",
+      "region": "Asia",
+      "tags": [
+        "popular",
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": 83.95,
+        "latitude": 28.75
+      },
+      "location": "Nepal · Gandaki Province",
+      "elevationMeters": 5416,
+      "description": "A Himalayan trekking route circling the Annapurna massif and crossing the high Thorong La pass.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Annapurna_Circuit"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Besisahar to Jomsom variant",
+        "rationale": "A high-altitude trek whose duration depends on road access and side trips; acclimatization is important before crossing Thorong La.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Annapurna_Circuit",
+        "ratingType": "editorial"
+      },
+      "kind": "destination",
+      "tripLength": {
+        "minDays": 12,
+        "maxDays": 18,
+        "basis": "editorial",
+        "context": "A high-altitude trek whose duration depends on road access and side trips; acclimatization is important before crossing Thorong La.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Annapurna_Circuit"
+      }
+    },
+    {
+      "id": "everest-base-camp-trek",
+      "name": "Everest Base Camp Trek",
+      "region": "Asia",
+      "tags": [
+        "popular",
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": 86.85,
+        "latitude": 28
+      },
+      "location": "Nepal · Khumbu",
+      "elevationMeters": 5364,
+      "description": "A high-altitude trekking route through Sherpa villages and the Khumbu Valley to the south-side Everest Base Camp.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Everest_Base_Camp_Trek"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Lukla to Everest Base Camp",
+        "rationale": "The standard round trip from Lukla takes roughly two weeks, with acclimatization days on the ascent and a return through the same valley.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Everest_Base_Camp_Trek",
+        "ratingType": "editorial"
+      },
+      "kind": "destination",
+      "tripLength": {
+        "minDays": 12,
+        "maxDays": 16,
+        "basis": "editorial",
+        "context": "The standard round trip from Lukla takes roughly two weeks, with acclimatization days on the ascent and a return through the same valley.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Everest_Base_Camp_Trek"
+      }
+    },
+    {
+      "id": "camino-frances",
+      "name": "Camino Francés",
+      "region": "Europe",
+      "tags": [
+        "trekking",
+        "cultural-site"
+      ],
+      "coordinates": {
+        "longitude": -5.58,
+        "latitude": 42.88
+      },
+      "location": "France · Spain",
+      "elevationMeters": 1505,
+      "description": "The best-known Camino de Santiago route, crossing northern Spain from Saint-Jean-Pied-de-Port to Santiago de Compostela.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Camino_de_Santiago"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Saint-Jean-Pied-de-Port to Santiago",
+        "rationale": "The approximately 780-kilometre pilgrimage is commonly walked in stages over several weeks; daily distances and rest days are personal choices.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Camino_de_Santiago",
+        "ratingType": "editorial"
+      },
+      "kind": "destination",
+      "tripLength": {
+        "minDays": 30,
+        "maxDays": 35,
+        "basis": "editorial",
+        "context": "The approximately 780-kilometre pilgrimage is commonly walked in stages over several weeks; daily distances and rest days are personal choices.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Camino_de_Santiago"
+      }
+    },
+    {
+      "id": "torres-del-paine-w-trek",
+      "name": "W Trek · Torres del Paine",
+      "region": "South America",
+      "tags": [
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": -73.05,
+        "latitude": -50.95
+      },
+      "location": "Chile · Magallanes",
+      "elevationMeters": 1200,
+      "description": "A multi-day route through Torres del Paine National Park linking the park’s signature valleys, glaciers and granite towers.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Torres_del_Paine_National_Park"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Classic W circuit",
+        "rationale": "The route usually takes four to five walking days, with reserved refuges or campsites and changeable Patagonian weather.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Torres_del_Paine_National_Park",
+        "ratingType": "editorial"
+      },
+      "kind": "destination",
+      "tripLength": {
+        "minDays": 4,
+        "maxDays": 5,
+        "basis": "editorial",
+        "context": "The route usually takes four to five walking days, with reserved refuges or campsites and changeable Patagonian weather.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Torres_del_Paine_National_Park"
+      }
+    },
+    {
+      "id": "gr20",
+      "name": "GR20",
+      "region": "Europe",
+      "tags": [
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": 9.15,
+        "latitude": 42.15
+      },
+      "location": "France · Corsica",
+      "elevationMeters": 2225,
+      "description": "A rugged long-distance route traversing Corsica’s mountainous spine from north to south.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/GR_20"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "expert",
+        "ascent": "Calenzana to Conca",
+        "rationale": "The rocky, exposed route is usually completed in around two weeks and demands sure-footed scrambling, fitness and careful weather planning.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/GR_20",
+        "ratingType": "editorial"
+      },
+      "kind": "destination",
+      "tripLength": {
+        "minDays": 12,
+        "maxDays": 16,
+        "basis": "editorial",
+        "context": "The rocky, exposed route is usually completed in around two weeks and demands sure-footed scrambling, fitness and careful weather planning.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/GR_20"
+      }
+    },
+    {
+      "id": "overland-track",
+      "name": "Overland Track",
+      "region": "Oceania",
+      "tags": [
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": 146,
+        "latitude": -41.65
+      },
+      "location": "Australia · Tasmania",
+      "elevationMeters": 1617,
+      "description": "A 65-kilometre alpine walk through Tasmania’s Cradle Mountain–Lake St Clair National Park.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://en.wikipedia.org/wiki/Overland_Track"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Cradle Mountain to Lake St Clair",
+        "rationale": "The standard walk takes six days, with huts and campsites along the route; bookings and preparation for cold, wet weather are essential.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Overland_Track",
+        "ratingType": "editorial"
+      },
+      "kind": "destination",
+      "tripLength": {
+        "minDays": 6,
+        "maxDays": 6,
+        "basis": "editorial",
+        "context": "The standard walk takes six days, with huts and campsites along the route; bookings and preparation for cold, wet weather are essential.",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Overland_Track"
+      }
+    },
+    {
+      "id": "kepler-track",
+      "name": "Kepler Track",
+      "region": "Oceania",
+      "tags": [
+        "trekking"
+      ],
+      "coordinates": {
+        "longitude": 167.61,
+        "latitude": -45.42
+      },
+      "location": "New Zealand · Fiordland",
+      "elevationMeters": 1472,
+      "description": "A 60-kilometre loop through Fiordland beech forest and exposed alpine ridgelines above Lakes Te Anau and Manapouri.",
+      "sources": [
+        {
+          "label": "Mountain or route overview",
+          "url": "https://www.doc.govt.nz/keplertrack"
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "difficulty": {
+        "level": "difficult",
+        "ascent": "Kepler Track circuit",
+        "rationale": "Most walkers complete the loop in three to four days during the Great Walks season; outside it, alpine hazards increase substantially.",
+        "sourceUrl": "https://www.doc.govt.nz/keplertrack",
+        "ratingType": "editorial"
+      },
+      "kind": "destination",
+      "tripLength": {
+        "minDays": 3,
+        "maxDays": 4,
+        "basis": "editorial",
+        "context": "Most walkers complete the loop in three to four days during the Great Walks season; outside it, alpine hazards increase substantially.",
+        "sourceUrl": "https://www.doc.govt.nz/keplertrack"
       }
     }
   ]

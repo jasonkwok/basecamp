@@ -3,22 +3,10 @@ import TripTimingFields from "./trip-timing-fields";
 import TripExperienceFields from "./trip-experience-fields";
 import styles from "./trip-planner.module.css";
 
-// These fields describe the whole trip, including travel from home and back.
+// Collects trip timing, party size, objective, and mountain experience.
 export default function TripDetailsFields({ summit }: { summit: Summit }) {
   return (
     <>
-      <label>
-        Traveling from
-        <input
-          name="origin"
-          placeholder="City and country, e.g. Toronto, Canada"
-          autoComplete="off"
-          minLength={3}
-          maxLength={120}
-          required
-        />
-      </label>
-
       <TripTimingFields tripLength={summit.tripLength} />
 
       <div className={styles.row}>

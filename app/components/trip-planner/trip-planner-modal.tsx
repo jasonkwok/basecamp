@@ -47,7 +47,7 @@ export default function TripPlannerModal({
       }}
     >
       <div className="guide-topline">
-        <span>BASECAMP TRIP PLANNER</span>
+        <span>{summit ? `${summit.name} trip planner` : "Trip planner"}</span>
         <button
           type="button"
           autoFocus
@@ -70,9 +70,9 @@ export default function TripPlannerModal({
         </p>
       ) : null}
       <p id="trip-planner-description">
-        Tell us where you’re coming from. Choose exact dates, a rough window, or
-        let us suggest when to go. We’ll draft a basic itinerary and packing
-        starter list, using the route’s USD budget estimate from Field Notes.
+        Choose exact dates, a rough window, or let us suggest when to go. We’ll
+        draft a mountain itinerary and packing starter list, using the route’s
+        USD budget estimate from Field Notes.
       </p>
 
       {summit ? (

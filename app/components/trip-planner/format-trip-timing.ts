@@ -1,5 +1,8 @@
-import { SEASON_MONTHS, type TripTiming } from "../../lib/trip-planner/schema";
-import { formatTripDate } from "./format-trip-date";
+import {
+  SEASON_MONTHS,
+  type TripTiming,
+} from "../../lib/trip-planner/schema.ts";
+import { formatTripDate } from "./format-trip-date.ts";
 
 export function formatTripTiming(timing: TripTiming): string {
   switch (timing.kind) {

@@ -2,7 +2,7 @@
 
 Status: Explorer implemented; a basic AI-assisted itinerary MVP is now available. The broader itinerary, cost-analysis, and equipment plan below remains the proposed roadmap.
 
-Explorer milestone reference: [map explorer checklist](map-explorer-checklist.md). The current catalog contains 70 entries. Current planner milestone: a form-led, single-request itinerary MVP; the fuller planning workspace remains future work.
+Explorer milestone reference: [map explorer checklist](map-explorer-checklist.md). The current catalog contains 100 entries. Current planner milestone: a form-led, single-request itinerary MVP; the fuller planning workspace remains future work.
 
 Map-specific visual and usability proposals: [map explorer research](map-explorer-research.md), emphasizing a playful storybook atlas and simple exploration controls.
 
@@ -176,7 +176,7 @@ Proposed first version keeps the current draft through modal closure and navigat
 
 ### Current MVP scope
 
-The early-preview modal now asks for departure city/country, adult party size, trip objective, and experience. Budget context comes from a read-only per-person USD estimate in Field Notes. Timing defaults to “Recommend a time for me”, with approximate month, season/months, flexible travel window, and exact travel dates as alternatives. The form shows the mountain’s Field Notes ascent-duration range and context, distinct from total travel time. Days available can be left unknown for flexible plans. Trips support 1–120 days and up to 12 travelers. Daily detail is capped at 21 entries; long trips and multi-week summit expeditions use up to 12 contiguous phases. Each phase has a day range, concise purpose, overnight type, and a decision note. The UI derives provisional week ranges; acclimatization, weather reserves, and a conditional summit opportunity are planning stages, not guaranteed outcomes. Short time windows must not silently compress an expedition.
+The early-preview modal now asks for adult party size, trip objective, and experience. It does not ask where the traveler is coming from or plan transportation to the mountain. Budget context comes from a read-only per-person USD estimate in Field Notes. Timing defaults to “Recommend a time for me”, with approximate month, season/months, flexible travel window, and exact travel dates as alternatives. The form shows the mountain’s Field Notes ascent-duration range and context, distinct from total travel time. Days available can be left unknown for flexible plans. Trips support 1–120 days and up to 12 travelers. Daily detail is capped at 21 entries; long trips and multi-week summit expeditions use up to 12 contiguous phases. Each phase has a day range, concise purpose, overnight type, and a decision note. The UI derives provisional week ranges; acclimatization, weather reserves, and a conditional summit opportunity are planning stages, not guaranteed outcomes. Short time windows must not silently compress an expedition.
 
 A server-only POST handler validates the request, loads the canonical mountain context, and uses AI SDK 7 structured output through AI Gateway. The default is `openai/gpt-4.1-mini`, verified in the live Gateway catalog during implementation, with an optional server-side `AI_GATEWAY_MODEL` override. Vercel OIDC supplies authentication; local development requires a fresh pulled token. Generation has a 50-second timeout, a 5,000-token output cap, and no application retries.
 

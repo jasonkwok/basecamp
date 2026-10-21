@@ -19,6 +19,11 @@ import ItineraryDays from "./itinerary-days";
 import TripWarnings from "./trip-warnings";
 import TripEquipment from "./trip-equipment";
 import { formatTripTiming } from "./format-trip-timing";
+import {
+  buildItineraryMarkdown,
+  itineraryMarkdownFilename,
+} from "./itinerary-markdown";
+import ItineraryExportActions from "./itinerary-export-actions";
 import styles from "./trip-planner.module.css";
 
 export default function TripPlanResult({
@@ -46,6 +51,12 @@ export default function TripPlanResult({
     ? getEverestEquipment()
     : getEquipmentReference(summit, input.objective);
   const equipment = mergeEquipmentReference(reference, itinerary.equipment);
+  const markdown = buildItineraryMarkdown({
+    plan,
+    input,
+    summit,
+    equipment,
+  });
 
   useEffect(() => {
     // Announce a completed draft or a request for changes without moving map focus.
@@ -60,9 +71,15 @@ export default function TripPlanResult({
           : "Your draft itinerary"}
       </h3>
       <TripWarnings warnings={itinerary.warnings} />
+      {itinerary.status === "needs-changes" ? (
+        <p className={styles.status} role="status">
+          No schedule is shown while a planning issue needs attention. Review
+          the warning and update your trip details before trying again.
+        </p>
+      ) : null}
 
       <p>
-        From {input.origin} · {formatTripTiming(input.timing)} ·{" "}
+        {formatTripTiming(input.timing)} ·{" "}
         {input.travelers} traveler
         {input.travelers === 1 ? "" : "s"}
       </p>
@@ -72,6 +89,14 @@ export default function TripPlanResult({
           Summit elevation: {summitElevationFeet} ft ({summitElevationMeters} m).
           Daily route and overnight elevations are listed when verified.
         </p>
+      ) : null}
+
+      {itinerary.status === "draft" ? (
+        <ItineraryExportActions
+          markdown={markdown}
+          filename={itineraryMarkdownFilename(summit.name)}
+          mountainName={summit.name}
+        />
       ) : null}
 
       <TripEquipment
@@ -135,7 +160,8 @@ export default function TripPlanResult({
       ) : null}
       <p className={styles.status}>
         AI-generated planning draft. Transport, prices, route access, and
-        conditions have not been checked live. Not saved after closing.
+        conditions have not been checked live. Export a copy to keep it; Basecamp
+        does not retain plans after closing.
       </p>
     </section>
   );

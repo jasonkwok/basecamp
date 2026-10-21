@@ -1,6 +1,6 @@
 # Mountain catalog
 
-`mountains.json` is the source of truth for every mountain on the globe. It contains 70 records with stable IDs, geographic locations, elevations in metres, original short descriptions, category tags, ascent-specific difficulty context, review dates, and factual source links.
+`mountains.json` is the source of truth for the map catalog. It contains 100 mountain and trekking-destination records with stable IDs, geographic locations, elevations in metres, concise descriptions, category tags, route-specific difficulty context, review dates, and factual source links.
 
 To add a mountain, copy an existing record into the `mountains` array and update each field:
 
@@ -11,7 +11,9 @@ To add a mountain, copy an existing record into the `mountains` array and update
 - Set `difficulty.level` to `beginner`, `intermediate`, `difficult`, `expert`, or `extreme`. Include the specific ascent context, the reason for the rating, and its reference in the other difficulty fields. These are Basecamp editorial experience bands, not official climbing grades or current-condition reports.
 - Add HTTPS references in `sources`, and update `reviewedAt` when checking the facts. Summit elevations can vary with surveys and snow cover.
 
-`mountains.ts` validates the JSON and converts the coordinates to Mapbox's longitude-first tuple. The map, grouped markers, picker, badges, and profile cards all consume the same catalog. There is no fixed record-count limit in the implementation.
+`mountains.ts` validates the JSON and converts the coordinates to Mapbox's longitude-first tuple. The map, grouped markers, picker, badges, profile cards, and trip planner all consume the same catalog. Add trek itineraries as `destination` records with the `trekking` tag; the catalog has no fixed record-count limit.
+
+`mountain-ranges.ts` defines names, flags, descriptions, and approximate bounds for grouping peaks by range. It supplies context in grouped mountain views and is not a trip-planning catalog.
 
 Run `npm run lint` and `npm run build` after editing. Check the new marker, its profile, and any nearby group in the local app.
 

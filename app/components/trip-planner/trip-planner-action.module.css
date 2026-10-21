@@ -1,0 +1,55 @@
+.action {
+  position: absolute;
+  top: max(152px, calc(env(safe-area-inset-top) + 128px));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: min(560px, calc(100% - 56px));
+  min-height: 84px;
+  padding: 20px 28px;
+  border: 2px solid #244737;
+  border-radius: 24px;
+  background: #ffd48a;
+  box-shadow: 4px 5px 0 #244737;
+  color: #244737;
+  font: inherit;
+  font-size: 26px;
+  font-weight: 900;
+  cursor: pointer;
+}
+.action:hover {
+  background: #ffe3b1;
+}
+.action > span:first-child {
+  flex-shrink: 0;
+  font-size: 34px;
+}
+.copy {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.description {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+:global(.explorer):has(.action) :global(.mountain-profile) {
+  max-height: min(680px, calc(100svh - 490px));
+}
+@media (max-width: 640px) {
+  .action {
+    top: max(124px, calc(env(safe-area-inset-top) + 108px));
+    width: calc(100% - 32px);
+    min-height: 76px;
+    padding: 16px 18px;
+    font-size: 21px;
+  }
+  :global(.explorer):has(.action) :global(.mountain-profile) {
+    max-height: calc(100svh - 470px);
+  }
+}

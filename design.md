@@ -1,8 +1,8 @@
 # Basecamp
 
-Status: Initial design direction. This document will evolve as product and visual decisions are refined.
+Status: Explorer implemented; trip planner research and proposed architecture updated October 21, 2026. AI planning is not implemented.
 
-Current implementation milestone: [map explorer checklist](map-explorer-checklist.md) — build the initial interactive map landing page, before adding mountains.
+Explorer milestone reference: [map explorer checklist](map-explorer-checklist.md). The current catalog contains 70 entries. Next proposed milestone: the form-led trip planner described below; implementation has not started.
 
 Map-specific visual and usability proposals: [map explorer research](map-explorer-research.md), emphasizing a playful storybook atlas and simple exploration controls.
 
@@ -28,7 +28,8 @@ Current explorer styling: coordinated medium forest green (`#3f7055`) for land, 
 - The initial experience centers on an interactive map of mountains around the world.
 - The initial catalog should contain at least 100 mountains, covering iconic and popular destinations worldwide.
 - A clickable AI mountain guide helps users find their next mountain based on their experience and preferences.
-- An expedition planner helps users create day-by-day hiking itineraries and prepare a packing list.
+- An expedition planner will create editable itineraries, cost analyses, and equipment lists, using the traveler’s departure location and intended travel dates.
+- Selecting a mountain shows a prominent top-of-page “📝 Plan your [mountain] adventure!” action, opening a mountain-specific WIP modal. AI-powered planning will be integrated in a later milestone.
 - Mapbox is the mapping candidate. Investigate using it through Vercel Connect.
 - Use Next.js as the application framework.
 - Use Vercel's AI tooling for recommendations and trip planning. The recommended initial combination is AI SDK with AI Gateway, as detailed below.
@@ -50,7 +51,7 @@ Proposed behavior:
 - Offer search by mountain name and filters for region and relevant trip characteristics.
 - Group nearby markers when needed to keep the world view readable.
 - Provide a browsable list alongside the map, including a usable fallback if the map fails to load.
-- Include a clear action to start planning from a mountain profile.
+- Show a prominent planning action when an individual mountain is selected. Hide it when the user navigates the map away or opens a group; selecting a peak from that group restores it.
 
 ### Mountain catalog
 
@@ -93,26 +94,87 @@ Recommendations should be grounded in available data. Distinguish general planni
 
 ## 3. Plan an expedition
 
-The planner turns a selected destination into an editable trip plan, including day-by-day activities and packing preparation.
+Planning research updated October 21, 2026. This section is a proposed implementation plan, not an implemented feature. The current planner is a WIP modal. The confirmed goal is a trip itinerary, cost analysis, and equipment preparation, informed by where the traveler is coming from and their intended dates.
 
-Proposed inputs:
+### Entry and planning experience
 
-- Mountain and route, where route information is available.
-- Dates or season and trip duration.
-- User experience and preferences.
-- Camping or other overnight arrangements.
+Start from the selected mountain's “📝 Plan your [mountain] adventure!” action. Keep the selected mountain attached to the draft even if the map selection later changes. Begin with a short form rather than requiring a chat conversation; optional AI follow-up can refine the same plan later.
 
-Proposed outputs and interactions:
+Proposed journey: **Choose mountain → Trip details → Review assumptions → Generate draft → Edit itinerary, costs, and equipment**.
 
-- A trip overview showing the destination and planning assumptions.
-- An editable day-by-day itinerary.
-- A packing checklist grouped into clothing, equipment, food, and essentials.
-- Item quantities, custom items, and packed/unpacked states.
-- Visible packing progress.
-- Brief explanations for suggested equipment when useful.
-- Saved progress; persistence and account requirements remain undecided.
+Use the modal for the initial questions. Once a draft is ready, use a larger planning workspace with Overview, Itinerary, Costs, and Equipment sections. Preserve form answers when moving between steps or recovering from errors. A generated draft needs room for comparisons and edits beyond the current WIP modal.
 
-Use curated packing templates as a proposed foundation, with AI adapting and explaining suggestions. Keep generated drafts editable. Do not present a generated itinerary as a verified trail route or as confirmation of current access or conditions.
+### What to ask before generation
+
+| Input | Proposed requirement | Purpose |
+| --- | --- | --- |
+| Mountain and trip objective | Required; mountain prefilled | Distinguish a summit ascent from a base-camp trek, viewpoint hike, or visit. Selecting Everest must not silently imply attempting its summit. |
+| Departure location | Required city and country; airport optional | Plan the journey from home to the destination gateway and trailhead. Resolve ambiguous city names before generation. An exact home address is unnecessary. |
+| Travel dates | Required departure-from-home date and return-home date for a dated plan | The window includes international travel, transfers, mountain days, and the journey home. Ask separately if the user means arrival dates at the destination. |
+| Flexibility | Optional number of days either side | Explain alternative date windows; do not move a fixed window without asking. |
+| Party size | Required, with one traveler as an explicit editable default | Separate per-person charges from shared guides, rooms, vehicles, and equipment. First version targets adults; add child-specific pricing only with appropriate data. |
+| Experience | Required broad hiking, altitude, and technical experience | Identify route mismatches and missing support needs. Do not infer technical competence from general fitness. |
+| Trip style | Required guided/self-guided preference and camping/lodge/hotel preference; “help me decide” allowed | Determine logistics, accommodation, inclusions, and gear. Route-specific requirements override unsupported preferences. |
+| Budget and currency | Currency required; budget optional with “not sure yet” | Ask whether the budget is per person or whole party, and whether international travel and equipment purchases are included. |
+| Equipment already owned | Optional grouped checklist | Avoid budgeting for purchases the traveler does not need; distinguish owned, buy, rent, and operator-provided items. |
+| Other preferences | Optional pace, dietary, accessibility, and comfort preferences | Adapt the plan without collecting medical histories or unnecessary personal information. |
+
+For users without exact dates, allow an explicit **rough planning mode** using a month/season and total available days. Mark its timeline and costs as provisional; require concrete dates before requesting date-specific transport or lodging offers. Do not invent dates or a departure city.
+
+Ask only relevant follow-ups. Route choice should come from supported route records; offer “recommend a suitable route” when several exist. If essential details are missing, return questions instead of a superficially complete plan.
+
+Before generation, show a compact summary: origin, destination/objective, dates, travelers, route or route-selection assumption, budget scope, and included cost categories. Make corrections possible without restarting.
+
+### Itinerary output
+
+Produce an editable door-to-door itinerary covering outbound travel, destination transfers, preparation, route days, rest/acclimatization where supported by the route template, contingency time, and return travel. Keep travel days distinct from hiking days.
+
+Each day should contain its date, local timezone when relevant, day type, start/end location, activities, overnight arrangement, meals/inclusions, linked cost items, and relevant source IDs. Distances, elevation gain, sleeping altitude, and hiking duration are optional sourced fields; use “unknown” when the route data does not support them.
+
+Check that the proposed route fits the travel window, transit time, supported season, and experience level. When it does not fit, explain the conflict and offer a different objective, route, or date window. Do not shorten a curated acclimatization schedule to force a fit. Technical expeditions without vetted route coverage receive a logistics overview and questions for an operator, rather than fabricated day-by-day climbing instructions.
+
+Seasonal expectations must be labeled as seasonal guidance. Future dates do not imply an available weather forecast, open trail, issued permit, or reserved accommodation. Show specific verification tasks alongside the affected day.
+
+### Cost analysis
+
+Show a **low–high planning range**, a category breakdown, the full party total, and an average per person. A range is a scenario estimate, not a statistical confidence interval or a guaranteed quote. Label incomplete totals as partial and list unpriced categories beside them.
+
+Include international transport, destination transfers, accommodation, food, permits/park fees, guides/porters/operator packages, equipment rental or purchase, insurance allowance, and other explicit expenses. Show optional activities and a user-adjustable contingency separately. Explain which categories dominate cost and what changes would reduce it.
+
+Use structured line items with: category, description, quantity, unit (night/day/person/group/item), low/high unit amount, currency, shared or per-person basis, inclusion status, source ID, price date, and assumptions. A retrieved offer also needs its provider reference and expiry when supplied.
+
+**Calculate totals in application code.** Multiply quantities and allocate shared charges deterministically; use decimal-safe arithmetic or currency minor units. Convert using a dated exchange-rate source, retain original currencies, and show the conversion date. Missing FX data must leave separate currency subtotals rather than invented conversions. Do not multiply a whole-party quote by party size again.
+
+Avoid counting the same expense twice: an operator package may already include meals, permits, lodging, and transfers. Owned equipment has no new purchase cost; keep optional replacement purchases separate. Insurance is an allowance pending an actual policy covering the objective, rather than a promise of coverage.
+
+Proposed initial release uses maintained cost ranges and official published fees with source dates. Flight or lodging costs without a defensible source remain unpriced, or can be entered by the user. AI must not invent fares, availability, or purchase links. User-entered amounts are labeled as such and retained during regeneration.
+
+A later release can add live travel providers behind adapters. For example, [Duffel offers](https://duffel.com/docs/api/v2/offers) have expiry timestamps, and its [offer schema](https://duffel.com/docs/api/offers/schema) documents that amounts can change when refreshed. This supports treating retrieved prices as time-limited observations. Provider choice still needs a separate coverage, access, commercial-terms, and cost assessment. No booking, payments, or automatic purchasing in the initial scope.
+
+### Equipment output
+
+Start with maintained packing templates tied to the **route, season, overnight style, and operator inclusions**. AI adapts quantities and explanations to the itinerary and party; it must not choose technical equipment solely from summit elevation.
+
+Group items into clothing/layers, footwear, shelter/sleeping, food/water/cooking, navigation/communications, personal essentials, and route-specific technical equipment. Each item includes quantity, per-person/shared basis, reason, required/recommended/conditional status, owned/buy/rent/operator-provided status, optional linked cost item, and packed state.
+
+Support custom items, edits, and visible packing progress. Explain conditional requirements and identify gear that needs operator confirmation or specific training. Adding an item to a checklist does not establish that the traveler can safely use it. Keep equipment purchase/rental changes synchronized with the cost view without another model call.
+
+### Sources, assumptions, and edits
+
+Use visible evidence labels: **curated source**, **retrieved price**, **user supplied**, and **planning assumption**. Source references need stable IDs, URLs, retrieval dates, and the claim or price they support. Resolve IDs against server-retrieved records; do not accept model-invented URLs as evidence. Track missing information explicitly rather than using a vague confidence score.
+
+The user can edit itinerary days, quantities, budget amounts, equipment, and assumptions. Changing dates, route, origin, or party size marks affected content as needing review. Regeneration produces a proposed revision with a change summary; applying it requires an explicit action and preserves user-owned edits and packed states. Cancelling or failing generation leaves the last valid draft intact.
+
+Proposed first version keeps the current draft through modal closure and navigation within the planner. Durable saving across reloads, accounts, sharing, and export remain separate product decisions; do not imply a plan is saved until storage exists.
+
+### Scope and rollout
+
+1. **Planning contract and coverage:** define form/output schemas, route templates, cost bases, packing templates, source metadata, and unsupported-route behavior. Start with a small explicitly documented set of supported routes; the 70-entry mountain catalog is not equivalent to detailed route coverage.
+2. **First working planner:** form-led inputs, server-side generation through AI Gateway, editable itinerary/cost/equipment views, deterministic calculations, citations, cancellation/retry, and review before applying revisions. Use maintained estimates; identify unknowns.
+3. **Current travel data:** evaluate and add departure-location resolution, flight/lodging/FX adapters, and bounded source research where it improves the plan. Keep estimates usable when a provider is unavailable. Assess licensing, credentials, coverage, and ongoing request cost before selecting integrations.
+4. **Refinement and persistence:** optional conversational revisions using the same planning service, durable saved plans, sharing/export, and targeted refresh of outdated cost items.
+
+No implementation, dependency installation, model requests, credential creation, or provider provisioning is authorized by this research update.
 
 ## Visual and interaction direction
 
@@ -156,47 +218,86 @@ Before implementing, read the relevant version-matched guides in `node_modules/n
 
 ### AI SDK and AI Gateway
 
-Recommended initial architecture: **Next.js + Vercel AI SDK + Vercel AI Gateway**.
+Research reviewed October 21, 2026 against current official documentation. The repository currently has neither `ai` nor `@ai-sdk/react` installed. Choose and verify the stable package version and Node.js requirements during implementation; the latest documentation currently describes AI SDK 7. This plan does not pin a model or copy version-specific sample code into the application.
 
-These products serve complementary roles:
+Recommended architecture: **Next.js App Router + AI SDK + AI Gateway**, with a form-led planner and an application-controlled generation pipeline.
 
 | Layer | Responsibility in Basecamp |
 | --- | --- |
-| Next.js | Application UI and server endpoints for recommendations and planning. |
-| AI SDK | Streaming chat, catalog tool calls, and schema-based generation of recommendations, itineraries, and packing lists. |
-| AI Gateway | Model access through a shared endpoint, model/provider routing, usage and cost visibility, and optional configured fallbacks. |
+| Next.js client UI | Input steps, progress, editable plan sections, and revision review. Keep planner state separate from the map lifecycle. |
+| Next.js server service | Validate requests, load catalog/route context, retrieve evidence, calculate costs, validate generated plans, and enforce limits. |
+| AI SDK | Model calls, schema-constrained output, optional bounded tools, and streaming. |
+| AI Gateway | Model access, provider routing/fallbacks, authentication, and AI usage/spend visibility. |
+| Data adapters and maintained records | Route facts, published fees, packing templates, travel prices, and exchange rates with provenance. |
 
-The SDK alone can call providers directly, but Gateway is the recommended model access layer so model selection and usage can be managed consistently. Gateway alone does not provide the application's chat state, catalog tools, or editable planner UI.
+AI SDK and Gateway are complementary. Gateway does not itself supply a flight/hotel inventory, itinerary database, plan storage, or cost calculator. Its model-request costs are separate from the travel costs shown to users. [Gateway getting started](https://vercel.com/docs/ai-gateway/getting-started) explains its model access layer.
 
-#### Recommendation flow
+#### Proposed server flow
 
-1. The guide collects experience and trip preferences through the chat UI.
-2. Server-side catalog tools filter and retrieve matching mountain and route records.
-3. The model explains the matches and returns references to catalog IDs.
-4. The application validates those IDs and renders cards linked to the map and profiles.
+1. Accept a typed planning request through a POST Route Handler, proposed as `/api/trip-plans`. Validate mountain/route IDs, resolved origin, dates, party size, currency, field lengths, and supported trip scope before calling a model. Use a client request ID to deduplicate repeated submissions.
+2. Load the canonical mountain and vetted route context on the server. Check objective, route coverage, season, and duration constraints. Return missing questions or an unsupported-route result when needed.
+3. Retrieve applicable published fees, maintained cost ranges, packing templates, and any enabled live-data observations. Fetch independent sources concurrently with per-source deadlines. Build an evidence bundle with source IDs and explicit missing fields.
+4. Use AI SDK structured output for the itinerary, explanations, proposed packing changes, assumptions, and references to evidence/cost records. Keep calculation inputs grounded in retrieved records. Do not ask the model to research, schedule, invent prices, and compute final totals in one unconstrained prompt.
+5. Validate the full output, including valid source IDs, date coverage, route constraints, quantities, and inclusions. Recalculate cost totals and equipment-derived expenses in application code. Produce either `ready`, `needs-input`, or `limited-coverage`, with a separate recoverable error path.
+6. Return a validated draft with input/source/template versions and the generation ID. Show incomplete areas explicitly. Preserve the prior draft until a successful result is reviewed and applied.
 
-Start with ordinary catalog filtering and retrieval for the 100+ mountains. A vector database is not a prerequisite. Use bounded tool execution rather than an unrestricted agent loop.
+Use the same server service for direct planning and later guide-chat requests. Do not maintain separate itinerary prompts or schemas for each entry point.
 
-#### Planning flow
+#### Structured generation and streaming
 
-1. Collect the selected mountain, available route information, dates, duration, and preferences.
-2. Retrieve relevant source facts and packing templates on the server.
-3. Use schema-based output for a draft containing day entries, packing items, assumptions, and source references.
-4. Validate both the output shape and application rules before applying it to the planner. Schema validity does not establish factual accuracy or route suitability.
-5. Let users edit the resulting plan. Retain their current plan if generation or validation fails; applying a regenerated draft should not silently overwrite their edits.
+Current AI SDK documentation uses `generateText` or `streamText` with `Output.object()` for schema-constrained data. Use a shared runtime schema, such as Zod, for client/server contracts. A matching schema validates shape, not travel accuracy. [Structured-output reference](https://ai-sdk.dev/docs/ai-sdk-core/generating-structured-data).
 
-Use the same planning service whether the user starts from chat or directly from a mountain profile.
+Start with server-side `generateText` and explicit progress stages: validating inputs, gathering sources, drafting itinerary, checking costs/equipment. This makes it easier to publish only a validated plan. If measured latency warrants progressive previews, use `streamText` and a version-compatible object/data-stream client. Streamed partial objects are incomplete and must not replace the valid plan until full validation succeeds. [Object-generation UI](https://ai-sdk.dev/docs/ai-sdk-ui/object-generation) and [custom status streams](https://ai-sdk.dev/docs/ai-sdk-ui/streaming-data) describe the available UI transports. A chat UI and `useChat` are optional later features.
 
-#### Operational defaults
+#### Proposed data contracts
 
-- Start with one configurable model supporting tool calling and structured output; select its exact ID from the live Gateway catalog during implementation.
-- Evaluate recommendation quality, planning accuracy, latency, and cost using representative requests before selecting separate models for each feature.
-- Keep Gateway authentication server-side using supported Vercel OIDC or a securely stored Gateway API key.
-- Bound request size, output size, tool steps, and execution time. Include application-level request limits for public AI endpoints.
-- Surface actionable loading, retry, and error states without discarding user inputs.
-- Track usage by recommendation and planning feature. Treat model fallback configuration as explicit work, and verify compatible capabilities before enabling it.
-- Persistence of conversations and plans is an application responsibility; streaming chat and model routing do not automatically save them.
-- Verify implementation APIs against installed, version-matched AI SDK documentation.
+| Contract | Key fields |
+| --- | --- |
+| `TripPlanningInput` | Mountain/objective/route IDs, resolved origin, exact or rough date mode, party size, experience, travel style, currency, budget scope, owned gear, preferences. |
+| `PlanningEvidence` | Route/template versions, source records, cost observations and inclusions, original currencies/FX date, timestamps, missing facts. |
+| `TripPlanDraft` | Schema version, input snapshot, overview, dated/localized itinerary, equipment items, cost-item references, assumptions, unresolved questions, evidence IDs. |
+| `TripCostSummary` | Server-calculated category ranges, party and average per-person totals, contingency, missing categories, original currency/FX metadata. |
+| `PlanRevision` | Base draft version, proposed changes, preserved user overrides, affected sections, and accepted/rejected state. |
+
+Assign stable IDs to days, equipment, costs, and sources. Separate generated suggestions from user edits. Derived totals and packing progress should update immediately without invoking AI. Plan transport must reject stale generation responses after newer inputs or a different mountain have been selected.
+
+#### Tools and external research
+
+Prefer deterministic application retrieval for facts already known from form inputs. If adaptive research is needed, expose only narrow, read-only tools such as route lookup, approved-source search, transport estimates, and equipment-template lookup. Validate tool inputs and outputs and restrict catalogs, result sizes, domains, and timeouts.
+
+AI SDK supports schema-defined tools and bounded multi-step calls; verify the installed version's loop-limit API when implementing. Use its built-in loop/agent facilities if adaptive tool execution is introduced, rather than hand-rolling an unbounded loop. Reserve a separate final generation step so a research limit cannot consume the entire budget before a structured plan is produced. [Tool-calling reference](https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling).
+
+Gateway offers provider-independent search tools, including Perplexity and Parallel, with source filtering options. Proposed use: a bounded research phase that prioritizes park authorities, official permit sources, and named operators. These tools can improve freshness but do not establish bookable inventory or factual correctness. Select one search approach after testing source quality, costs, and coverage; search is not required for every draft. [Gateway web search](https://vercel.com/docs/ai-gateway/models-and-providers/web-search).
+
+Treat retrieved pages as untrusted data, never as instructions. Allow only supported retrieval targets; protect server fetches from arbitrary URLs and private-network access. Verify source IDs and use safe text rendering for generated content.
+
+#### Model selection and routing
+
+Use one configurable primary model initially. During implementation, inspect the live Gateway catalog and benchmark candidates for structured-output reliability, grounded itinerary quality, latency, and total request cost. Evaluate short hikes, multi-day treks, and unsupported expedition cases rather than selecting only by a model's leaderboard position. No exact model is selected by this document.
+
+Test a compatible fallback against the same schema, tool availability, grounding rules, and quality gates. Provider fallback for the same model and fallback to a different model are separate choices. A successful model response with incorrect travel content is not repaired by availability failover. Log the actual model/provider used. [Provider routing and fallbacks](https://vercel.com/docs/ai-gateway/models-and-providers/provider-options).
+
+#### Authentication, spend, and recovery
+
+- Keep Gateway and travel-provider credentials server-side. Prefer Vercel OIDC in deployments and linked development; use `AI_GATEWAY_API_KEY` where OIDC is unavailable. Verify credential precedence and refresh behavior against the chosen SDK/runtime. [OIDC authentication](https://vercel.com/docs/ai-gateway/authentication-and-byok/oidc).
+- Validate public requests and apply application-level rate/concurrency limits before expensive retrieval or model calls. Allow cancellation; propagate aborts and use bounded retry and repair attempts.
+- Configure project/key spend controls before launch. Gateway budgets are soft caps checked at request start, so they complement application limits rather than guaranteeing a strict per-request spending ceiling. [Gateway budgets](https://vercel.com/docs/ai-gateway/observability-and-spend/budgets).
+- Handle invalid inputs, absent sources, provider failure, budget exhaustion, invalid structured output, timeouts, and disconnected clients distinctly. Never silently replace missing transport prices with plausible numbers. A failed generation must preserve the input and previous draft.
+- Cache public route/templates independently of personalized requests. Cache expiring offers only within provider terms and expiry; never share a personalized plan across users. Reuse evidence for targeted revisions only while it remains applicable and fresh.
+- Record request ID, prompt/schema/template version, model/provider, latency, tool count, validation outcome, and AI/search cost where available. Use pseudonymous reporting IDs; do not place origin, exact travel dates, or personal preferences in tags. Review Gateway/provider logging and retention before enabling production traffic. [Gateway observability](https://vercel.com/docs/ai-gateway/observability-and-spend).
+- Exclude unnecessary personal information from prompts. Passport data, payment details, and exact home addresses are outside the initial planner. Persistence, access control, deletion, and retention need explicit design before adding saved plans.
+
+#### Completion criteria for the first implementation
+
+Verify the complete flow from individual mountain selection through form, server generation, and all three editable outputs. Include these cases:
+
+- Same-name departure cities, missing origin, invalid/reversed dates, timezone-crossing travel, rough date mode, and an unrealistically short window.
+- A supported route, no route coverage, experience mismatch, and dates outside documented route coverage.
+- One traveler versus a party, shared costs, bundled operator inclusions, owned/rented gear, mixed currencies, missing FX, and unknown/expired prices. Totals must reproduce exactly from line items.
+- Missing or fabricated source IDs, malformed model output, tool failure, cancellation, duplicate submissions, stale responses, and bounded fallback/retry.
+- Date/party/route changes after editing, equipment-to-cost synchronization, packed-state preservation, mobile use, keyboard focus, and accessible validation errors.
+
+Use AI SDK test mocks for predictable request/error paths, plus a small reviewed evaluation set for grounding, feasibility, completeness, and clarity. Record latency and cost from an authorized live pilot before setting production targets. [AI SDK testing](https://ai-sdk.dev/docs/ai-sdk-core/testing). No paid pilot is part of this documentation task.
 
 ### Mapbox and Vercel Connect
 
@@ -234,7 +335,11 @@ Use stable IDs so map selection, guide recommendations, mountain profiles, and e
 - Whether to use Vercel Connect for Mapbox access.
 - Exact model selection and whether any future durable agent requirements justify Eve.
 - Persistence, authentication, and trip sharing or export.
-- Whether live weather or access information belongs in the initial experience.
+- Initial supported routes and source-maintenance ownership; unsupported catalog entries remain discoverable.
+- Initial estimate coverage, live flight/lodging/FX providers, access terms, and freshness policy.
+- Whether optional bounded source research ships in the first planner or follows maintained estimates.
+- Budget/default currency, adult-only party scope, and maximum supported trip duration.
+- Whether live weather or access information belongs in the initial experience; seasonal guidance must remain distinct from live conditions.
 
 ## Technical references
 

@@ -1,0 +1,318 @@
+import { useEffect, useRef, useState } from "react";
+import type { Map as MapboxMap, Marker } from "mapbox-gl";
+import type { Summit } from "../../data/mountains";
+import { applyMapStyle } from "./map-style";
+import { attachMountainMarkers } from "./map-markers";
+
+type Status = "loading" | "ready" | "error";
+
+const MAX_EXPLORER_ZOOM = 5;
+
+// Scale the widest view to the viewport so the globe remains screen-sized.
+const worldZoom = (width: number) =>
+  Math.min(1.3, Math.log2(Math.max(width, 1) / 420)) + 0.4;
+
+// Keep Mapbox resources in refs and user-visible state in React.
+export function useMapExplorer() {
+  // Refs retain the Mapbox instance and DOM resources without triggering renders.
+  const container = useRef<HTMLDivElement>(null);
+  const map = useRef<MapboxMap | null>(null);
+
+  const summitMarkers = useRef(new Map<string, Marker>());
+  const selectedSummitId = useRef<string | null>(null);
+
+  // Loading and retry state is independent of the currently selected mountain.
+  const [status, setStatus] = useState<Status>("loading");
+  const [message, setMessage] = useState("Unfolding your atlas…");
+  const [attempt, setAttempt] = useState(0);
+  const [help, setHelp] = useState(false);
+
+  const [profileSummit, setProfileSummit] = useState<Summit | null>(null);
+  const [nearbySummits, setNearbySummits] = useState<Summit[]>([]);
+  const [showTripPlanner, setShowTripPlanner] = useState(false);
+  const [previousGroup, setPreviousGroup] = useState<{
+    summits: Summit[];
+    center: [number, number];
+    zoom: number;
+  } | null>(null);
+
+  const [atMaxZoom, setAtMaxZoom] = useState(false);
+  const [atMinZoom, setAtMinZoom] = useState(true);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    // Ignore late async results and map events after unmount or retry.
+    let disposed = false;
+    let instance: MapboxMap | undefined;
+    let removeMarkers: (() => void) | undefined;
+
+    // Offer recovery if configuration, fonts, or map loading takes too long.
+    const timeout = window.setTimeout(() => {
+      if (!disposed) {
+        setMessage(
+          "The map is taking a little longer. Check your connection and try again.",
+        );
+        setStatus("error");
+      }
+    }, 25000);
+
+    async function initialize() {
+      try {
+        // Load the map library and public-token configuration in parallel.
+        const [response, { default: mapboxgl }] = await Promise.all([
+          fetch("/api/map-config", {
+            signal: controller.signal,
+            cache: "no-store",
+          }),
+          import("mapbox-gl"),
+        ]);
+        const config = await response.json();
+
+        if (!response.ok)
+          throw new Error(config.error || "The map could not load.");
+
+        // Map labels use the loaded interface font rather than a fallback font.
+        await document.fonts.ready;
+
+        if (disposed || !container.current) return;
+
+        if (!mapboxgl.supported())
+          throw new Error(
+            "Your browser could not start the interactive map. Try a browser with WebGL enabled.",
+          );
+
+        instance = new mapboxgl.Map({
+          container: container.current,
+          accessToken: config.token,
+          // Classic Light exposes individual layers for our illustrated globe.
+          style: "mapbox://styles/mapbox/light-v11",
+          localFontFamily: getComputedStyle(document.body).fontFamily,
+          projection: "globe",
+          center: [12, 20],
+          zoom: Math.min(
+            MAX_EXPLORER_ZOOM,
+            worldZoom(container.current.clientWidth) + 1.4,
+          ),
+          minZoom: worldZoom(container.current.clientWidth),
+          maxZoom: MAX_EXPLORER_ZOOM,
+          bearing: 0,
+          pitch: 0,
+          dragRotate: false,
+          pitchWithRotate: false,
+          touchPitch: false,
+          attributionControl: true,
+        });
+
+        map.current = instance;
+
+        instance.touchZoomRotate.disableRotation();
+        instance.keyboard.disableRotation();
+
+        instance.on("wheel", () => setShowTripPlanner(false));
+        instance.on("dragstart", () => setShowTripPlanner(false));
+
+        // User navigation dismisses the trip action; selecting a peak reveals it again.
+        // Ignore camera animations that center a newly selected mountain.
+        instance.on("movestart", (event) => {
+          if (event.originalEvent) setShowTripPlanner(false);
+        });
+        instance.on("zoomend", () => {
+          if (!disposed && instance) {
+            setAtMaxZoom(instance.getZoom() >= MAX_EXPLORER_ZOOM - 0.01);
+            setAtMinZoom(instance.getZoom() <= instance.getMinZoom() + 0.01);
+          }
+        });
+        // Recalculate the world-view limit when the viewport changes size.
+        instance.on("resize", () => {
+          if (!disposed && instance && container.current) {
+            instance.setMinZoom(worldZoom(container.current.clientWidth));
+
+            setAtMinZoom(instance.getZoom() <= instance.getMinZoom() + 0.01);
+          }
+        });
+
+        instance
+          .getCanvas()
+          .setAttribute(
+            "aria-label",
+            "World map. Use arrow keys to pan and plus or minus to zoom.",
+          );
+
+        instance.on("style.load", () => {
+          if (!instance || disposed) return;
+
+          applyMapStyle(instance);
+        });
+        instance.on("load", () => {
+          window.clearTimeout(timeout);
+
+          if (!disposed && instance) {
+            removeMarkers = attachMountainMarkers({
+              instance,
+              mapboxgl,
+              selectedSummitId,
+              markerIndex: summitMarkers.current,
+              onOpenGroup: (summits) => {
+                setPreviousGroup(null);
+                setShowTripPlanner(false);
+                setProfileSummit(null);
+                setNearbySummits(summits);
+              },
+              onOpenSummit: (summit) => {
+                setPreviousGroup(null);
+                setShowTripPlanner(true);
+                setNearbySummits([]);
+                setProfileSummit(summit);
+              },
+            });
+
+            setAtMinZoom(instance.getZoom() <= instance.getMinZoom() + 0.01);
+            setAtMaxZoom(instance.getZoom() >= MAX_EXPLORER_ZOOM - 0.01);
+            setStatus("ready");
+          }
+        });
+        instance.on("error", () => {
+          if (disposed) return;
+
+          window.clearTimeout(timeout);
+
+          setMessage(
+            "We couldn’t load part of the map. Check your connection and try again.",
+          );
+          setStatus("error");
+        });
+      } catch (error) {
+        window.clearTimeout(timeout);
+
+        if (!disposed) {
+          setMessage(
+            error instanceof Error ? error.message : "The map could not load.",
+          );
+          setStatus("error");
+        }
+      }
+    }
+
+    void initialize();
+
+    return () => {
+      // A retry tears down the previous map before initializing a replacement.
+      disposed = true;
+
+      controller.abort();
+
+      window.clearTimeout(timeout);
+
+      removeMarkers?.();
+
+      instance?.remove();
+
+      map.current = null;
+    };
+  }, [attempt]);
+
+  // Reset only the camera; retain search filters and the current selection.
+  function reset() {
+    setShowTripPlanner(false);
+
+    const duration = window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches
+      ? 0
+      : 650;
+    const width = container.current?.clientWidth ?? 1200;
+
+    map.current?.easeTo({
+      center: [12, 20],
+      zoom: worldZoom(width),
+      bearing: 0,
+      pitch: 0,
+      duration,
+    });
+  }
+
+  // Picker and nearby-list selections share the same profile and camera behavior.
+  function visitSummit(summit: Summit, group?: Summit[]) {
+    const instance = map.current;
+
+    // Save the group and its camera before centering an individual peak.
+    setPreviousGroup(
+      group && instance
+        ? {
+            summits: group,
+            center: instance.getCenter().toArray(),
+            zoom: instance.getZoom(),
+          }
+        : null,
+    );
+    setShowTripPlanner(true);
+    setProfileSummit(summit);
+
+    selectedSummitId.current = summit.id;
+
+    setNearbySummits([]);
+
+    for (const [id, marker] of summitMarkers.current) {
+      marker.getElement().classList.toggle("is-selected", id === summit.id);
+    }
+
+    const duration = window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches
+      ? 0
+      : 900;
+
+    map.current?.easeTo({ center: summit.coordinates, zoom: 3.5, duration });
+  }
+
+  function focusMap() {
+    map.current?.getCanvas().focus();
+  }
+
+  function returnToGroup() {
+    if (!previousGroup) return;
+
+    setShowTripPlanner(false);
+    setProfileSummit(null);
+    setNearbySummits(previousGroup.summits);
+    selectedSummitId.current = null;
+
+    // Restore the original overview rather than keeping the peak's close-up.
+    map.current?.easeTo({
+      center: previousGroup.center,
+      zoom: previousGroup.zoom,
+      duration: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? 0
+        : 650,
+    });
+    setPreviousGroup(null);
+  }
+
+  // Changing the attempt reruns the effect, disposing the previous map first.
+  function retry() {
+    setStatus("loading");
+    setMessage("Unfolding your atlas…");
+    setAttempt((previous) => previous + 1);
+  }
+
+  return {
+    container,
+    map,
+    status,
+    message,
+    help,
+    setHelp,
+    profileSummit,
+    showTripPlanner,
+    canReturnToGroup: previousGroup !== null,
+    returnToGroup,
+    setProfileSummit,
+    nearbySummits,
+    setNearbySummits,
+    atMaxZoom,
+    atMinZoom,
+    reset,
+    visitSummit,
+    focusMap,
+    retry,
+  };
+}

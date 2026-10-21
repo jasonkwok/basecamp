@@ -65,7 +65,14 @@ function createMountainRangeMarker(
   );
   button.setAttribute("aria-expanded", "false");
   button.title = `${range.name} · Mountain range`;
-  button.textContent = range.emoji;
+
+  const emoji = document.createElement("span");
+  emoji.setAttribute("aria-hidden", "true");
+  emoji.textContent = range.emoji;
+
+  const label = document.createElement("span");
+  label.textContent = range.name;
+  button.append(emoji, label);
 
   const description = document.createElement("span");
   description.className = "mountain-range-description";
@@ -85,6 +92,7 @@ function createMountainRangeMarker(
   const marker = new mapboxgl.Marker({
     element,
     anchor: "center",
+    offset: range.labelOffset,
     occludedOpacity: 0,
   })
     .setLngLat(range.coordinates)

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import type { Summit } from "../../data/mountains";
 import { MOUNTAIN_TAGS } from "../../data/mountain-tags";
+import { findMountainRangeForGroup } from "../../data/mountain-ranges";
 
 type NearbyMountainsProps = {
   nearbySummits: Summit[];
@@ -14,6 +15,9 @@ export default function NearbyMountains({
   onSelect,
 }: NearbyMountainsProps) {
   const nearbyHeading = useRef<HTMLHeadingElement>(null);
+  const mountainRange = findMountainRangeForGroup(
+    nearbySummits.map((summit) => summit.coordinates),
+  );
 
   // Announce the newly opened group and give keyboard users a starting point.
   useEffect(() => {
@@ -32,7 +36,9 @@ export default function NearbyMountains({
     >
       <div className="nearby-header">
         <h2 id="nearby-heading" ref={nearbyHeading} tabIndex={-1}>
-          {nearbySummits.length} nearby peaks
+          {mountainRange
+            ? `${mountainRange.emoji} ${mountainRange.name}`
+            : `${nearbySummits.length} nearby peaks`}
         </h2>
         <button
           aria-label="Close nearby peaks"
@@ -43,6 +49,7 @@ export default function NearbyMountains({
           ×
         </button>
       </div>
+      {mountainRange ? <p>{nearbySummits.length} nearby peaks</p> : null}
       <p>
         A whole range of possibilities. Pick a mountain to bring it into view.
       </p>

@@ -1,4 +1,5 @@
 import type { Summit } from "../../data/mountains";
+import { findMountainRangeForGroup } from "../../data/mountain-ranges";
 import { MOUNTAIN_TAGS, type MountainTagId } from "../../data/mountain-tags";
 import { DIFFICULTY_LEVELS } from "../../data/difficulty-levels";
 
@@ -107,12 +108,17 @@ export function updateMountainMarker(
 
   // Unselected groups show a count; selected peaks retain their name and badges.
   const showMountainDetails = isSelected || !hasNearbyMountains;
+  const range = hasNearbyMountains
+    ? findMountainRangeForGroup(mountains.map((mountain) => mountain.coordinates))
+    : null;
 
   marker.element.classList.toggle("is-selected", isSelected);
   marker.element.dataset.clusterCount = String(mountains.length);
   marker.name.textContent = showMountainDetails
     ? representative.name
-    : `${mountains.length} peaks`;
+    : range
+      ? `${range.emoji} ${range.name}`
+      : `${mountains.length} peaks`;
   marker.badges.hidden = !showMountainDetails;
   marker.nearby.hidden = !hasNearbyMountains;
   marker.nearby.textContent = isSelected

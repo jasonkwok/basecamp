@@ -235,30 +235,33 @@ button:focus-visible,
 .mountain-range-marker {
   position: relative;
   z-index: 1;
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
   pointer-events: auto;
 }
 .mountain-range-button {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  padding: 0;
-  border: 1.5px solid #729486;
-  border-radius: 50%;
-  background: #eaf1e8;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 6px 12px;
+  border: 2px dotted #507465;
+  border-radius: 14px;
+  background: rgb(255 251 238 / 78%);
   box-shadow: 0 2px 5px #24473740;
+  backdrop-filter: blur(3px);
+  color: #244737;
   font: inherit;
-  font-size: 19px;
-  line-height: 1;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.2;
+  white-space: nowrap;
   cursor: pointer;
+}
+.mountain-range-button span:first-child {
+  font-size: 22px;
 }
 .mountain-range-button:hover,
 .mountain-range-button[aria-expanded="true"] {
-  background: #fffbee;
+  background: rgb(255 251 238 / 92%);
   border-color: #3f7055;
 }
 .mountain-range-button:focus-visible {

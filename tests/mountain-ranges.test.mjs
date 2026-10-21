@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { MOUNTAIN_RANGES } from "../app/data/mountain-ranges.ts";
+import {
+  findMountainRangeForGroup,
+  MOUNTAIN_RANGES,
+} from "../app/data/mountain-ranges.ts";
 
 test("global map shows the seven requested mountain ranges", () => {
   assert.deepEqual(
@@ -25,4 +28,28 @@ test("global map shows the seven requested mountain ranges", () => {
       `${range.name} has valid map coordinates`,
     );
   }
+});
+
+test("clusters name a range only when all peaks share its area", () => {
+  assert.equal(
+    findMountainRangeForGroup([
+      [86.9, 27.9],
+      [87.0, 28.0],
+    ])?.name,
+    "Himalayas",
+  );
+  assert.equal(
+    findMountainRangeForGroup([
+      [76.5, 35.9],
+      [75.6, 36.0],
+    ])?.name,
+    "Karakoram",
+  );
+  assert.equal(
+    findMountainRangeForGroup([
+      [86.9, 27.9],
+      [-70, -20],
+    ]),
+    null,
+  );
 });

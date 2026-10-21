@@ -232,6 +232,66 @@ button:focus-visible,
   height: 158px;
   pointer-events: none;
 }
+.mountain-range-marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  pointer-events: auto;
+}
+.mountain-range-button {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1.5px solid #729486;
+  border-radius: 50%;
+  background: #eaf1e8;
+  box-shadow: 0 2px 5px #24473740;
+  font: inherit;
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+}
+.mountain-range-button:hover,
+.mountain-range-button[aria-expanded="true"] {
+  background: #fffbee;
+  border-color: #3f7055;
+}
+.mountain-range-button:focus-visible {
+  outline: 3px solid #edaa69;
+  outline-offset: 3px;
+}
+.mountain-range-description {
+  position: absolute;
+  top: 39px;
+  left: 50%;
+  z-index: 4;
+  display: grid;
+  gap: 5px;
+  width: 220px;
+  padding: 10px 12px;
+  transform: translateX(-50%);
+  border: 1.5px solid #729486;
+  border-radius: 12px;
+  background: #fffbee;
+  box-shadow: 0 3px 0 #729486;
+  color: #244737;
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: normal;
+  pointer-events: none;
+}
+.mountain-range-description strong {
+  font-size: 13px;
+}
+.mountain-range-marker[hidden],
+.mountain-range-description[hidden] {
+  display: none;
+}
 .mountain-marker.is-selected {
   z-index: 2;
 }

@@ -701,6 +701,12 @@ button:focus-visible,
 .profile-elevation {
   grid-column: 1 / -1;
 }
+.profile-elevation dt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
 .profile-elevation dd {
   font-size: 32px;
   line-height: 1.2;
@@ -794,7 +800,10 @@ button:focus-visible,
   border-radius: 16px;
 }
 .difficulty-caption {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
   font-size: 9px;
   font-weight: 900;
   letter-spacing: 1px;
@@ -844,20 +853,17 @@ button:focus-visible,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 23px;
-  height: 23px;
-  margin-left: 5px;
+  flex: 0 0 auto;
+  min-height: 25px;
+  padding: 3px 9px;
   border: 1.5px solid #3f7055;
-  border-radius: 50%;
+  border-radius: 999px;
   background: #edf4df;
   color: #3f7055;
-  font-size: 14px;
+  font-size: 10px;
   font-weight: 900;
-  font-style: normal;
-  text-transform: none;
   cursor: pointer;
-  vertical-align: middle;
-  letter-spacing: 0;
+  white-space: nowrap;
 }
 .info-button:hover {
   background: #d8e8c6;

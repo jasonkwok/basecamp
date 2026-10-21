@@ -91,14 +91,14 @@ export default function MountainProfile({
 
       <div className="profile-difficulty">
         <span className="difficulty-caption">
-          BASECAMP ASCENT RATING{" "}
+          <span>BASECAMP ASCENT RATING</span>
           <button
             className="info-button"
-            aria-label="Explain difficulty levels"
+            aria-label="More info about difficulty levels"
             title="How difficulty is rated"
             onClick={() => setGuide("difficulty")}
           >
-            i
+            More Info
           </button>
         </span>
         <strong
@@ -147,16 +147,18 @@ export default function MountainProfile({
       <dl className="profile-facts">
         <div className="profile-elevation">
           <dt>
-            {summit.kind === "destination"
-              ? "Site elevation"
-              : "Summit elevation"}{" "}
+            <span>
+              {summit.kind === "destination"
+                ? "Site elevation"
+                : "Summit elevation"}
+            </span>
             <button
               className="info-button"
-              aria-label="Explain altitude ranges"
+              aria-label="More info about altitude ranges"
               title="Understand altitude ranges"
               onClick={() => setGuide("altitude")}
             >
-              i
+              More Info
             </button>
           </dt>
           <dd>

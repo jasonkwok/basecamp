@@ -37,11 +37,11 @@ export default function NearbyMountains({
       <div className="nearby-header">
         <h2 id="nearby-heading" ref={nearbyHeading} tabIndex={-1}>
           {mountainRange
-            ? `${mountainRange.emoji} ${mountainRange.name}`
+            ? `${mountainRange.flags.join(" ")} ${mountainRange.name}`
             : `${nearbySummits.length} nearby peaks`}
         </h2>
         <button
-          aria-label="Close nearby peaks"
+          aria-label="Close mountain group"
           onClick={() => {
             onClose();
           }}
@@ -49,10 +49,10 @@ export default function NearbyMountains({
           ×
         </button>
       </div>
-      {mountainRange ? <p>{nearbySummits.length} nearby peaks</p> : null}
-      <p>
-        A whole range of possibilities. Pick a mountain to bring it into view.
-      </p>
+      {mountainRange ? (
+        <p className="nearby-range-description">{mountainRange.description}</p>
+      ) : null}
+      <p>Pick a mountain to bring it into view.</p>
 
       <ul>
         {nearbySummits.map((summit) => (

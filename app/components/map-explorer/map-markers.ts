@@ -2,7 +2,7 @@ import type { Map as MapboxMap, Marker } from "mapbox-gl";
 import type { RefObject } from "react";
 import { MOUNTAINS, type Summit } from "../../data/mountains";
 import { clusterMountains } from "./cluster-mountains";
-import { attachMountainRangeMarkers } from "./mountain-range-markers";
+import { getSummitSelectionZoom } from "./map-camera";
 import {
   createMountainMarker,
   updateMountainMarker,
@@ -29,7 +29,6 @@ export function attachMountainMarkers({
 }: MarkerOptions) {
   const markers: Marker[] = [];
   const records = new Map<string, MountainMarkerElements>();
-  const removeRangeMarkers = attachMountainRangeMarkers(instance, mapboxgl);
 
   function updateClusters() {
     if (records.size === 0) return;
@@ -100,7 +99,7 @@ export function attachMountainMarkers({
 
           instance?.easeTo({
             center: representative.coordinates,
-            zoom: Math.max(instance.getZoom(), 3.5),
+            zoom: getSummitSelectionZoom(instance.getZoom()),
             duration,
           });
 
@@ -143,8 +142,6 @@ export function attachMountainMarkers({
   return () => {
     instance.off("move", updateClusters);
     instance.off("resize", updateClusters);
-
-    removeRangeMarkers();
 
     markers.forEach((marker) => marker.remove());
 

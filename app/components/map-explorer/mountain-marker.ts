@@ -117,7 +117,7 @@ export function updateMountainMarker(
   marker.name.textContent = showMountainDetails
     ? representative.name
     : range
-      ? `${range.emoji} ${range.name}`
+      ? `${range.flags.join(" ")} ${range.name}`
       : `${mountains.length} peaks`;
   marker.badges.hidden = !showMountainDetails;
   marker.nearby.hidden = !hasNearbyMountains;
@@ -125,17 +125,27 @@ export function updateMountainMarker(
     ? `+${mountains.length - 1} nearby · explore`
     : "See nearby mountains";
 
-  const accessibleLabel = describeMountainGroup(mountains, representative);
+  const accessibleLabel = describeMountainGroup(
+    mountains,
+    representative,
+    range,
+  );
 
   marker.button.setAttribute("aria-label", accessibleLabel);
 }
 
 // Group labels enumerate hidden peaks so screen readers can discover them.
-function describeMountainGroup(mountains: Summit[], representative: Summit) {
+function describeMountainGroup(
+  mountains: Summit[],
+  representative: Summit,
+  range: ReturnType<typeof findMountainRangeForGroup>,
+) {
   if (mountains.length > 1) {
     const mountainNames = mountains.map((mountain) => mountain.name).join(", ");
 
-    return `${mountains.length} nearby peaks. ${mountainNames}`;
+    return range
+      ? `${range.name} mountain range. Peaks: ${mountainNames}`
+      : `${mountains.length} nearby peaks. ${mountainNames}`;
   }
 
   const tagDescriptions = representative.tags

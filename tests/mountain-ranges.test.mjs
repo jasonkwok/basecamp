@@ -20,12 +20,15 @@ test("global map shows the seven requested mountain ranges", () => {
   );
 
   for (const range of MOUNTAIN_RANGES) {
-    assert.ok(range.emoji, `${range.name} has a map icon`);
+    assert.ok(range.flags.length > 0, `${range.name} has country flags`);
     assert.ok(range.description, `${range.name} has an explanation`);
     assert.ok(
-      Math.abs(range.coordinates[0]) <= 180 &&
-        Math.abs(range.coordinates[1]) <= 90,
-      `${range.name} has valid map coordinates`,
+      range.bounds.west < range.bounds.east,
+      `${range.name} has valid longitude bounds`,
+    );
+    assert.ok(
+      range.bounds.south < range.bounds.north,
+      `${range.name} has valid latitude bounds`,
     );
   }
 });

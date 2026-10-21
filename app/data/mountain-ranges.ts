@@ -1,10 +1,8 @@
 export type MountainRange = {
   id: string;
   name: string;
-  emoji: string;
+  flags: string[];
   description: string;
-  coordinates: [longitude: number, latitude: number];
-  labelOffset: [x: number, y: number];
   bounds: {
     west: number;
     east: number;
@@ -13,69 +11,55 @@ export type MountainRange = {
   };
 };
 
-// Regional labels mark broad mountain systems; coordinates are visual anchors.
+// Region bounds provide context for mountain groups on the global map.
 export const MOUNTAIN_RANGES: MountainRange[] = [
   {
     id: "himalayas",
     name: "Himalayas",
-    emoji: "🏔️",
+    flags: ["🇳🇵", "🇮🇳", "🇧🇹", "🇨🇳"],
     description: "High mountain country across Nepal, India, Bhutan and Tibet.",
-    coordinates: [85, 28],
-    labelOffset: [48, -28],
     bounds: { west: 70, east: 101, south: 25, north: 37 },
   },
   {
     id: "andes",
     name: "Andes",
-    emoji: "🌄",
+    flags: ["🇦🇷", "🇧🇴", "🇨🇱", "🇨🇴", "🇪🇨", "🇵🇪", "🇻🇪"],
     description: "The long mountain spine running along western South America.",
-    coordinates: [-70, -20],
-    labelOffset: [0, -32],
     bounds: { west: -82, east: -65, south: -57, north: 13 },
   },
   {
     id: "alps",
     name: "Alps",
-    emoji: "🏔️",
+    flags: ["🇫🇷", "🇨🇭", "🇮🇹", "🇦🇹", "🇩🇪", "🇸🇮"],
     description: "A major European range across Central Europe.",
-    coordinates: [10, 46],
-    labelOffset: [0, -34],
     bounds: { west: 4, east: 17, south: 43, north: 49 },
   },
   {
     id: "rocky-mountains",
     name: "Rocky Mountains",
-    emoji: "🌲",
+    flags: ["🇺🇸", "🇨🇦"],
     description: "A vast North American range across the United States and Canada.",
-    coordinates: [-110, 45],
-    labelOffset: [0, -34],
     bounds: { west: -127, east: -100, south: 28, north: 63 },
   },
   {
     id: "east-african-highlands",
     name: "East African Highlands",
-    emoji: "🌋",
+    flags: ["🇹🇿", "🇰🇪", "🇺🇬"],
     description: "Highlands and volcanic peaks across Tanzania, Kenya and Uganda.",
-    coordinates: [36, -3],
-    labelOffset: [0, 34],
     bounds: { west: 27, east: 43, south: -13, north: 13 },
   },
   {
     id: "karakoram",
     name: "Karakoram",
-    emoji: "❄️",
+    flags: ["🇵🇰", "🇨🇳", "🇮🇳"],
     description: "A high glaciated range across Pakistan, China and India.",
-    coordinates: [75, 36],
-    labelOffset: [-52, -30],
     bounds: { west: 72, east: 82, south: 33, north: 39 },
   },
   {
     id: "southern-alps",
     name: "Southern Alps",
-    emoji: "🏔️",
+    flags: ["🇳🇿"],
     description: "The principal alpine range along New Zealand’s South Island.",
-    coordinates: [170, -43],
-    labelOffset: [0, -32],
     bounds: { west: 164, east: 176, south: -48, north: -39 },
   },
 ];

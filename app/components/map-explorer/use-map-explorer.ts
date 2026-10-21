@@ -3,10 +3,13 @@ import type { Map as MapboxMap, Marker } from "mapbox-gl";
 import type { Summit } from "../../data/mountains";
 import { applyMapStyle } from "./map-style";
 import { attachMountainMarkers } from "./map-markers";
+import {
+  getSummitSelectionZoom,
+  MAP_START_CENTER,
+  MAX_EXPLORER_ZOOM,
+} from "./map-camera";
 
 type Status = "loading" | "ready" | "error";
-
-const MAX_EXPLORER_ZOOM = 5;
 
 // Scale the widest view to the viewport so the globe remains screen-sized.
 const worldZoom = (width: number) =>
@@ -89,7 +92,7 @@ export function useMapExplorer() {
           style: "mapbox://styles/mapbox/light-v11",
           localFontFamily: getComputedStyle(document.body).fontFamily,
           projection: "globe",
-          center: [12, 20],
+          center: MAP_START_CENTER,
           zoom: Math.min(
             MAX_EXPLORER_ZOOM,
             worldZoom(container.current.clientWidth) + 1.4,
@@ -237,7 +240,7 @@ export function useMapExplorer() {
     const width = container.current?.clientWidth ?? 1200;
 
     map.current?.easeTo({
-      center: [12, 20],
+      center: MAP_START_CENTER,
       zoom: worldZoom(width),
       bearing: 0,
       pitch: 0,
@@ -275,7 +278,11 @@ export function useMapExplorer() {
       ? 0
       : 900;
 
-    map.current?.easeTo({ center: summit.coordinates, zoom: 3.5, duration });
+    map.current?.easeTo({
+      center: summit.coordinates,
+      zoom: getSummitSelectionZoom(instance?.getZoom() ?? 0),
+      duration,
+    });
   }
 
   function focusMap() {

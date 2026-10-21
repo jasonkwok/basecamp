@@ -1,5 +1,6 @@
 import type { Map as MapboxMap, Marker } from "mapbox-gl";
 import { MOUNTAIN_RANGES, type MountainRange } from "../../data/mountain-ranges";
+import { addMountainRangeAreas } from "./mountain-range-areas";
 
 const RANGE_MARKER_MAX_ZOOM = 4.5;
 
@@ -14,12 +15,14 @@ export function attachMountainRangeMarkers(
   instance: MapboxMap,
   mapboxgl: typeof import("mapbox-gl").default,
 ) {
+  const areas = addMountainRangeAreas(instance);
   const ranges = MOUNTAIN_RANGES.map((range) =>
     createMountainRangeMarker(range, instance, mapboxgl),
   );
 
   function updateVisibility() {
     const showRanges = instance.getZoom() <= RANGE_MARKER_MAX_ZOOM;
+    areas.setVisible(showRanges);
 
     for (const range of ranges) {
       range.marker.getElement().hidden = !showRanges;
@@ -44,6 +47,7 @@ export function attachMountainRangeMarkers(
   return () => {
     instance.off("zoom", updateVisibility);
     ranges.forEach(({ marker }) => marker.remove());
+    areas.remove();
   };
 }
 

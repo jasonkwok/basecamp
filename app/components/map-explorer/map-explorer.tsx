@@ -6,6 +6,8 @@ import NearbyMountains from "./nearby-mountains";
 import ExplorerSky from "./explorer-sky";
 import ExplorerBrand from "./explorer-brand";
 import MapStatus from "./map-status";
+import SummitProgressBadge from "./summit-progress-badge";
+import MountainGuideChat from "./mountain-guide-chat";
 import TripPlannerAction from "../trip-planner/trip-planner-action";
 import { useMapExplorer } from "./use-map-explorer";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -16,12 +18,17 @@ export default function MapExplorer() {
     container,
     status,
     message,
+    mountainPickerOpen,
+    toggleMountainPicker,
+    mountainGuideOpen,
+    toggleMountainGuide,
     profileSummit,
     showTripPlanner,
     canReturnToGroup,
     returnToGroup,
+    canReturnToSearch,
+    returnToSearch,
     closeSummitProfile,
-    setProfileSummit,
     nearbySummits,
     setNearbySummits,
     visitSummit,
@@ -30,25 +37,44 @@ export default function MapExplorer() {
   } = useMapExplorer();
 
   return (
-    <main className="explorer" aria-label="Basecamp map explorer">
+    <main
+      className="explorer"
+      aria-label="Basecamp map explorer"
+      data-mountain-guide-open={mountainGuideOpen}
+      data-mountain-profile-open={profileSummit !== null}
+    >
       <ExplorerSky />
 
       <div className="map-surface" ref={container} />
 
       <ExplorerBrand />
 
-      {profileSummit && showTripPlanner ? (
+      <SummitProgressBadge onSelect={visitSummit} />
+
+      <MountainGuideChat
+        open={mountainGuideOpen}
+        available={
+          !profileSummit && nearbySummits.length === 0
+        }
+        onToggle={toggleMountainGuide}
+        onOpenSearch={() => toggleMountainPicker(true)}
+        hasSelectedMountain={profileSummit !== null}
+        onSelectMountain={(summit) =>
+          visitSummit(summit, undefined, { keepGuideOpen: true })
+        }
+      />
+
+      {profileSummit && showTripPlanner && !mountainGuideOpen ? (
         <TripPlannerAction key={profileSummit.id} summit={profileSummit} />
       ) : null}
 
       <MountainPicker
         ready={status === "ready"}
-        onOpen={() => {
-          // Opening search clears other panels so they do not compete for space.
-          setProfileSummit(null);
-          setNearbySummits([]);
-        }}
-        onSelect={visitSummit}
+        open={mountainPickerOpen}
+        onToggle={toggleMountainPicker}
+        onSelect={(summit) =>
+          visitSummit(summit, undefined, { returnToSearch: true })
+        }
       />
 
       {nearbySummits.length > 0 ? (
@@ -69,7 +95,14 @@ export default function MapExplorer() {
       {profileSummit ? (
         <MountainProfile
           summit={profileSummit}
-          onBack={canReturnToGroup ? returnToGroup : undefined}
+          onBack={
+            canReturnToSearch
+              ? returnToSearch
+              : canReturnToGroup
+                ? returnToGroup
+                : undefined
+          }
+          backLabel={canReturnToSearch ? "Back to search" : "Back to nearby peaks"}
           onClose={() => {
             closeSummitProfile();
 

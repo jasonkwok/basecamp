@@ -8,6 +8,7 @@ import { MOUNTAIN_TAGS } from "../../data/mountain-tags";
 import { DIFFICULTY_LEVELS } from "../../data/difficulty-levels";
 
 import MountainGuideModal from "./mountain-guide-modal";
+import SummitProgressControl from "./summit-progress-control";
 
 const metres = new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 });
 const feet = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
@@ -17,10 +18,12 @@ export default function MountainProfile({
   summit,
   onClose,
   onBack,
+  backLabel = "Back to nearby peaks",
 }: {
   summit: Summit;
   onClose: () => void;
   onBack?: () => void;
+  backLabel?: string;
 }) {
   const [guide, setGuide] = useState<"difficulty" | "altitude" | null>(null);
 
@@ -50,8 +53,8 @@ export default function MountainProfile({
         {onBack ? (
           <button
             type="button"
-            aria-label="Back to nearby peaks"
-            title="Back to nearby peaks"
+            aria-label={backLabel}
+            title={backLabel}
             onClick={onBack}
           >
             ←
@@ -89,6 +92,8 @@ export default function MountainProfile({
 
       <p className="profile-description">{summit.description}</p>
 
+      <SummitProgressControl summit={summit} />
+
       <div className="profile-difficulty">
         <span className="difficulty-caption">
           <span>BASECAMP ASCENT RATING</span>
@@ -98,7 +103,7 @@ export default function MountainProfile({
             title="How difficulty is rated"
             onClick={() => setGuide("difficulty")}
           >
-            More Info
+            ?
           </button>
         </span>
         <strong
@@ -158,7 +163,7 @@ export default function MountainProfile({
               title="Understand altitude ranges"
               onClick={() => setGuide("altitude")}
             >
-              More Info
+              ?
             </button>
           </dt>
           <dd>

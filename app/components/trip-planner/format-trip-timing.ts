@@ -8,8 +8,6 @@ export function formatTripTiming(timing: TripTiming): string {
   switch (timing.kind) {
     case "exact":
       return `${formatTripDate(timing.departureDate)}–${formatTripDate(timing.returnDate)}`;
-    case "window":
-      return `Flexible: ${formatTripDate(timing.earliestDeparture)}–${formatTripDate(timing.latestReturn)}`;
     case "season": {
       const years =
         timing.season === "dec-feb"

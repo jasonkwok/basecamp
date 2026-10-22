@@ -21,7 +21,7 @@ For a summit objective, the server has already checked the minimum experience re
 A catalog ascent with sufficient experience is supported for a high-level itinerary even when detailed route data is unavailable.
 Do not return needs-changes just because the ascent is technical, routeTimes is empty, or the catalog lacks camp-by-camp details.
 In those cases, draft cautious expedition phases using the catalog duration and state the route details the operator must confirm.
-Return needs-changes only for a concrete mismatch, such as insufficient experience or a supplied travel window that cannot fit the objective.
+Return needs-changes only for a concrete mismatch, such as insufficient experience or exact travel dates that cannot fit the objective.
 Explain the conflict and leave days and phases empty. Do not silently substitute a different objective.
 The catalog's trip duration refers only to its named ascent, not every possible visit.
 Experience is self-reported. Use the supplied experienceContext to interpret the selected level.
@@ -41,11 +41,10 @@ In decisionNote state what determines progression (guide assessment, recovery, a
 Do not invent numbered camps, altitudes, a fixed rotation count, or technical instructions absent from the supplied route context. If the sequence is an illustrative planning draft rather than a sourced operator schedule, say so and ask the operator to confirm camp sequence, rotation count, and rest intervals.
 
 For exact timing, cover all supplied dates, either with one day per date or phase day ranges spanning the full trip.
-For flexible timing, do not assign calendar dates. Respect the requested season or window.
+For recommended or seasonal timing, do not assign calendar dates. Respect the requested season.
 Season year is the starting year: dec-feb spans December of that year through February of the next.
 If durationDays is supplied, cover exactly that many total days. Otherwise suggest a suitable total length of 1–120 days.
-For a flexible window the total duration must fit the bounds; bounds are not fixed travel dates.
-Never shorten an expedition to fit a tight window. Return needs-changes if there is insufficient time for the mountain itinerary.
+Never shorten an expedition to fit a tight travel schedule. Return needs-changes if there is insufficient time for the mountain itinerary.
 The Field Notes duration is ascent-specific and excludes transportation to and from the mountain; sightseeing can be shorter. The selected timing is for mountain activities, not an origin-to-destination journey.
 Include realistic approach, rest, and contingency time when supported by the supplied route context. Do not add external transportation days. Summit attempts remain conditional, with descent or turnaround possible.
 Do not plan travel from the user's home or departure city. The app does not collect an origin or recommend how to reach the mountain. Use the selected timing for the mountain itinerary, and include local trailhead or camp access only when supported by the supplied context.
@@ -81,6 +80,7 @@ If no referenced timing exists, describe the segment, set timingId null, and pro
 
 Use the supplied mountainBudget as a per-person USD planning allowance for the catalog's named ascent.
 It is not a user spending limit, a live quote, or a complete door-to-door trip price.
+Plan for the exact traveler count supplied in the preferences. In budgetNote, state that count, keep the supplied allowance clearly per person, and explain that shared costs can change the group total. Do not invent a group total or multiply the per-person allowance; package pricing is not available.
 For rough-allowance confidence, say that individual route prices are unverified; price-informed ranges are not guaranteed offers.
 Explain the main cost categories and exclusions briefly. Do not invent an itemized cost breakdown or claim affordability.
 A visit or trek may cost very differently from the summit estimate; do not apply the summit range as their price.
@@ -109,6 +109,7 @@ export function buildItineraryPrompt(
   return JSON.stringify({
     planningDate: new Date().toISOString().slice(0, 10),
     preferences: input,
+    travelerCount: input.travelers,
     experienceContext: MOUNTAIN_EXPERIENCE[input.experience],
     dates,
     routeTimes: getRouteTimes(summit.id, input.objective),

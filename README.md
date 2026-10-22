@@ -110,7 +110,7 @@ The default model is `openai/gpt-4.1-mini`, verified with the current Gateway ac
 
 The result contains a basic itinerary, timing guidance, budget considerations, a packing starter list, and assumptions. Flexible plans show numbered days without invented calendar dates; exact-date plans retain their dates. Seasonal advice is provisional and is not a live forecast or access check. It does not fetch live prices, make bookings, verify trail conditions, or save drafts after closing. An infeasible or unsupported objective may return questions or suggested changes instead of an itinerary.
 
-Generation is bounded to one model call, 5,000 output tokens, and 50 seconds. A best-effort per-instance limit allows 20 requests per IP per hour; use shared application rate limits and Gateway spend controls before public rollout. Authentication errors require refreshed local environment credentials; credit/account errors require checking AI Gateway setup. Inputs and the last valid result remain available after a recoverable error.
+Generation is bounded to one model call, 5,000 output tokens, and 50 seconds. A best-effort per-instance limit allows 50 requests per IP per feature per hour; use shared application rate limits and Gateway spend controls before public rollout. Authentication errors require refreshed local environment credentials; credit/account errors require checking AI Gateway setup. Inputs and the last valid result remain available after a recoverable error.
 
 Run validation checks with `npm test`, `npm run lint`, and `npm run build`.
 

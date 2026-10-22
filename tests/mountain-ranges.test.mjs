@@ -58,12 +58,12 @@ test("clusters prefer exact range matches and reject ties", () => {
 });
 
 test("range names survive an outside peak joining the screen cluster", () => {
-  assert.equal(
-    findMountainRangeForGroup([
-      [86.9, 27.9],
-      [87.0, 28.0],
-      [110, 30],
-    ])?.name,
-    "Himalayas",
-  );
+  const match = findMountainRangeForGroup([
+    [86.9, 27.9],
+    [87.0, 28.0],
+    [110, 30],
+  ]);
+
+  assert.equal(match?.name, "Himalayas");
+  assert.equal(match?.peakCount, 2);
 });

@@ -46,19 +46,13 @@ export function tripDates(start: string, end: string): string[] {
 
 const durationSchema = z.number().int().min(1).max(MAX_TRIP_DAYS).nullable();
 
-// Flexible timing retains the user's intent without inventing exact travel dates.
+// Recommendations and seasons retain timing intent without inventing exact dates.
 export const tripTimingSchema = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("recommended"), durationDays: durationSchema }),
   z.object({
     kind: z.literal("season"),
     season: z.enum(["mar-may", "jun-aug", "sep-nov", "dec-feb"]),
     year: z.number().int().min(2000).max(2100),
-    durationDays: durationSchema,
-  }),
-  z.object({
-    kind: z.literal("window"),
-    earliestDeparture: z.iso.date(),
-    latestReturn: z.iso.date(),
     durationDays: durationSchema,
   }),
   z.object({
@@ -252,43 +246,30 @@ function validateTiming(timing: TripTiming, context: z.RefinementCtx) {
     }
   }
 
-  if (timing.kind !== "exact" && timing.kind !== "window") return;
+  if (timing.kind !== "exact") return;
 
-  const start =
-    timing.kind === "exact" ? timing.departureDate : timing.earliestDeparture;
-  const end = timing.kind === "exact" ? timing.returnDate : timing.latestReturn;
+  const { departureDate: start, returnDate: end } = timing;
   const availableDays = calendarDayCount(start, end);
 
   if (!Number.isFinite(availableDays) || availableDays < 1) {
     context.addIssue({
       code: "custom",
       path: ["timing"],
-      message: "The end of your travel window must be on or after its start.",
+      message: "The return date must be on or after the departure date.",
     });
   }
   if (start < today) {
     context.addIssue({
       code: "custom",
       path: ["timing"],
-      message: "Choose an upcoming travel window.",
+      message: "Choose upcoming travel dates.",
     });
   }
-  if (timing.kind === "exact" && availableDays > MAX_TRIP_DAYS) {
+  if (availableDays > MAX_TRIP_DAYS) {
     context.addIssue({
       code: "custom",
       path: ["timing"],
       message: `Trips can cover up to ${MAX_TRIP_DAYS} days.`,
-    });
-  }
-  if (
-    timing.kind === "window" &&
-    timing.durationDays !== null &&
-    timing.durationDays > availableDays
-  ) {
-    context.addIssue({
-      code: "custom",
-      path: ["timing"],
-      message: "Your trip length must fit inside the travel window.",
     });
   }
 }

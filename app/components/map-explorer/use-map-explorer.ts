@@ -29,9 +29,12 @@ export function useMapExplorer() {
   const [status, setStatus] = useState<Status>("loading");
   const [message, setMessage] = useState("Unfolding your atlas…");
   const [attempt, setAttempt] = useState(0);
+  const [mountainPickerOpen, setMountainPickerOpen] = useState(false);
+  const [mountainGuideOpen, setMountainGuideOpen] = useState(false);
   const [profileSummit, setProfileSummit] = useState<Summit | null>(null);
   const [nearbySummits, setNearbySummits] = useState<Summit[]>([]);
   const [showTripPlanner, setShowTripPlanner] = useState(false);
+  const [returnToPicker, setReturnToPicker] = useState(false);
   const [previousGroup, setPreviousGroup] = useState<{
     summits: Summit[];
     center: [number, number];
@@ -159,12 +162,14 @@ export function useMapExplorer() {
               selectedSummitId,
               markerIndex: summitMarkers.current,
               onOpenGroup: (summits) => {
+                setMountainPickerOpen(false);
                 setPreviousGroup(null);
                 setShowTripPlanner(false);
                 setProfileSummit(null);
                 setNearbySummits(summits);
               },
               onOpenSummit: (summit) => {
+                setMountainPickerOpen(false);
                 setPreviousGroup(null);
                 setShowTripPlanner(true);
                 setNearbySummits([]);
@@ -216,8 +221,18 @@ export function useMapExplorer() {
   }, [attempt]);
 
   // Picker and nearby-list selections share the same profile and camera behavior.
-  function visitSummit(summit: Summit, group?: Summit[]) {
+  function visitSummit(
+    summit: Summit,
+    group?: Summit[],
+    {
+      keepGuideOpen = false,
+      returnToSearch = false,
+    }: { keepGuideOpen?: boolean; returnToSearch?: boolean } = {},
+  ) {
     const instance = map.current;
+
+    setMountainPickerOpen(false);
+    if (!keepGuideOpen) setMountainGuideOpen(false);
 
     // Save the group and its camera before centering an individual peak.
     setPreviousGroup(
@@ -230,6 +245,7 @@ export function useMapExplorer() {
         : null,
     );
     setShowTripPlanner(true);
+    setReturnToPicker(returnToSearch);
     setProfileSummit(summit);
 
     selectedSummitId.current = summit.id;
@@ -262,6 +278,7 @@ export function useMapExplorer() {
     selectedSummitId.current = null;
     setProfileSummit(null);
     setShowTripPlanner(false);
+    setReturnToPicker(false);
     setPreviousGroup(null);
 
     if (!instance) return;
@@ -280,7 +297,9 @@ export function useMapExplorer() {
   function returnToGroup() {
     if (!previousGroup) return;
 
+    setMountainPickerOpen(false);
     setShowTripPlanner(false);
+    setReturnToPicker(false);
     setProfileSummit(null);
     setNearbySummits(previousGroup.summits);
     selectedSummitId.current = null;
@@ -296,6 +315,41 @@ export function useMapExplorer() {
     setPreviousGroup(null);
   }
 
+  function returnToSearch() {
+    if (!returnToPicker) return;
+
+    closeSummitProfile();
+    setMountainPickerOpen(true);
+  }
+
+  // Opening search replaces any map panel so only one explorer panel is visible.
+  function toggleMountainPicker(open: boolean) {
+    setMountainPickerOpen(open);
+
+    if (open) {
+      setMountainGuideOpen(false);
+      setProfileSummit(null);
+      setNearbySummits([]);
+      setShowTripPlanner(false);
+      setReturnToPicker(false);
+      setPreviousGroup(null);
+    }
+  }
+
+  // The chat replaces other explorer panels, keeping the map interaction clear.
+  function toggleMountainGuide(open: boolean) {
+    setMountainGuideOpen(open);
+
+    if (open) {
+      setMountainPickerOpen(false);
+      setProfileSummit(null);
+      setNearbySummits([]);
+      setShowTripPlanner(false);
+      setReturnToPicker(false);
+      setPreviousGroup(null);
+    }
+  }
+
   // Changing the attempt reruns the effect, disposing the previous map first.
   function retry() {
     setStatus("loading");
@@ -308,10 +362,16 @@ export function useMapExplorer() {
     map,
     status,
     message,
+    mountainPickerOpen,
+    toggleMountainPicker,
+    mountainGuideOpen,
+    toggleMountainGuide,
     profileSummit,
     showTripPlanner,
     canReturnToGroup: previousGroup !== null,
     returnToGroup,
+    canReturnToSearch: returnToPicker,
+    returnToSearch,
     closeSummitProfile,
     setProfileSummit,
     nearbySummits,

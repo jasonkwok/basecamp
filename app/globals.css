@@ -15,7 +15,7 @@
 body {
   margin: 0;
   padding: 36px;
-  background: #3f7055;
+  background: #2b1b12;
   color: var(--foreground);
   font-family: var(--font-nunito), Arial, sans-serif;
 }
@@ -59,6 +59,153 @@ button:focus-visible,
   overflow: hidden;
   border-radius: 24px;
   background: transparent;
+}
+.summit-list {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  z-index: 20;
+  pointer-events: auto;
+}
+.summit-list summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 8px 15px;
+  border: 2px solid #3f7055;
+  border-radius: 999px;
+  background: #fffbee;
+  box-shadow: 0 3px 0 #244737;
+  color: #244737;
+  font-size: 13px;
+  font-weight: 900;
+  list-style: none;
+  cursor: pointer;
+}
+.summit-list summary::-webkit-details-marker {
+  display: none;
+}
+.summit-list summary span {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 50%;
+  background: #dcebc5;
+  color: #315b44;
+}
+.summit-list summary:focus-visible {
+  outline: 3px solid #b66a3c;
+  outline-offset: 3px;
+}
+.summit-list-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: min(300px, calc(100vw - 40px));
+  max-height: min(460px, calc(100svh - 190px));
+  overflow-y: auto;
+  padding: 16px;
+  border: 2px solid #3f7055;
+  border-radius: 20px;
+  background: #fffbee;
+  box-shadow: 4px 5px 0 #244737;
+  color: #244737;
+}
+.summit-list[open] .summit-list-panel {
+  animation: summit-list-arrive 180ms ease-out both;
+  transform-origin: top right;
+}
+@keyframes summit-list-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(-5px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.summit-list-panel h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
+}
+.summit-list-panel p {
+  margin: 3px 0 12px;
+  color: #526b59;
+  font-size: 11px;
+}
+.summit-list-panel ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.summit-list-item {
+  position: relative;
+}
+.summit-list-entry {
+  width: 100%;
+  border: 0;
+  padding: 8px 42px 8px 10px;
+  border-radius: 10px;
+  background: #e5f2cf;
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  display: grid;
+  gap: 6px;
+  text-align: left;
+  cursor: pointer;
+}
+.summit-list-entry:hover {
+  background: #d7e9bd;
+}
+.summit-list-entry:focus-visible {
+  outline: 3px solid #b66a3c;
+  outline-offset: 2px;
+}
+.summit-list-remove {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #748174;
+  font: inherit;
+  font-size: 17px;
+  line-height: 1;
+  opacity: 0.65;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+.summit-list-remove:hover {
+  background: #f0e8d9;
+  color: #744b3d;
+  opacity: 1;
+}
+.summit-list-remove:focus-visible {
+  outline: 2px solid #b66a3c;
+  outline-offset: 2px;
+  opacity: 1;
+}
+.summit-list-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.summit-list-badges .mountain-badge {
+  font-size: 9px;
+  line-height: 15px;
 }
 .star-field {
   position: absolute;
@@ -131,12 +278,15 @@ button:focus-visible,
   place-items: center;
   width: 72px;
   height: 72px;
-  font-size: 52px;
-  line-height: 1;
   background: #f7f8df;
   border: 1.5px solid #83a873;
   border-radius: 24px;
   transform: rotate(-6deg);
+}
+.brand-mark img {
+  display: block;
+  width: 64px;
+  height: auto;
 }
 .atlas-brand h1 {
   font-size: 40px;
@@ -408,6 +558,10 @@ button:focus-visible,
     gap: 10px;
     padding: 12px 14px;
   }
+  .summit-list {
+    top: 108px;
+    right: 16px;
+  }
   .atlas-brand h1 {
     font-size: 32px;
   }
@@ -418,8 +572,10 @@ button:focus-visible,
     width: 54px;
     height: 58px;
     flex-shrink: 0;
-    font-size: 38px;
     border-radius: 18px;
+  }
+  .brand-mark img {
+    width: 48px;
   }
   .map-status {
     top: 44%;
@@ -621,6 +777,177 @@ button:focus-visible,
   line-height: 1.65;
   margin: 16px 0;
 }
+.summit-progress {
+  position: relative;
+  display: grid;
+  gap: 7px;
+  margin: 16px 0;
+}
+.summit-celebration {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  left: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+.summit-celebration > span:first-child {
+  padding: 8px 12px;
+  border: 1px solid #d7b456;
+  border-radius: 999px;
+  background: #fff7d8;
+  box-shadow: 0 3px 0 #d7b456;
+  color: #57451d;
+  font-size: 12px;
+  font-weight: 900;
+  text-align: center;
+  animation: summit-congratulations 2200ms ease-out both;
+}
+.summit-confetti {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+.summit-confetti i {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  width: 7px;
+  height: 10px;
+  border-radius: 2px;
+  background: #d58a42;
+  animation: summit-confetti-burst 900ms ease-out both;
+}
+.summit-confetti i:nth-child(2) {
+  background: #6b9b62;
+  animation-delay: 35ms;
+}
+.summit-confetti i:nth-child(3) {
+  background: #d7b456;
+  animation-delay: 70ms;
+}
+.summit-confetti i:nth-child(4) {
+  background: #c96b55;
+  animation-delay: 20ms;
+}
+.summit-confetti i:nth-child(5) {
+  background: #7692b2;
+  animation-delay: 55ms;
+}
+.summit-confetti i:nth-child(6) {
+  background: #8e75a8;
+  animation-delay: 90ms;
+}
+.summit-progress button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 10px 14px;
+  border: 1.5px solid #3f7055;
+  border-radius: 14px;
+  background: #e5f2cf;
+  color: #244737;
+  font: inherit;
+  font-weight: 800;
+  text-align: center;
+  cursor: pointer;
+}
+.summit-progress button[aria-pressed="true"] {
+  background: #315b44;
+  color: #fffbee;
+}
+.summit-progress button.is-celebrating {
+  animation: summit-confirm 260ms ease-out;
+}
+.summit-progress button.is-celebrating > span {
+  display: inline-block;
+  transform-origin: bottom center;
+  animation: summit-flag-wave 520ms ease-in-out;
+}
+@keyframes summit-confirm {
+  50% {
+    transform: scale(1.035);
+  }
+}
+@keyframes summit-flag-wave {
+  25% {
+    transform: rotate(-14deg);
+  }
+  55% {
+    transform: rotate(10deg);
+  }
+  80% {
+    transform: rotate(-5deg);
+  }
+}
+@keyframes summit-congratulations {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.92);
+  }
+  12%,
+  82% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+}
+@keyframes summit-confetti-burst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0) rotate(0deg);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--confetti-x, -50%), -70px) rotate(160deg);
+  }
+}
+.summit-confetti i:nth-child(1) {
+  --confetti-x: calc(-50% - 68px);
+}
+.summit-confetti i:nth-child(2) {
+  --confetti-x: calc(-50% - 42px);
+}
+.summit-confetti i:nth-child(3) {
+  --confetti-x: calc(-50% - 18px);
+}
+.summit-confetti i:nth-child(4) {
+  --confetti-x: calc(-50% + 18px);
+}
+.summit-confetti i:nth-child(5) {
+  --confetti-x: calc(-50% + 42px);
+}
+.summit-confetti i:nth-child(6) {
+  --confetti-x: calc(-50% + 68px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .summit-list[open] .summit-list-panel,
+  .summit-progress button.is-celebrating,
+  .summit-progress button.is-celebrating > span,
+  .summit-celebration > span:first-child,
+  .summit-confetti i {
+    animation: none;
+  }
+}
+.summit-progress button:disabled {
+  cursor: wait;
+}
+.summit-progress small {
+  padding: 0 2px;
+  color: #526b59;
+  font-size: 11px;
+  line-height: 1.5;
+}
 .profile-facts {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -706,6 +1033,18 @@ button:focus-visible,
     width: calc(100% - 32px);
     max-height: calc(100svh - 280px);
     padding: 16px;
+  }
+
+  .explorer[data-mountain-guide-open="true"][data-mountain-profile-open="true"]
+    .atlas-brand,
+  .explorer[data-mountain-guide-open="true"][data-mountain-profile-open="true"]
+    .summit-list {
+    display: none;
+  }
+
+  .explorer[data-mountain-guide-open="true"][data-mountain-profile-open="true"]
+    .mountain-profile {
+    max-height: 32svh;
   }
 }
 .mountain-badges {
@@ -797,13 +1136,14 @@ button:focus-visible,
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  min-height: 25px;
-  padding: 3px 9px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
   border: 1.5px solid #3f7055;
   border-radius: 999px;
   background: #edf4df;
   color: #3f7055;
-  font-size: 10px;
+  font-size: 16px;
   font-weight: 900;
   cursor: pointer;
   white-space: nowrap;

@@ -2,13 +2,17 @@
   width: min(760px, calc(100vw - 32px));
 }
 .planner :global(.guide-topline) {
-  top: 0;
   gap: 16px;
-  margin: -24px -24px 0;
+  margin: -24px -24px 12px;
   padding: 12px 24px;
   font-size: 14px;
   letter-spacing: 0;
   border-bottom: 1px solid #dce3cc;
+  /* Keep the mountain label in normal flow so it cannot cover content on scroll. */
+  position: static;
+}
+.planner > h2 {
+  margin-top: 0;
 }
 .planner :global(.guide-topline span) {
   line-height: 1.3;
@@ -169,6 +173,7 @@
   padding: 20px;
   border: 2px solid #dce3cc;
   border-radius: 16px;
+  background: #fffdf6;
 }
 .days h4 {
   margin: 0 0 8px;

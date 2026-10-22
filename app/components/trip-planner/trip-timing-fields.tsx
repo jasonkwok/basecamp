@@ -3,7 +3,6 @@ import type { Summit } from "../../data/mountains";
 import {
   MAX_TRIP_DAYS,
   SEASON_MONTHS,
-  type TripTiming,
 } from "../../lib/trip-planner/schema";
 import styles from "./trip-planner.module.css";
 
@@ -12,7 +11,7 @@ export default function TripTimingFields({
 }: {
   tripLength: Summit["tripLength"];
 }) {
-  const [mode, setMode] = useState<TripTiming["kind"]>("recommended");
+  const [mode, setMode] = useState<"recommended" | "season">("recommended");
   const today = new Date().toISOString().slice(0, 10);
   const currentYear = Number(today.slice(0, 4));
   const currentMonth = Number(today.slice(5, 7));
@@ -41,13 +40,11 @@ export default function TripTimingFields({
           aria-label="Travel timing"
           value={mode}
           onChange={(event) =>
-            setMode(event.target.value as TripTiming["kind"])
+            setMode(event.target.value as "recommended" | "season")
           }
         >
           <option value="recommended">Recommend a time for me</option>
           <option value="season">Season / months</option>
-          <option value="window">Flexible travel window</option>
-          <option value="exact">Exact travel dates</option>
         </select>
       </label>
 
@@ -94,43 +91,21 @@ export default function TripTimingFields({
         </>
       ) : null}
 
-      {mode === "exact" || mode === "window" ? (
-        <div className={styles.row}>
-          <label>
-            {mode === "exact" ? "Departure date" : "Earliest departure"}
-            <input name="startDate" type="date" min={today} required />
-          </label>
-          <label>
-            {mode === "exact" ? "Return date" : "Latest return"}
-            <input name="endDate" type="date" min={today} required />
-          </label>
-        </div>
-      ) : null}
-
-      {mode !== "exact" ? (
-        <>
-          <label>
-            Days available (optional)
-            <input
-              name="durationDays"
-              type="number"
-              min={1}
-              max={MAX_TRIP_DAYS}
-              placeholder="Let the planner suggest a length"
-            />
-          </label>
-          <small>
-            Include travel from home and back. Leave blank for a suggested
-            length. Trips can span up to {MAX_TRIP_DAYS} days. Longer climbs use
-            expedition phases with provisional week ranges.
-          </small>
-        </>
-      ) : (
-        <small>
-          Include travel from home and back. Trips support up to {MAX_TRIP_DAYS}{" "}
-          days.
-        </small>
-      )}
+      <label>
+        Days available (optional)
+        <input
+          name="durationDays"
+          type="number"
+          min={1}
+          max={MAX_TRIP_DAYS}
+          placeholder="Let the planner suggest a length"
+        />
+      </label>
+      <small>
+        Include travel from home and back. Leave blank for a suggested length.
+        Trips can span up to {MAX_TRIP_DAYS} days. Longer climbs use expedition
+        phases with provisional week ranges.
+      </small>
     </>
   );
 }

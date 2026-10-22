@@ -95,7 +95,6 @@ export default function TripPlanResult({
         <ItineraryExportActions
           markdown={markdown}
           filename={itineraryMarkdownFilename(summit.name)}
-          mountainName={summit.name}
         />
       ) : null}
 
@@ -121,6 +120,12 @@ export default function TripPlanResult({
       <p>
         <strong>{formatMountainBudget(budget)}</strong> per person ·{" "}
         {budget.basis}
+      </p>
+
+      <p className={styles.status}>
+        Planning for {input.travelers} traveler
+        {input.travelers === 1 ? "" : "s"}. The group total can vary because
+        shared costs depend on party size.
       </p>
 
       <p>{itinerary.budgetNote}</p>

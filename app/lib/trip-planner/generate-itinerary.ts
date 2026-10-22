@@ -53,7 +53,6 @@ export async function generateItinerary(
     itinerary,
     dates,
     requestedDays,
-    timing,
     routeTimes,
   });
 

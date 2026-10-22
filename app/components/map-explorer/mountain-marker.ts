@@ -117,7 +117,7 @@ export function updateMountainMarker(
   marker.name.textContent = showMountainDetails
     ? representative.name
     : range
-      ? `${range.flags.join(" ")} ${range.name}`
+      ? `${range.flags.join(" ")} ${range.name} · ${range.peakCount} peaks`
       : `${mountains.length} peaks`;
   marker.badges.hidden = !showMountainDetails;
   marker.nearby.hidden = !hasNearbyMountains;

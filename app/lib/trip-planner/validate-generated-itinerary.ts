@@ -5,11 +5,9 @@ import {
   type RouteTime,
 } from "../../data/route-times.ts";
 import {
-  calendarDayCount,
   itineraryDuration,
   itineraryGenerationSchema,
   tripPlanSchema,
-  type TripInput,
   type TripPlan,
 } from "./schema.ts";
 
@@ -53,13 +51,11 @@ export function validateGeneratedItinerary({
   itinerary,
   dates,
   requestedDays,
-  timing,
   routeTimes,
 }: {
   itinerary: GeneratedItinerary;
   dates: string[];
   requestedDays: number | null;
-  timing: TripInput["timing"];
   routeTimes: RouteTime[];
 }): TripPlan {
   if (itinerary.status === "draft" && hasUnestimatedMovement(itinerary)) {
@@ -69,7 +65,7 @@ export function validateGeneratedItinerary({
   const plan = tripPlanSchema.parse({ itinerary, dates });
 
   if (plan.itinerary.status === "draft") {
-    validateRequestedDuration(plan, requestedDays, timing);
+    validateRequestedDuration(plan, requestedDays);
   }
 
   const stages = [...plan.itinerary.days, ...plan.itinerary.phases];
@@ -83,19 +79,10 @@ export function validateGeneratedItinerary({
 function validateRequestedDuration(
   plan: TripPlan,
   requestedDays: number | null,
-  timing: TripInput["timing"],
 ) {
   const generatedDays = itineraryDuration(plan.itinerary);
 
   if (requestedDays !== null && generatedDays !== requestedDays) {
     throw new Error("The itinerary did not match the requested trip length.");
-  }
-
-  if (
-    timing.kind === "window" &&
-    generatedDays >
-      calendarDayCount(timing.earliestDeparture, timing.latestReturn)
-  ) {
-    throw new Error("The itinerary exceeded the available travel window.");
   }
 }

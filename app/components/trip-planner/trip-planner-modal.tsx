@@ -70,9 +70,9 @@ export default function TripPlannerModal({
         </p>
       ) : null}
       <p id="trip-planner-description">
-        Choose exact dates, a rough window, or let us suggest when to go. We’ll
-        draft a mountain itinerary and packing starter list, using the route’s
-        USD budget estimate from Field Notes.
+        Choose a season or let us suggest when to go. We’ll draft
+        a mountain itinerary and packing starter list, using the route’s USD
+        budget estimate from Field Notes.
       </p>
 
       {summit ? (

@@ -18,6 +18,8 @@ export default function NearbyMountains({
   const mountainRange = findMountainRangeForGroup(
     nearbySummits.map((summit) => summit.coordinates),
   );
+  const peakCount = mountainRange?.peakCount ?? nearbySummits.length;
+  const peakCountLabel = `${peakCount} ${peakCount === 1 ? "peak" : "peaks"}`;
 
   // Announce the newly opened group and give keyboard users a starting point.
   useEffect(() => {
@@ -37,8 +39,8 @@ export default function NearbyMountains({
       <div className="nearby-header">
         <h2 id="nearby-heading" ref={nearbyHeading} tabIndex={-1}>
           {mountainRange
-            ? `${mountainRange.flags.join(" ")} ${mountainRange.name}`
-            : `${nearbySummits.length} nearby peaks`}
+            ? `${mountainRange.flags.join(" ")} ${mountainRange.name} · ${peakCountLabel}`
+            : `${peakCount} nearby peaks`}
         </h2>
         <button
           aria-label="Close mountain group"

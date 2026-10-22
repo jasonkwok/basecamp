@@ -11,6 +11,8 @@ export type MountainRange = {
   };
 };
 
+type MountainRangeMatch = MountainRange & { peakCount: number };
+
 // Region bounds provide context for mountain groups on the global map.
 export const MOUNTAIN_RANGES: MountainRange[] = [
   {
@@ -83,9 +85,13 @@ export function findMountainRangeForGroup(coordinates: readonly Coordinates[]) {
 
   // Prefer the smaller region where broad range boundaries overlap.
   if (completeMatches.length > 0) {
-    return completeMatches.reduce((smallest, match) =>
-      rangeArea(match.range) < rangeArea(smallest.range) ? match : smallest,
-    ).range;
+    const match = completeMatches.reduce((smallest, candidate) =>
+      rangeArea(candidate.range) < rangeArea(smallest.range)
+        ? candidate
+        : smallest,
+    );
+
+    return toRangeMatch(match);
   }
 
   // Keep a range label when panning adds an outside peak to its screen cluster.
@@ -94,7 +100,14 @@ export function findMountainRangeForGroup(coordinates: readonly Coordinates[]) {
     ({ peakCount }) => peakCount === highestPeakCount,
   );
 
-  return leadingMatches.length === 1 ? leadingMatches[0].range : null;
+  return leadingMatches.length === 1 ? toRangeMatch(leadingMatches[0]) : null;
+}
+
+function toRangeMatch(match: {
+  range: MountainRange;
+  peakCount: number;
+}): MountainRangeMatch {
+  return { ...match.range, peakCount: match.peakCount };
 }
 
 function isInsideRange(

@@ -22,14 +22,16 @@ const tagCounts = Object.fromEntries(
 
 type MountainPickerProps = {
   ready: boolean;
-  onOpen: () => void;
+  open: boolean;
+  onToggle: (open: boolean) => void;
   onSelect: (summit: Summit) => void;
 };
 
 // Keep filter input local so typing does not rerender the globe and its panels.
 export default function MountainPicker({
   ready,
-  onOpen,
+  open,
+  onToggle,
   onSelect,
 }: MountainPickerProps) {
   const [collection, setCollection] = useState<MountainTagId | "all">("all");
@@ -77,10 +79,9 @@ export default function MountainPicker({
   return (
     <details
       className="summit-picker"
+      open={open}
       onToggle={(event) => {
-        if (event.currentTarget.open) {
-          onOpen();
-        }
+        onToggle(event.currentTarget.open);
       }}
     >
       <summary>
@@ -181,14 +182,7 @@ export default function MountainPicker({
                 <button
                   className="summit-option"
                   disabled={!ready}
-                  onClick={(event) => {
-                    onSelect(summit);
-
-                    // Close the native disclosure after choosing a destination.
-                    const picker = event.currentTarget.closest("details");
-
-                    if (picker) picker.open = false;
-                  }}
+                  onClick={() => onSelect(summit)}
                 >
                   <span className="summit-option-heading">
                     <strong>{summit.name}</strong>

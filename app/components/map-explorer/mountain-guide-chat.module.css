@@ -1,0 +1,463 @@
+.root {
+  position: absolute;
+  right: 28px;
+  bottom: 52px;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.withProfile {
+  z-index: 30;
+}
+
+.trigger,
+.panel {
+  pointer-events: auto;
+}
+
+.trigger {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 20px;
+  align-items: center;
+  gap: 12px;
+  width: min(390px, calc(100vw - 100px));
+  min-height: 74px;
+  padding: 11px 17px;
+  border: 2px solid #315b44;
+  border-radius: 18px;
+  background: #fffbee;
+  box-shadow: 0 5px 0 #244737;
+  color: #244737;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.trigger:hover {
+  background: #e5f2cf;
+  transform: translateY(-2px);
+}
+
+.triggerIcon {
+  display: block;
+  font-size: 35px;
+  line-height: 1;
+}
+
+.triggerCopy {
+  display: grid;
+  gap: 3px;
+}
+
+.triggerCopy strong {
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.triggerCopy small {
+  color: #66836c;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.triggerArrow {
+  color: #b66a3c;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.trigger:focus-visible {
+  outline: 2px solid #315b44;
+  outline-offset: 4px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  width: min(420px, calc(100vw - 56px));
+  max-height: min(660px, calc(100svh - 150px));
+  overflow: hidden;
+  border: 2px solid #315b44;
+  border-radius: 22px;
+  background: #fffbee;
+  box-shadow: 5px 6px 0 #244737;
+  color: #244737;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 18px 13px;
+  border-bottom: 1px solid #d8e2cb;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: #66836c;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 21px;
+  line-height: 1.2;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.newChat {
+  padding: 7px 9px;
+  border: 1px solid #c6d3bf;
+  border-radius: 9px;
+  background: transparent;
+  color: #315b44;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.newChat:hover {
+  background: #edf3e5;
+}
+
+.close {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #c6d3bf;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font-size: 23px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 130px;
+  padding: 16px 18px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.assistantTurn {
+  display: grid;
+  gap: 10px;
+}
+
+.welcome {
+  display: grid;
+  justify-items: start;
+  gap: 9px;
+}
+
+.searchShortcut {
+  padding: 8px 10px;
+  border: 1px solid #bdcfae;
+  border-radius: 10px;
+  background: #f5f7eb;
+  color: #315b44;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 900;
+  text-align: left;
+  cursor: pointer;
+}
+
+.searchShortcut:hover {
+  background: #e5f2cf;
+}
+
+.assistantMessage,
+.userBubble {
+  width: fit-content;
+  max-width: 94%;
+  margin: 0;
+  padding: 11px 13px;
+  border-radius: 14px 14px 14px 4px;
+  background: #edf3e5;
+  font-size: 14px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.userMessage {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.userBubble {
+  border-radius: 14px 14px 4px 14px;
+  background: #dcebc5;
+}
+
+.thinking {
+  margin: 0;
+  color: #66836c;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.recommendations {
+  display: grid;
+  gap: 9px;
+}
+
+.recommendationCard {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #bdcfae;
+  border-radius: 14px;
+  background: #fff;
+  color: #244737;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.recommendationCard:hover {
+  border-color: #3f7055;
+  background: #f3f7eb;
+}
+
+.cardTopline {
+  display: flex;
+  justify-content: space-between;
+  color: #66836c;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.7px;
+}
+
+.recommendationCard strong {
+  font-size: 17px;
+  line-height: 1.2;
+}
+
+.cardLocation,
+.cardReason {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.cardLocation {
+  color: #66836c;
+}
+
+.cardAction {
+  margin-top: 3px;
+  color: #315b44;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.download {
+  min-height: 40px;
+  padding: 9px 12px;
+  border: 1px solid #bdcfae;
+  border-radius: 11px;
+  background: #edf3e5;
+  color: #315b44;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.download:hover {
+  background: #dcebc5;
+}
+
+.summitReminder {
+  margin: 0;
+  padding: 10px 12px;
+  border-left: 3px solid #83a873;
+  border-radius: 8px;
+  background: #f1f5e9;
+  color: #526e59;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 18px 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #fae9dd;
+  color: #793e28;
+  font-size: 12px;
+}
+
+.error p {
+  margin: 0;
+}
+
+.error button {
+  flex-shrink: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 900;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.form {
+  display: grid;
+  gap: 11px;
+  padding: 13px 18px 17px;
+  border-top: 1px solid #d8e2cb;
+  background: #fbf9f0;
+}
+
+.experienceField,
+.messageField {
+  display: grid;
+  gap: 6px;
+}
+
+.experienceField > span {
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.experienceField select,
+.messageField textarea {
+  width: 100%;
+  border: 1px solid #bdcfae;
+  border-radius: 11px;
+  background: white;
+  color: #244737;
+  font: inherit;
+  font-size: 13px;
+}
+
+.experienceField select {
+  min-height: 42px;
+  padding: 8px 10px;
+}
+
+.messageField textarea {
+  min-height: 78px;
+  resize: vertical;
+  padding: 10px;
+  line-height: 1.4;
+}
+
+.messageField textarea:disabled {
+  background: #f1f0e9;
+  cursor: not-allowed;
+}
+
+.formFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.formFooter > span {
+  color: #66836c;
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.formFooter button {
+  min-width: 76px;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid #315b44;
+  border-radius: 11px;
+  background: #315b44;
+  color: white;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.formFooter button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 640px) {
+  .root {
+    right: 14px;
+    bottom: 44px;
+  }
+
+  .panel {
+    width: min(420px, calc(100vw - 32px));
+    max-height: calc(100svh - 110px);
+  }
+
+  .withProfile {
+    right: 14px;
+    top: max(12px, env(safe-area-inset-top));
+    bottom: auto;
+  }
+
+  .withProfile .panel {
+    max-height: 32svh;
+  }
+
+  .trigger {
+    grid-template-columns: 36px minmax(0, 1fr) 18px;
+    gap: 9px;
+    width: calc(100vw - 64px);
+    min-height: 68px;
+    padding: 9px 13px;
+  }
+
+  .triggerIcon {
+    font-size: 30px;
+  }
+
+  .triggerCopy strong {
+    font-size: 14px;
+  }
+
+  .triggerCopy small {
+    font-size: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger:hover {
+    transform: none;
+  }
+}

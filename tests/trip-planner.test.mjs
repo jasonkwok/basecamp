@@ -20,6 +20,10 @@ import {
   tripPlanSchema,
 } from "../app/lib/trip-planner/schema.ts";
 import { createMockItinerary } from "../app/lib/trip-planner/mock-itinerary.ts";
+const itineraryPromptSource = readFileSync(
+  new URL("../app/lib/trip-planner/itinerary-prompt.ts", import.meta.url),
+  "utf8",
+);
 import {
   buildItineraryMarkdown,
   itineraryMarkdownFilename,
@@ -115,6 +119,12 @@ test("unknown budget is valid without an amount; known budget requires a positiv
     }).success,
     true,
   );
+});
+
+test("itinerary prompt passes party size and requires a tailored budget note", () => {
+  assert.match(itineraryPromptSource, /travelerCount:\s*input\.travelers/);
+  assert.match(itineraryPromptSource, /state that count/);
+  assert.match(itineraryPromptSource, /Do not invent a group total/);
 });
 
 test("date windows are inclusive and independent of daylight saving", () => {
@@ -253,16 +263,10 @@ test("itinerary movement entries require exactly one kind of timing", () => {
   assert.equal(tripPlanSchema.safeParse(timedRest).success, false);
 });
 
-test("flexible timing permits unknown duration without inventing exact dates", () => {
+test("recommended and seasonal timing permit unknown duration without dates", () => {
   for (const timing of [
     { kind: "recommended", durationDays: null },
     { kind: "season", season: "dec-feb", year, durationDays: null },
-    {
-      kind: "window",
-      earliestDeparture: `${year}-05-01`,
-      latestReturn: `${year}-07-01`,
-      durationDays: 7,
-    },
   ]) {
     const result = tripInputSchema.safeParse({ ...input, timing });
     assert.equal(result.success, true);
@@ -270,25 +274,19 @@ test("flexible timing permits unknown duration without inventing exact dates", (
   }
 });
 
-test("rejects past or impossible flexible timing and durations that exceed a window", () => {
+test("rejects unsupported timing kinds, past dates, and invalid durations", () => {
   for (const timing of [
     { kind: "month", month: `${year}-05`, durationDays: 7 },
+    {
+      kind: "window",
+      earliestDeparture: `${year}-05-01`,
+      latestReturn: `${year}-07-01`,
+      durationDays: 7,
+    },
     { kind: "season", season: "mar-may", year: 2000, durationDays: 5 },
     { kind: "recommended", durationDays: 121 },
     { kind: "recommended", durationDays: 0 },
     { kind: "recommended", durationDays: 1.5 },
-    {
-      kind: "window",
-      earliestDeparture: `${year}-05-01`,
-      latestReturn: `${year}-05-05`,
-      durationDays: 7,
-    },
-    {
-      kind: "window",
-      earliestDeparture: `${year}-05-05`,
-      latestReturn: `${year}-05-01`,
-      durationDays: null,
-    },
   ]) {
     assert.equal(
       tripInputSchema.safeParse({ ...input, timing }).success,
@@ -458,6 +456,34 @@ test("critical warnings cannot accompany an actionable ascent itinerary", () => 
     },
   };
   assert.equal(tripPlanSchema.safeParse(invalid).success, false);
+});
+
+test("a model critical warning clears the generated schedule and equipment", async () => {
+  const { prepareGeneratedItinerary } = await import(
+    "../app/lib/trip-planner/validate-generated-itinerary.ts"
+  );
+  const summit = catalog.find((mountain) => mountain.id === "table-mountain");
+  const draft = createMockItinerary(input, summit, [], 3).itinerary;
+  draft.warnings.push({
+    severity: "critical",
+    title: "Objective needs revision",
+    message: "Change the objective before planning this trip.",
+  });
+
+  const prepared = prepareGeneratedItinerary(draft, []);
+
+  assert.equal(prepared.status, "needs-changes");
+  assert.deepEqual(prepared.days, []);
+  assert.deepEqual(prepared.phases, []);
+  assert.deepEqual(prepared.equipment, {
+    mustHave: [],
+    importantToHave: [],
+    niceToHave: [],
+  });
+  assert.equal(
+    tripPlanSchema.safeParse({ dates: [], itinerary: prepared }).success,
+    true,
+  );
 });
 
 test("every catalog mountain and objective receives essential equipment tiers", () => {

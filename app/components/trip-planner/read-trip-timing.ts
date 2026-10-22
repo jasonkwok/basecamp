@@ -13,13 +13,6 @@ export function readTripTiming(fields: FormData): TripTiming {
         departureDate: String(fields.get("startDate")),
         returnDate: String(fields.get("endDate")),
       };
-    case "window":
-      return {
-        kind,
-        earliestDeparture: String(fields.get("startDate")),
-        latestReturn: String(fields.get("endDate")),
-        durationDays,
-      };
     case "season":
       return {
         kind,

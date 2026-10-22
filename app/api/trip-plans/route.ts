@@ -10,7 +10,6 @@ import {
   createUnsuitableTripPlan,
 } from "../../lib/trip-planner/trip-suitability";
 import {
-  calendarDayCount,
   tripPlanSchema,
   tripDates,
   tripInputSchema,
@@ -100,11 +99,7 @@ export async function POST(request: Request) {
             (preferences.objective === "summit"
               ? Math.min(MAX_TRIP_DAYS, summit.tripLength.minDays + 4)
               : 3));
-      const availableDays =
-        timing.kind === "window"
-          ? calendarDayCount(timing.earliestDeparture, timing.latestReturn)
-          : MAX_TRIP_DAYS;
-      const dayCount = Math.min(requestedDays, availableDays);
+      const dayCount = Math.min(requestedDays, MAX_TRIP_DAYS);
       const plan = tripPlanSchema.parse(
         createMockItinerary(
           preferences,
@@ -121,7 +116,7 @@ export async function POST(request: Request) {
       request.headers.get("x-forwarded-for")?.split(",")[0].trim() || "local";
     if (!allowTripGeneration(requesterId)) {
       return failure(
-        "You’ve reached the limit of 20 drafts per hour. Try again later.",
+        "You’ve reached the limit of 50 drafts per hour. Try again later.",
         429,
       );
     }

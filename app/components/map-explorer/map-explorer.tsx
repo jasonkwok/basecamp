@@ -1,19 +1,24 @@
 "use client";
 
-import MountainPicker from "./mountain-picker";
-import MountainProfile from "./mountain-profile";
-import NearbyMountains from "./nearby-mountains";
-import ExplorerSky from "./explorer-sky";
-import ExplorerBrand from "./explorer-brand";
-import MapStatus from "./map-status";
-import SummitProgressBadge from "./summit-progress-badge";
-import MountainGuideChat from "./mountain-guide-chat";
+import { useState } from "react";
+import MountainPicker from "./mountain-selection/mountain-picker";
+import MountainProfile from "./mountain-profile/mountain-profile";
+import NearbyMountains from "./mountain-selection/nearby-mountains";
+import ExplorerSky from "./chrome/explorer-sky";
+import ExplorerBrand from "./chrome/explorer-brand";
+import MapStatus from "./map/map-status";
+import SummitProgressBadge from "./summit-progress/summit-progress-badge";
+import MountainGuideChat from "./mountain-guide/mountain-guide-chat";
 import TripPlannerAction from "../trip-planner/trip-planner-action";
-import { useMapExplorer } from "./use-map-explorer";
+import type { MountainExperience } from "../../lib/mountain-guide/schema";
+import { useMapExplorer } from "./map/use-map-explorer";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 // Compose explorer panels here; the hook owns map resources and shared selection.
 export default function MapExplorer() {
+  // Carry the guide's experience level into itinerary planning for its picks.
+  const [plannerExperience, setPlannerExperience] =
+    useState<MountainExperience>();
   const {
     container,
     status,
@@ -59,13 +64,18 @@ export default function MapExplorer() {
         onToggle={toggleMountainGuide}
         onOpenSearch={() => toggleMountainPicker(true)}
         hasSelectedMountain={profileSummit !== null}
-        onSelectMountain={(summit) =>
-          visitSummit(summit, undefined, { keepGuideOpen: true })
-        }
+        onSelectMountain={(summit, experience) => {
+          setPlannerExperience(experience);
+          visitSummit(summit, undefined, { keepGuideOpen: true });
+        }}
       />
 
       {profileSummit && showTripPlanner && !mountainGuideOpen ? (
-        <TripPlannerAction key={profileSummit.id} summit={profileSummit} />
+        <TripPlannerAction
+          key={profileSummit.id}
+          summit={profileSummit}
+          initialExperience={plannerExperience}
+        />
       ) : null}
 
       <MountainPicker
@@ -95,6 +105,7 @@ export default function MapExplorer() {
       {profileSummit ? (
         <MountainProfile
           summit={profileSummit}
+          plannerExperience={plannerExperience}
           onBack={
             canReturnToSearch
               ? returnToSearch

@@ -1,8 +1,8 @@
-import type { Summit } from "../../data/mountains";
+import type { MountainCatalogEntry } from "../../data/mountains";
 import type { TripInput, TripPlan } from "./schema";
 
 type ExperienceAndGoal = Pick<TripInput, "objective" | "experience">;
-type MountainContext = Pick<Summit, "name" | "difficulty">;
+type MountainContext = Pick<MountainCatalogEntry, "name" | "difficulty">;
 export type TripWarning = TripPlan["itinerary"]["warnings"][number];
 
 // These are conservative planning rules, not a certification that other trips are suitable.

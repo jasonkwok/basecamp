@@ -1,4 +1,4 @@
-import type { Summit } from "../../data/mountains";
+import type { MountainCatalogEntry } from "../../data/mountains";
 import type { DifficultyLevel } from "../../data/difficulty-levels";
 import { assessTripSuitability } from "../trip-planner/trip-suitability.ts";
 import type { MountainExperience, MountainRecommendation } from "./schema";
@@ -30,7 +30,7 @@ const EXPERIENCE_DIFFICULTY_CEILING: Record<MountainExperience, number> = {
 export function applyRecommendationSafety(
   output: GuideOutput,
   experience: MountainExperience,
-  mountains: Pick<Summit, "id" | "name" | "location" | "region" | "difficulty">[],
+  mountains: Pick<MountainCatalogEntry, "id" | "name" | "location" | "region" | "difficulty">[],
   travelerContext = "",
   summitedMountainIds: string[] = [],
   latestUserMessage = "",
@@ -182,7 +182,7 @@ function requestsMoreOptions(message: string) {
 
 function findRequestedLocation(
   travelerContext: string,
-  mountains: Pick<Summit, "location" | "region">[],
+  mountains: Pick<MountainCatalogEntry, "location" | "region">[],
 ) {
   const locations = new Set(
     mountains.flatMap(({ location }) =>
@@ -211,7 +211,7 @@ function findRequestedLocation(
 function isSuitableRecommendation(
   recommendation: MountainRecommendation,
   experience: MountainExperience,
-  mountain: Pick<Summit, "id" | "name" | "difficulty">,
+  mountain: Pick<MountainCatalogEntry, "id" | "name" | "difficulty">,
 ) {
   if (
     assessTripSuitability(
@@ -230,7 +230,7 @@ function isSuitableRecommendation(
 }
 
 function matchesRequestedLocation(
-  mountain: Pick<Summit, "location" | "region">,
+  mountain: Pick<MountainCatalogEntry, "location" | "region">,
   requestedLocation: string,
 ) {
   const locationText = `${mountain.location} ${mountain.region}`.toLowerCase();
@@ -274,7 +274,7 @@ function requestsSummit(message: string) {
 function fillCatalogRecommendations(
   current: MountainRecommendation[],
   experience: MountainExperience,
-  mountains: Pick<Summit, "id" | "name" | "location" | "region" | "difficulty">[],
+  mountains: Pick<MountainCatalogEntry, "id" | "name" | "location" | "region" | "difficulty">[],
   summitedMountainIds: string[] = [],
   excludedMountainIds: string[] = [],
   requestedLocation: string | null = null,
@@ -321,7 +321,7 @@ function fillCatalogRecommendations(
 }
 
 function buildFallbackReason(
-  mountain: Pick<Summit, "difficulty">,
+  mountain: Pick<MountainCatalogEntry, "difficulty">,
   objective: MountainRecommendation["objective"],
 ) {
   if (objective === "summit") {

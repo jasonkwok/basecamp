@@ -39,6 +39,12 @@ export function useTripPlan() {
     setPending(true);
     setError("");
 
+    // A blocked result is resolved only by submitting revised trip details.
+    // Keep usable drafts visible while a replacement is pending or fails.
+    if (result?.plan.itinerary.status === "needs-changes") {
+      setResult(null);
+    }
+
     try {
       const plan = await requestTripPlan(parsed.data, requestController.signal);
 

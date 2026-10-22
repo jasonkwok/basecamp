@@ -1,4 +1,4 @@
-import type { Summit } from "./mountains";
+import type { MountainCatalogEntry } from "./mountains";
 
 export type MountainBudget = {
   minUsd: number;
@@ -98,7 +98,7 @@ const roundUp = (amount: number) => Math.ceil(amount / 50) * 50;
 // price is unverified, use broad comparable-trip bands and disclose that basis.
 // This is intentionally separate from the user's origin-dependent travel costs.
 export function getMountainBudget(
-  summit: Pick<Summit, "id" | "difficulty" | "tripLength">,
+  summit: Pick<MountainCatalogEntry, "id" | "difficulty" | "tripLength">,
 ): MountainBudget {
   const anchor = PRICE_ANCHORS[summit.id];
   if (anchor) return anchor;

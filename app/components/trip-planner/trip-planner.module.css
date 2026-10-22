@@ -185,6 +185,12 @@
   }
 }
 
+@media (max-width: 600px) {
+  .planner :global(.guide-topline) {
+    margin-inline: -18px;
+  }
+}
+
 .guidance {
   padding: 16px;
   border: 1.5px solid #b9cda4;

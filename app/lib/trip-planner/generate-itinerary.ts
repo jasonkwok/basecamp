@@ -7,7 +7,7 @@ import {
   buildItineraryPrompt,
   ITINERARY_INSTRUCTIONS,
 } from "./itinerary-prompt";
-import type { Summit } from "../../data/mountains";
+import type { MountainCatalogEntry } from "../../data/mountains";
 import {
   itineraryGenerationSchema,
   tripDates,
@@ -24,7 +24,7 @@ export const DEFAULT_TRIP_MODEL = "openai/gpt-4.1-mini";
 
 export async function generateItinerary(
   input: TripInput,
-  summit: Summit,
+  summit: MountainCatalogEntry,
   signal: AbortSignal,
 ) {
   const { timing } = input;

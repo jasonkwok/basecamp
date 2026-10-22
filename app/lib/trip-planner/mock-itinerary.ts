@@ -1,4 +1,4 @@
-import type { Summit } from "../../data/mountains";
+import type { MountainCatalogEntry } from "../../data/mountains";
 import type { RouteTime } from "../../data/route-times";
 import type { TripInput, TripPlan } from "./schema";
 
@@ -11,7 +11,7 @@ const MOCK_ENVIRONMENT = {
 
 export function createMockItinerary(
   input: TripInput,
-  summit: Summit,
+  summit: MountainCatalogEntry,
   dates: string[],
   dayCount: number,
   routeTimes: RouteTime[] = [],

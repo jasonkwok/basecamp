@@ -2,8 +2,7 @@ import catalog from "./mountains.json";
 import { MOUNTAIN_TAGS, type MountainTagId } from "./mountain-tags";
 import { DIFFICULTY_LEVELS, type DifficultyLevel } from "./difficulty-levels";
 
-export type Summit = {
-  kind: "mountain" | "destination";
+type MountainCatalogFields = {
   tripLength: {
     minDays: number;
     maxDays: number;
@@ -17,7 +16,7 @@ export type Summit = {
   location: string;
   elevationMeters: number;
   description: string;
-  coordinates: [longitude: number, latitude: number];
+  coordinates: MountainCoordinates;
   sources: { label: string; url: string }[];
   reviewedAt: string;
   tags: MountainTagId[];
@@ -30,8 +29,15 @@ export type Summit = {
   };
 };
 
+export type MountainCoordinates = [longitude: number, latitude: number];
+
+// The catalog includes both climbing objectives and non-climbing destinations.
+export type Mountain = MountainCatalogFields & { kind: "mountain" };
+export type Destination = MountainCatalogFields & { kind: "destination" };
+export type MountainCatalogEntry = Mountain | Destination;
+
 // Fail early on malformed catalog records so every consumer receives validated data.
-function loadMountains(): Summit[] {
+function loadMountains(): MountainCatalogEntry[] {
   if (catalog.schemaVersion !== 1)
     throw new Error("Unsupported mountain catalog version");
 
@@ -54,7 +60,8 @@ function loadMountains(): Summit[] {
         throw new Error(`Incomplete mountain record: ${entry.id}`);
     }
 
-    if (entry.kind !== "mountain" && entry.kind !== "destination")
+    const kind = entry.kind;
+    if (kind !== "mountain" && kind !== "destination")
       throw new Error(`Invalid landmark kind: ${entry.id}`);
 
     // Trip estimates describe an editorial itinerary, not a universal ascent duration.
@@ -82,6 +89,8 @@ function loadMountains(): Summit[] {
       throw new Error(`Invalid mountain coordinates: ${entry.id}`);
     }
 
+    const coordinates: MountainCoordinates = [longitude, latitude];
+
     if (!Number.isFinite(entry.elevationMeters) || entry.elevationMeters <= 0)
       throw new Error(`Invalid elevation: ${entry.id}`);
 
@@ -96,18 +105,19 @@ function loadMountains(): Summit[] {
     }
 
     const tags = entry.tags.map((tag) => {
-      if (!Object.hasOwn(MOUNTAIN_TAGS, tag))
+      if (!isMountainTagId(tag))
         throw new Error(`Unknown mountain tag: ${tag}`);
 
-      return tag as MountainTagId;
+      return tag;
     });
 
     if (tags.includes("eight-thousander") && entry.elevationMeters <= 8000)
       throw new Error(`Invalid eight-thousander badge: ${entry.id}`);
 
     // Difficulty is meaningful only with a named ascent, explanation, and source.
+    const difficultyLevel = entry.difficulty.level;
     if (
-      !Object.hasOwn(DIFFICULTY_LEVELS, entry.difficulty.level) ||
+      !isDifficultyLevel(difficultyLevel) ||
       !entry.difficulty.ascent.trim() ||
       !entry.difficulty.rationale.trim() ||
       new URL(entry.difficulty.sourceUrl).protocol !== "https:"
@@ -117,15 +127,23 @@ function loadMountains(): Summit[] {
 
     return {
       ...entry,
-      kind: entry.kind,
+      kind,
       tags,
       difficulty: {
         ...entry.difficulty,
-        level: entry.difficulty.level as DifficultyLevel,
+        level: difficultyLevel,
       },
-      coordinates: [longitude, latitude],
+      coordinates,
     };
   });
+}
+
+function isMountainTagId(value: string): value is MountainTagId {
+  return Object.hasOwn(MOUNTAIN_TAGS, value);
+}
+
+function isDifficultyLevel(value: string): value is DifficultyLevel {
+  return Object.hasOwn(DIFFICULTY_LEVELS, value);
 }
 
 // The JSON is the source of truth; this adapter validates it and converts the

@@ -1,5 +1,5 @@
 import "server-only";
-import type { Summit } from "../../data/mountains";
+import type { MountainCatalogEntry } from "../../data/mountains";
 import type { TripInput } from "./schema";
 import { getMountainBudget } from "../../data/mountain-budgets";
 import {
@@ -103,7 +103,7 @@ If required context is ambiguous, return needs-changes and explain what to clari
 // Send a bounded catalog snapshot instead of accepting mountain facts from the browser.
 export function buildItineraryPrompt(
   input: TripInput,
-  summit: Summit,
+  summit: MountainCatalogEntry,
   dates: string[],
 ) {
   return JSON.stringify({

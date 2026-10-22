@@ -15,7 +15,7 @@
 body {
   margin: 0;
   padding: 36px;
-  background: #2b1b12;
+  background: #6b4b36;
   color: var(--foreground);
   font-family: var(--font-nunito), Arial, sans-serif;
 }
@@ -783,6 +783,15 @@ button:focus-visible,
   gap: 7px;
   margin: 16px 0;
 }
+.profile-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 10px;
+}
+.profile-actions .summit-progress {
+  margin: 16px 0;
+}
 .summit-celebration {
   position: absolute;
   right: 0;
@@ -859,6 +868,10 @@ button:focus-visible,
 .summit-progress button[aria-pressed="true"] {
   background: #315b44;
   color: #fffbee;
+}
+.summit-progress button:not([aria-pressed="true"]):hover {
+  background: #c9e7ac;
+  color: #244737;
 }
 .summit-progress button.is-celebrating {
   animation: summit-confirm 260ms ease-out;
@@ -1178,6 +1191,7 @@ button:focus-visible,
 .mountain-guide {
   position: fixed;
   inset: 0;
+  box-sizing: border-box;
   width: min(660px, calc(100vw - 40px));
   max-height: calc(100svh - 48px);
   margin: auto;

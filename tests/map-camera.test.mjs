@@ -5,7 +5,7 @@ import {
   getSummitSelectionZoom,
   MAP_START_CENTER,
   MAX_EXPLORER_ZOOM,
-} from "../app/components/map-explorer/map-camera.ts";
+} from "../app/components/map-explorer/map/map-camera.ts";
 
 test("map starts centered on the United States", () => {
   assert.deepEqual(MAP_START_CENTER, [-98, 39]);

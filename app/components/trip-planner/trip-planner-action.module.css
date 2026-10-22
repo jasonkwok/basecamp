@@ -24,6 +24,31 @@
 .action:hover {
   background: #ffe3b1;
 }
+.inlineAction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 46px;
+  margin: 16px 0;
+  padding: 10px 12px;
+  border: 1.5px solid #3f7055;
+  border-radius: 14px;
+  background: #ffd48a;
+  color: #244737;
+  font: inherit;
+  font-weight: 800;
+  text-align: center;
+  cursor: pointer;
+}
+.inlineAction:hover {
+  background: #ffe3b1;
+}
+.inlineAction > span:first-child {
+  flex-shrink: 0;
+  font-size: 18px;
+}
 .action > span:first-child {
   flex-shrink: 0;
   font-size: 34px;

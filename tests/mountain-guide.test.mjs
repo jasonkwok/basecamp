@@ -3,7 +3,7 @@ import test from "node:test";
 import { readFileSync } from "node:fs";
 import { applyRecommendationSafety } from "../app/lib/mountain-guide/recommendation-policy.ts";
 import { allowAiRequest } from "../app/lib/ai/rate-limit-core.ts";
-import { buildMountainRecommendationsMarkdown } from "../app/components/map-explorer/mountain-recommendations-markdown.ts";
+import { buildMountainRecommendationsMarkdown } from "../app/components/map-explorer/mountain-guide/mountain-recommendations-markdown.ts";
 
 const mountains = JSON.parse(
   readFileSync(new URL("../app/data/mountains.json", import.meta.url), "utf8"),

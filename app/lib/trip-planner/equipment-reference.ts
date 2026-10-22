@@ -1,8 +1,8 @@
-import type { Summit } from "../../data/mountains";
+import type { MountainCatalogEntry } from "../../data/mountains";
 import type { TripInput, TripPlan } from "./schema";
 
 type Equipment = TripPlan["itinerary"]["equipment"];
-type MountainRoute = Pick<Summit, "id" | "difficulty">;
+type MountainRoute = Pick<MountainCatalogEntry, "id" | "difficulty">;
 
 // These catalog routes are technical rock climbs, rather than glacier ascents.
 const ROCK_ROUTES = new Set([

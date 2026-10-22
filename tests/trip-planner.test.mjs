@@ -27,7 +27,7 @@ const itineraryPromptSource = readFileSync(
 import {
   buildItineraryMarkdown,
   itineraryMarkdownFilename,
-} from "../app/components/trip-planner/itinerary-markdown.ts";
+} from "../app/components/trip-planner/itinerary/itinerary-markdown.ts";
 
 const year = new Date().getUTCFullYear() + 1;
 const input = {

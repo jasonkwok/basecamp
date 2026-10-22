@@ -1,19 +1,31 @@
 import { useEffect, useRef } from "react";
-import type { Summit } from "../../data/mountains";
-import TripPlannerForm from "./trip-planner-form";
-import TripPlanResult from "./trip-plan-result";
+import type { MountainCatalogEntry } from "../../data/mountains";
+import TripPlannerForm from "./form/trip-planner-form";
+import TripPlanResult from "./result/trip-plan-result";
 import { useTripPlan } from "./use-trip-plan";
+import type { MountainExperience } from "../../lib/mountain-guide/schema";
 import styles from "./trip-planner.module.css";
 
 export default function TripPlannerModal({
   summit,
+  initialExperience,
   onClose,
 }: {
-  summit: Summit | null;
+  summit: MountainCatalogEntry | null;
+  initialExperience?: MountainExperience;
   onClose: () => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const { pending, error, result, generate, cancel } = useTripPlan();
+
+  function reviewTripDetails() {
+    const form = dialog.current?.querySelector<HTMLFormElement>(
+      "#trip-planner-form",
+    );
+
+    form?.scrollIntoView({ behavior: "smooth", block: "start" });
+    form?.querySelector<HTMLElement>("legend")?.focus({ preventScroll: true });
+  }
 
   // Native modal behavior keeps the map inert; restore focus when dismissed.
   useEffect(() => {
@@ -79,6 +91,7 @@ export default function TripPlannerModal({
         <>
           <TripPlannerForm
             summit={summit}
+            initialExperience={initialExperience}
             pending={pending}
             error={error}
             onGenerate={generate}
@@ -89,6 +102,7 @@ export default function TripPlannerModal({
               plan={result.plan}
               input={result.input}
               summit={summit}
+              onReviewDetails={reviewTripDetails}
             />
           ) : null}
           <p className={styles.status}>

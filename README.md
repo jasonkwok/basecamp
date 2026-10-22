@@ -26,11 +26,11 @@ Basecamp uses Next.js for the application and server endpoints, React for the in
 
 ## Key decisions
 
-- **Personalize without accounts.** Summit progress stays in the browser session and informs recommendations. This avoids sign-up, but progress does not follow users across sessions or devices.
-- **Export AI results as Markdown.** Downloads let travelers keep and reuse recommendations and itineraries without account storage or share links. Basecamp cannot save or resume plans.
-- **Start with a globe.** Visual exploration makes discovery approachable; search and the AI guide support more directed browsing.
-- **Use focused itinerary inputs.** Objective, experience, party size, and timing keep plans relevant and easier to validate. Structured fields offer less flexibility than freeform requests.
-- **Cover a wide range of challenges.** The catalog serves beginners through experienced climbers, from treks to major expeditions. That breadth increases the route information Basecamp must maintain.
+- **Personalization without a login flow.** I considered adding accounts so users could save their progress and receive personalized recommendations, but authentication and persistent user data would expand the scope too much. I chose browser session storage for summited mountains instead. The guide can use that history to suggest a next adventure without requiring sign-up. The tradeoff is that progress stays within the current tab’s session rather than following the user across sessions or devices.
+- **Let users keep the AI’s work through Markdown.** I wanted users to keep the recommendations and plans they generated. Hosting shareable links or saving that work to an account would add storage, sharing, and login flows beyond the scope of this build. I chose Markdown downloads so users can reread the output later or bring it into another AI tool to continue planning. The tradeoff is that Basecamp does not save or resume that work in the app.
+- **Lead with a globe.** I considered starting with a globe, a list of mountains, or an AI agent. I chose the globe to make the first experience playful and inviting for beginners. It gives people a way to discover destinations visually before they know a mountain name or what to ask. Search and the AI guide remain available when users want a more directed way to explore.
+- **Keep itinerary inputs focused.** I chose the fields most relevant to a useful itinerary: destination, objective, experience, party size, and timing. These inputs give the AI a defined planning task and help keep the result relevant. I considered a freeform notes box, but open-ended requests would introduce more ambiguity and make generation harder to validate. Keeping the inputs structured was also intended to keep generation time more predictable. The tradeoff is less flexibility for travelers with unusual requirements.
+- **Include a broad range of challenges.** I wanted Basecamp to serve experienced climbers as well as beginners, so the catalog includes easy treks alongside technical climbs and major expeditions. Difficulty and experience context help users find a suitable objective within that range. The tradeoff is broader route coverage to maintain, with different preparation needs for each level.
 
 ## Where I used AI and what I drove
 

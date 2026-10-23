@@ -142,10 +142,29 @@ const effortSchema = z
   )
   .max(6);
 
+export const stageRouteDetailsSchema = z.object({
+  difficulty: z.string().min(1).max(240),
+  altitudeChanges: z.array(z.object({
+    from: z.string().min(1).max(100),
+    to: z.string().min(1).max(100),
+    fromMeters: z.number().min(-500).max(9000).nullable(),
+    toMeters: z.number().min(-500).max(9000).nullable(),
+  })).max(6),
+});
+const stageRouteGenerationSchema = stageRouteDetailsSchema.extend({
+  altitudeChanges: stageRouteDetailsSchema.shape.altitudeChanges.min(1),
+});
+const unavailableRouteDetails = {
+  difficulty: "Stage-specific terrain needs confirmation.",
+  altitudeChanges: [],
+};
+export type StageRouteDetails = z.infer<typeof stageRouteDetailsSchema>;
+
 const itineraryDaySchema = z.object({
   title: z.string().min(1).max(120),
   activities: z.array(shortTextSchema).min(1).max(4),
   overnight: z.string().min(1).max(200),
+  routeDetails: stageRouteDetailsSchema.default(unavailableRouteDetails),
   environment: itineraryEnvironmentSchema.default(unavailableEnvironment),
   effort: effortSchema.default([]),
 });
@@ -175,6 +194,7 @@ export const itinerarySchema = z.object({
         endDay: z.number().int().min(1).max(MAX_TRIP_DAYS),
         activities: z.array(z.string().min(1).max(240)).min(1).max(3),
         overnight: z.string().min(1).max(200),
+        routeDetails: stageRouteDetailsSchema.default(unavailableRouteDetails),
         environment: itineraryEnvironmentSchema.default(unavailableEnvironment),
         decisionNote: z.string().min(1).max(300),
         effort: effortSchema.default([]),
@@ -192,9 +212,15 @@ export const itinerarySchema = z.object({
 // Strict model providers require every property, even arrays that may be empty.
 // Keep the transport default above for previously generated daily drafts.
 export const itineraryGenerationSchema = itinerarySchema.extend({
+  summary: z.string().min(1).max(240),
+  timingNote: z.string().min(1).max(240),
+  budgetNote: z.string().min(1).max(300),
+  assumptions: z.array(z.string().min(1).max(180)).max(4),
   days: z
     .array(
       itineraryDaySchema.extend({
+        activities: z.array(z.string().min(1).max(160)).min(1).max(2),
+        routeDetails: stageRouteGenerationSchema,
         environment: itineraryEnvironmentSchema,
         effort: effortSchema.min(1),
       }),
@@ -205,6 +231,8 @@ export const itineraryGenerationSchema = itinerarySchema.extend({
       itinerarySchema.shape.phases
         .removeDefault()
         .element.extend({
+          activities: z.array(z.string().min(1).max(160)).min(1).max(2),
+          routeDetails: stageRouteGenerationSchema,
           environment: itineraryEnvironmentSchema,
           effort: effortSchema.min(1),
         }),

@@ -2,7 +2,7 @@ import type { Map as MapboxMap, Marker } from "mapbox-gl";
 import type { RefObject } from "react";
 import { MOUNTAINS, type MountainCatalogEntry } from "../../../data/mountains";
 import { clusterMountains } from "./cluster-mountains";
-import { getSummitSelectionZoom } from "./map-camera";
+import { getGroupCamera, getSummitSelectionZoom } from "./map-camera";
 import {
   createMountainMarker,
   updateMountainMarker,
@@ -83,19 +83,24 @@ export function attachMountainMarkers({
         Boolean(selected),
       );
 
-      // Groups open a peak list; single peaks open a profile and center the map.
+      // Center both groups and individual peaks while opening their details.
       markerElements.button.onclick = () => {
+        const duration = window.matchMedia("(prefers-reduced-motion: reduce)")
+          .matches
+          ? 0
+          : 650;
+
         if (group.length > 1) {
           onOpenGroup([...group].sort((a, b) => a.name.localeCompare(b.name)));
+          const camera = getGroupCamera(
+            group.map((summit) => summit.coordinates),
+            instance.getZoom(),
+          );
+          if (camera) instance.easeTo({ ...camera, duration });
         } else {
           selectedSummitId.current = representative.id;
 
           onOpenSummit(representative);
-
-          const duration = window.matchMedia("(prefers-reduced-motion: reduce)")
-            .matches
-            ? 0
-            : 650;
 
           instance?.easeTo({
             center: representative.coordinates,

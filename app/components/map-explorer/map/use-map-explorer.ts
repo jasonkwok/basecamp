@@ -4,6 +4,7 @@ import type { MountainCatalogEntry } from "../../../data/mountains";
 import { applyMapStyle } from "./map-style";
 import { attachMountainMarkers } from "./map-markers";
 import {
+  getGroupCloseZoom,
   getSummitCloseZoom,
   getSummitSelectionZoom,
   MAP_START_CENTER,
@@ -225,14 +226,12 @@ export function useMapExplorer() {
     summit: MountainCatalogEntry,
     group?: MountainCatalogEntry[],
     {
-      keepGuideOpen = false,
       returnToSearch = false,
-    }: { keepGuideOpen?: boolean; returnToSearch?: boolean } = {},
+    }: { returnToSearch?: boolean } = {},
   ) {
     const instance = map.current;
 
     setMountainPickerOpen(false);
-    if (!keepGuideOpen) setMountainGuideOpen(false);
 
     // Save the group and its camera before centering an individual peak.
     setPreviousGroup(
@@ -294,6 +293,19 @@ export function useMapExplorer() {
     });
   }
 
+  function closePeakGroup() {
+    setNearbySummits([]);
+    const instance = map.current;
+    if (!instance) return;
+
+    instance.easeTo({
+      zoom: getGroupCloseZoom(instance.getZoom(), instance.getMinZoom()),
+      duration: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? 0
+        : 650,
+    });
+  }
+
   function returnToGroup() {
     if (!previousGroup) return;
 
@@ -322,12 +334,11 @@ export function useMapExplorer() {
     setMountainPickerOpen(true);
   }
 
-  // Opening search replaces any map panel so only one explorer panel is visible.
+  // Search replaces catalog panels without changing the independent guide.
   function toggleMountainPicker(open: boolean) {
     setMountainPickerOpen(open);
 
     if (open) {
-      setMountainGuideOpen(false);
       setProfileSummit(null);
       setNearbySummits([]);
       setShowTripPlanner(false);
@@ -336,18 +347,10 @@ export function useMapExplorer() {
     }
   }
 
-  // The chat replaces other explorer panels, keeping the map interaction clear.
+  // The guide is independent: opening or closing it preserves map panels,
+  // the selected mountain, and the path back to the current search or group.
   function toggleMountainGuide(open: boolean) {
     setMountainGuideOpen(open);
-
-    if (open) {
-      setMountainPickerOpen(false);
-      setProfileSummit(null);
-      setNearbySummits([]);
-      setShowTripPlanner(false);
-      setReturnToPicker(false);
-      setPreviousGroup(null);
-    }
   }
 
   // Changing the attempt reruns the effect, disposing the previous map first.
@@ -375,7 +378,7 @@ export function useMapExplorer() {
     closeSummitProfile,
     setProfileSummit,
     nearbySummits,
-    setNearbySummits,
+    closePeakGroup,
     visitSummit,
     focusMap,
     retry,

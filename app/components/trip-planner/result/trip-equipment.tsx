@@ -1,24 +1,9 @@
+import { filterClimbingEquipment } from "../../../lib/trip-planner/equipment-reference";
 import type { TripPlan } from "../../../lib/trip-planner/schema";
 import styles from "../trip-planner.module.css";
 
 type Equipment = TripPlan["itinerary"]["equipment"];
-
-const EQUIPMENT_GROUPS: {
-  key: keyof Equipment;
-  title: string;
-  description: string;
-}[] = [
-  {
-    key: "mustHave",
-    title: "Must have",
-    description: "Essential for the selected route and conditions.",
-  },
-  {
-    key: "importantToHave",
-    title: "Important to have",
-    description: "Strongly recommended for preparation and practicality.",
-  },
-];
+const PREVIEW_LIMIT = 10;
 
 export default function TripEquipment({
   items,
@@ -31,84 +16,63 @@ export default function TripEquipment({
   route?: string;
   source?: { label: string; url: string };
 }) {
-  const hasEquipment = EQUIPMENT_GROUPS.some(
-    ({ key }) => items[key].length > 0,
-  );
+  const gear = filterClimbingEquipment(items);
+  const previewEssentials = gear.mustHave.length > 0;
+  const preview = (previewEssentials ? gear.mustHave : gear.importantToHave).slice(0, PREVIEW_LIMIT);
+  const remaining = previewEssentials ? gear.mustHave.slice(PREVIEW_LIMIT) : [];
+  const important = previewEssentials ? gear.importantToHave : gear.importantToHave.slice(PREVIEW_LIMIT);
+  const total = gear.mustHave.length + gear.importantToHave.length;
+  const more = total - preview.length;
 
   return (
-    <section
-      className={styles.equipment}
-      aria-labelledby="trip-equipment-title"
-    >
-      <h4 id="trip-equipment-title">🎒 Equipment Required</h4>
-      {hasEquipment ? (
+    <section className={styles.equipment} aria-labelledby="trip-equipment-title">
+      <h4 id="trip-equipment-title">🎒 Climbing equipment <small>{total} items</small></h4>
+      <p>
+        {referenceOnly
+          ? "Reference only; this does not change the climb warning."
+          : "Route gear only; confirm specifications and team supplies with your guide."}
+      </p>
+      {preview.length > 0 ? (
         <>
-          <p>
-            {referenceOnly
-              ? "Equipment reference only. This does not change the warning or make you ready to attempt the climb."
-              : "Preparation baseline plus draft suggestions for your selected objective."}{" "}
-            This is not a complete checklist. Confirm equipment, team-provided
-            items, and seasonal requirements with your guide or operator.
-          </p>
-          {route ? <p>Route reference: {route}</p> : null}
-          {source ? (
-            <p>
-              Reference:{" "}
-              <a href={source.url} target="_blank" rel="noreferrer">
-                {source.label}
-              </a>
-            </p>
-          ) : null}
-          <div className={styles.equipmentGroups}>
-            {EQUIPMENT_GROUPS.map((group) => (
-              <section
-                key={group.key}
-                className={styles.equipmentGroup}
-                data-priority={group.key}
-                aria-label={group.title}
-              >
-                <h5>{group.title}</h5>
-                <p>{group.description}</p>
-                {items[group.key].length ? (
-                  <ul>
-                    {items[group.key].map((item, index) => (
-                      <li key={index}>
-                        <EquipmentItem text={item} />
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className={styles.status}>
-                    No additional items listed. Confirm requirements for your
-                    route.
-                  </p>
-                )}
-              </section>
-            ))}
-          </div>
+          <h5>{previewEssentials ? "Must have" : "Important to have"}</h5>
+          <EquipmentList items={preview} />
         </>
-      ) : (
-        <p>
-          Confirm a suitable trip objective and route before preparing an
-          equipment list.
-        </p>
-      )}
+      ) : null}
+      {more > 0 || route || source ? (
+        <details className={styles.equipmentDisclosure}>
+          <summary>{more > 0 ? `Show climbing gear · ${more} more items` : "Route reference"}</summary>
+          <div className={styles.equipmentGroups}>
+            {remaining.length > 0 ? (
+              <section className={styles.equipmentGroup} aria-label="More must-have equipment">
+                <h5>More must have</h5>
+                <EquipmentList items={remaining} />
+              </section>
+            ) : null}
+            {important.length > 0 ? (
+              <section className={styles.equipmentGroup} aria-label="Important to have">
+                <h5>Important to have</h5>
+                <EquipmentList items={important} />
+              </section>
+            ) : null}
+          </div>
+          {route ? <p>Route: {route}</p> : null}
+          {source ? <a href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a> : null}
+        </details>
+      ) : null}
+      {total === 0 ? <p>No climbing equipment listed for this objective.</p> : null}
     </section>
   );
 }
 
-// Reference entries separate the item name from its compatibility or usage note.
+function EquipmentList({ items }: { items: string[] }) {
+  return <ul>{items.map((item, index) => <li key={index}><EquipmentItem text={item} /></li>)}</ul>;
+}
+
 function EquipmentItem({ text }: { text: string }) {
   const separator = text.indexOf(" — ");
   if (separator < 0) return <strong>{text}</strong>;
-
-  return (
-    <>
-      <strong>{text.slice(0, separator)}</strong>
-      <span className={styles.equipmentNote}>
-        {" "}
-        · {text.slice(separator + 3)}
-      </span>
-    </>
-  );
+  return <>
+    <strong>{text.slice(0, separator)}</strong>
+    <span className={styles.equipmentNote}> · {text.slice(separator + 3)}</span>
+  </>;
 }

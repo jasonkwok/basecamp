@@ -1,3 +1,4 @@
+import ItineraryRouteDetails from "./itinerary-route-details";
 import type { RouteTime } from "../../../data/route-times";
 import MovementTimes from "./movement-times";
 import ItineraryEnvironmentNotes from "./itinerary-environment";
@@ -16,11 +17,10 @@ export default function ItineraryPhases({
 }) {
   return (
     <section aria-labelledby="expedition-phases-title">
-      <h4 id="expedition-phases-title">Your expedition, by phase</h4>
+      <h4 id="expedition-phases-title">Route stages</h4>
       <p className={styles.status}>
-        Provisional time allocations. Rotations and summit attempts depend on
-        recovery, your guide’s assessment, access, and conditions. Waiting
-        longer does not guarantee a summit opportunity.
+        Progress depends on recovery and route conditions. Elevation changes
+        describe each movement, not cumulative climbing over the phase.
       </p>
       <ol className={styles.days}>
         {phases.map((phase) => (
@@ -40,7 +40,8 @@ export default function ItineraryPhases({
                 <li key={index}>{activity}</li>
               ))}
             </ul>
-            <ItineraryEnvironmentNotes environment={phase.environment} />
+            <ItineraryRouteDetails details={phase.routeDetails} />
+            <ItineraryEnvironmentNotes environment={phase.environment} showAltitude={phase.routeDetails.altitudeChanges.length === 0 && /\d/.test(phase.environment.altitude)} />
             <MovementTimes items={phase.effort} references={routeTimes} />
 
             <p>

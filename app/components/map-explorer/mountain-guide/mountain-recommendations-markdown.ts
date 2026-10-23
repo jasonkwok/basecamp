@@ -10,6 +10,7 @@ export type MountainRecommendationExportOption = {
   budgetBasis: string;
   budgetSource: string;
   description: string;
+  rating?: "low" | "medium" | "strong" | "very strong";
   reason: string;
 };
 
@@ -36,6 +37,7 @@ export function buildMountainRecommendationsMarkdown({
       "",
       cleanLine(option.description),
       "",
+      ...(option.rating ? [`**Match:** ${option.rating}`, ""] : []),
       `**Why it may fit:** ${cleanLine(option.reason)}`,
     ].join("\n");
   });

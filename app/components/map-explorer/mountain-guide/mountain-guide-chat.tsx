@@ -45,14 +45,12 @@ const MOUNTAIN_BY_ID = new Map(
 
 export default function MountainGuideChat({
   open,
-  available,
   onToggle,
   onOpenSearch,
   onSelectMountain,
   hasSelectedMountain,
 }: {
   open: boolean;
-  available: boolean;
   onToggle: (open: boolean) => void;
   onOpenSearch: () => void;
   onSelectMountain: (summit: MountainCatalogEntry, experience: MountainExperience) => void;
@@ -127,7 +125,7 @@ export default function MountainGuideChat({
   ) {
     const options = recommendations.flatMap((recommendation) => {
       const mountain = MOUNTAIN_BY_ID.get(recommendation.mountainId);
-      if (!mountain) return [];
+      if (!mountain || summitedMountainIds.has(recommendation.mountainId)) return [];
 
       const budget = getMountainBudget(mountain);
       const difficulty = DIFFICULTY_LEVELS[mountain.difficulty.level];
@@ -145,6 +143,7 @@ export default function MountainGuideChat({
           budgetBasis: budget.basis,
           budgetSource: budget.sourceUrl,
           description: mountain.description,
+          rating: recommendation.rating,
           reason: recommendation.reason,
         },
       ];
@@ -166,8 +165,9 @@ export default function MountainGuideChat({
   return (
     <div
       className={`${styles.root} ${hasSelectedMountain ? styles.withProfile : ""}`}
+      data-open={open}
     >
-      {available ? (
+      {!open ? (
         <button
           className={styles.trigger}
           type="button"
@@ -227,8 +227,8 @@ export default function MountainGuideChat({
           <div className={styles.messages} role="log" aria-live="polite">
             <div className={styles.welcome}>
               <p className={styles.assistantMessage}>
-                Tell me what kind of challenge you want. I’ll use your
-                experience and summit list to suggest a good next fit.
+                What are you working toward—a particular mountain, building
+                skills, or finding your next adventure?
               </p>
               <button
                 className={styles.searchShortcut}
@@ -265,12 +265,18 @@ export default function MountainGuideChat({
                   }
 
                   if (part.type === "data-mountain-recommendations") {
+                    const visibleOptions = part.data.filter(({ mountainId }) => !summitedMountainIds.has(mountainId));
+                    if (visibleOptions.length === 0) {
+                      return <p className={styles.summitReminder} key={`${message.id}-${index}`}>
+                        These options are now marked as summited. Ask for new matches to find your next mountain.
+                      </p>;
+                    }
                     return (
                       <div
                         className={styles.recommendations}
                         key={`${message.id}-${index}`}
                       >
-                        {part.data.map((recommendation) => (
+                        {visibleOptions.map((recommendation) => (
                           <RecommendationCard
                             key={recommendation.mountainId}
                             recommendation={recommendation}
@@ -290,7 +296,7 @@ export default function MountainGuideChat({
                         <button
                           className={styles.download}
                           type="button"
-                          onClick={() => downloadRecommendations(part.data)}
+                          onClick={() => downloadRecommendations(visibleOptions)}
                         >
                           Download options (.md)
                         </button>
@@ -438,6 +444,9 @@ function RecommendationCard({
       <strong>{mountain.name}</strong>
       <span className={styles.cardLocation}>
         {mountain.location} · {mountain.region}
+      </span>
+      <span className={styles.matchBadge} data-rating={recommendation.rating}>
+        {recommendation.rating[0].toUpperCase() + recommendation.rating.slice(1)} match
       </span>
       <span className={styles.cardReason}>{recommendation.reason}</span>
       <span className={styles.cardAction}>View mountain →</span>

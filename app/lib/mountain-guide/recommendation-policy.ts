@@ -1,14 +1,18 @@
 import type { MountainCatalogEntry } from "../../data/mountains";
 import type { DifficultyLevel } from "../../data/difficulty-levels";
 import { assessTripSuitability } from "../trip-planner/trip-suitability.ts";
-import type { MountainExperience, MountainRecommendation } from "./schema";
+import type { MountainExperience, MountainRecommendation, MountainGuidePreferences } from "./schema";
 
-type GuideOutput = {
+export type GuideOutput = {
+  intent: "discovery" | "recommendations" | "answer";
+  unmatchedPreferences: MountainGuidePreferences["firmRequirements"];
+  preferences: MountainGuidePreferences;
   reply: string;
   recommendations: MountainRecommendation[];
 };
 
-const MAX_RECOMMENDATIONS = 3;
+const MAX_RECOMMENDATIONS = 5;
+const MATCH_RANK = { low: 0, medium: 1, strong: 2, "very strong": 3 };
 const DIFFICULTY_RANK: Record<DifficultyLevel, number> = {
   beginner: 0,
   intermediate: 1,
@@ -26,41 +30,56 @@ const EXPERIENCE_DIFFICULTY_CEILING: Record<MountainExperience, number> = {
   expert: 4,
 };
 
-// Enforce summit difficulty limits and keep a clear goal from looping on follow-up questions.
+// Filter model matches without replacing discovery questions or padding the list.
 export function applyRecommendationSafety(
   output: GuideOutput,
   experience: MountainExperience,
-  mountains: Pick<MountainCatalogEntry, "id" | "name" | "location" | "region" | "difficulty">[],
-  travelerContext = "",
-  summitedMountainIds: string[] = [],
+  mountains: Pick<MountainCatalogEntry, "id" | "name" | "location" | "region" | "difficulty" | "elevationMeters" | "tripLength">[],
   latestUserMessage = "",
   previouslyRecommendedMountainIds: string[] = [],
-  previousRecommendations: MountainRecommendation[] = [],
+  summitedMountainIds: string[] = [],
 ): GuideOutput {
   const mountainById = new Map(mountains.map((mountain) => [mountain.id, mountain]));
-  const asksForMoreOptions = requestsMoreOptions(latestUserMessage);
   const previouslyRecommended = new Set(previouslyRecommendedMountainIds);
-  const latestRequestedLocation = findRequestedLocation(latestUserMessage, mountains);
-  const requestedLocation =
-    latestRequestedLocation ?? findRequestedLocation(travelerContext, mountains);
-  const shouldExcludePreviousRecommendations =
-    asksForMoreOptions || latestRequestedLocation !== null;
-
-  const unsafeRecommendations = output.recommendations.filter((recommendation) => {
-    const mountain = mountainById.get(recommendation.mountainId);
-
-    return mountain !== undefined &&
-      !isSuitableRecommendation(recommendation, experience, mountain);
-  });
+  const summited = new Set(summitedMountainIds);
+  const hasCompletedOptions = output.recommendations.some(({ mountainId }) => summited.has(mountainId));
+  const { preferences } = output;
+  const firm = new Set(preferences.firmRequirements.filter(
+    (key) => !preferences.relaxedPreferences.includes(key),
+  ));
+  const shouldExcludePreviousRecommendations = requestsMoreOptions(latestUserMessage);
+  const rejected = new Set<string>();
+  const tradeoffs = new Map<string, string[]>();
   const unsuitableRecommendations = output.recommendations.filter((recommendation) => {
     const mountain = mountainById.get(recommendation.mountainId);
-
-    return (
-      mountain === undefined ||
-      !isSuitableRecommendation(recommendation, experience, mountain) ||
-      (requestedLocation !== null &&
-        !matchesRequestedLocation(mountain, requestedLocation))
-    );
+    if (!mountain) { rejected.add("catalog coverage"); return true; }
+    if (!isSuitableRecommendation(recommendation, experience, mountain)) {
+      rejected.add("experience");
+      return true;
+    }
+    const misses: string[] = [];
+    if (preferences.locations.length > 0 &&
+      !preferences.locations.some((location) => matchesRequestedLocation(mountain, location))) {
+      misses.push("location");
+    }
+    // The catalog's altitude and trip length describe the named summit ascent.
+    if (recommendation.objective === "summit") {
+      if ((preferences.minAltitudeMeters !== null && mountain.elevationMeters < preferences.minAltitudeMeters) ||
+        (preferences.maxAltitudeMeters !== null && mountain.elevationMeters > preferences.maxAltitudeMeters)) {
+        misses.push("altitude");
+      }
+      if (preferences.maxTripDays !== null &&
+        mountain.tripLength.minDays > preferences.maxTripDays) {
+        misses.push("duration");
+      }
+    }
+    const blocked = misses.filter((key) => firm.has(key as "location" | "altitude" | "duration"));
+    if (blocked.length > 0) {
+      blocked.forEach((key) => rejected.add(key));
+      return true;
+    }
+    tradeoffs.set(recommendation.mountainId, misses);
+    return false;
   });
 
   const seenMountainIds = new Set<string>();
@@ -68,6 +87,7 @@ export function applyRecommendationSafety(
     if (unsuitableRecommendations.includes(recommendation)) return false;
 
     const { mountainId } = recommendation;
+    if (summited.has(mountainId)) return false;
 
     if (
       shouldExcludePreviousRecommendations &&
@@ -83,128 +103,54 @@ export function applyRecommendationSafety(
     return true;
   });
 
-  // A clear summit goal plus a selected experience level is enough to offer a first set.
-  if (requestsSummit(travelerContext)) {
-    const progressionRecommendations = fillCatalogRecommendations(
-      recommendations,
-      experience,
-      mountains,
-      summitedMountainIds,
-      shouldExcludePreviousRecommendations ? previouslyRecommendedMountainIds : [],
-      requestedLocation,
-    );
+  const rated = recommendations.map((recommendation) => {
+    const misses = tradeoffs.get(recommendation.mountainId) ?? [];
+    if (misses.length === 0) return recommendation;
+    const ceiling = misses.length > 1 ? "low" : "medium";
+    const rating = MATCH_RANK[recommendation.rating] > MATCH_RANK[ceiling]
+      ? ceiling : recommendation.rating;
+    const reason = `Outside your preferred ${misses.join(" and ")}. ${recommendation.reason}`.slice(0, 300);
+    return { ...recommendation, rating, reason };
+  });
+  const ranked = rated.toSorted((left, right) =>
+    MATCH_RANK[right.rating] - MATCH_RANK[left.rating],
+  ).slice(0, MAX_RECOMMENDATIONS);
 
-    if (progressionRecommendations.length === 0) {
-      return {
-        reply: unsafeRecommendations.length > 0
-          ? requestedLocation !== null
-            ? `I can’t find a summit in ${requestedLocation} that fits your selected experience. I strongly advise against attempting a route beyond your current level; try a trek or broaden the search to another region.`
-            : "I can’t find a suitable summit for your selected experience in the current options. I strongly advise against attempting a route beyond your current level; consider guided training or a less demanding objective."
-          : requestedLocation !== null
-            ? `I don’t have any unshown summit options in ${requestedLocation} that fit your experience. Would you like to consider a trek or another region?`
-            : "I’ve run out of unshown summit options that fit your experience. Would you like to consider a trek or broaden the search?",
-        recommendations: [],
-      };
-    }
-
+  if (unsuitableRecommendations.length > 0 && ranked.length === 0) {
+    const adjustable = [...rejected].filter((key) => key !== "experience" && key !== "catalog coverage");
     return {
-      reply: asksForMoreOptions && requestedLocation !== null
-        ? `Here are fresh summit options in ${requestedLocation} that fit your experience. Which one sounds like the best fit?`
-        : asksForMoreOptions
-        ? "Here are three fresh summit options that fit your selected experience. Which one sounds like the best fit?"
-        : requestedLocation !== null && unsuitableRecommendations.length > 0
-        ? unsafeRecommendations.length > 0
-          ? `The summit you asked about exceeds your selected experience, so don’t attempt it yet. These options stay within ${requestedLocation} and fit your current level. Ask a qualified guide to assess readiness before taking on a harder objective.`
-          : `I’ve kept these recommendations within ${requestedLocation} and matched them to your selected experience. If you want a different challenge, tell me your preferred route type or trip length.`
-        : unsuitableRecommendations.length > 0
-        ? "The requested summit exceeds the experience you’ve shared, so don’t attempt it yet. These are progressive objectives matched to your current level; build skills through guided training, then ask a qualified guide to assess readiness for a harder goal."
-        : "With your selected experience and summit goal, these are three suitable starting points. They offer a progressive challenge; share your available time or preferred region if you’d like me to narrow the list.",
-      recommendations: progressionRecommendations,
+      ...output,
+      reply: adjustable.length > 0
+        ? `These options miss your firm ${adjustable.join(" and ")} requirements. Which would you be open to relaxing?`
+        : rejected.has("experience")
+          ? "These objectives exceed your selected experience. A less demanding climb or guided training may be a better next step."
+          : "These options aren’t in the catalog. I can only match destinations covered here.",
+      recommendations: [],
     };
   }
 
-  if (shouldExcludePreviousRecommendations) {
-    if (!asksForMoreOptions && output.recommendations.length === 0) {
-      return { ...output, recommendations };
-    }
-
-    const objective =
-      output.recommendations[0]?.objective ??
-      previousRecommendations.at(-1)?.objective ??
-      "summit";
-    const freshRecommendations = fillCatalogRecommendations(
-      recommendations,
-      experience,
-      mountains,
-      summitedMountainIds,
-      shouldExcludePreviousRecommendations ? previouslyRecommendedMountainIds : [],
-      requestedLocation,
-      objective,
-    );
-
+  if (output.recommendations.length > 0 && ranked.length === 0) {
     return {
-      reply: freshRecommendations.length > 0
-        ? requestedLocation !== null
-          ? `Here are a few options in ${requestedLocation} that fit your experience. Which one sounds closest to the kind of trip you want?`
-          : "Here are three fresh options that fit your experience and the objective you asked for. Which one sounds most interesting?"
-        : requestedLocation !== null
-          ? `I don’t have any unshown options in ${requestedLocation} that fit your current profile. Would you like to broaden the location or consider a different objective?`
-          : "I’ve shown all catalog options that fit your experience and location. You can broaden the list by changing your experience level, location, or objective.",
-      recommendations: freshRecommendations,
+      ...output,
+      reply: hasCompletedOptions
+        ? "These mountains are already marked as summited. I’ll look for a different next objective."
+        : "There are no new matches in this set; the remaining options have already been shown.",
+      recommendations: [],
     };
   }
 
-  if (unsuitableRecommendations.length === 0) {
-    return { ...output, recommendations };
-  }
-
-  const progressionRecommendations = fillCatalogRecommendations(
-    recommendations,
-    experience,
-    mountains,
-    summitedMountainIds,
-    shouldExcludePreviousRecommendations ? previouslyRecommendedMountainIds : [],
-    requestedLocation,
-    recommendations[0]?.objective ?? "summit",
-  );
   return {
-    reply:
-      "The requested summit exceeds the experience you’ve shared, so don’t attempt it yet. These are progressive objectives matched to your current level; build skills through guided training, then ask a qualified guide to assess readiness for a harder goal.",
-    recommendations: progressionRecommendations,
+    ...output,
+    reply: unsuitableRecommendations.length > 0 || hasCompletedOptions
+      ? "These are the remaining matches for your current preferences."
+      : output.reply,
+    recommendations: ranked,
   };
 }
 
 function requestsMoreOptions(message: string) {
   return /\b(?:more|new|different|additional|other)\s+(?:options?|mountains?|recommendations?|suggestions?)\b|\b(?:show me more|another set|alternatives)\b/i.test(
     message,
-  );
-}
-
-function findRequestedLocation(
-  travelerContext: string,
-  mountains: Pick<MountainCatalogEntry, "location" | "region">[],
-) {
-  const locations = new Set(
-    mountains.flatMap(({ location }) =>
-      location.split(/[·,/]/).map((part) => part.trim()).filter(Boolean),
-    ).concat(mountains.map(({ region }) => region)),
-  );
-  const context = travelerContext.toLowerCase();
-
-  return (
-    [...locations]
-      .filter((location) => {
-        const normalizedLocation = location.toLowerCase();
-        const escapedLocation = normalizedLocation.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        const locationMention = new RegExp(`\\b${escapedLocation}\\b`, "i");
-        const geographicIntent = new RegExp(
-          `\\b(?:in|near|around|within)\\s+(?:the\\s+)?${escapedLocation}\\b`,
-          "i",
-        );
-
-        return locationMention.test(context) && geographicIntent.test(context);
-      })
-      .sort((left, right) => right.length - left.length)[0] ?? null
   );
 }
 
@@ -229,7 +175,7 @@ function isSuitableRecommendation(
   );
 }
 
-function matchesRequestedLocation(
+export function matchesRequestedLocation(
   mountain: Pick<MountainCatalogEntry, "location" | "region">,
   requestedLocation: string,
 ) {
@@ -244,93 +190,4 @@ function matchesRequestedLocation(
     const escapedAlias = alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     return new RegExp(`\\b${escapedAlias}\\b`, "i").test(locationText);
   });
-}
-
-function requestsSummit(message: string) {
-  const userTurns = message.split("\n").filter(Boolean).reverse();
-
-  for (const turn of userTurns) {
-    if (
-      /\b(?:i don't want to|i do not want to|not looking to|not interested in|rather not)\s+(?:summit|summiting|climb|climbing|peaks?)\b/i.test(
-        turn,
-      )
-    ) {
-      return false;
-    }
-
-    if (/\b(summit|summiting|peak)\b/i.test(turn)) return true;
-
-    if (/\b(?:want|hope|plan|aim|intend|looking)\b.{0,25}\bclimb\b/i.test(turn)) {
-      return true;
-    }
-
-    if (/\b(?:trek|hike|visit)\b/i.test(turn)) return false;
-  }
-
-  return false;
-}
-
-// Replace blocked summit suggestions with catalog climbs suited to the current level.
-function fillCatalogRecommendations(
-  current: MountainRecommendation[],
-  experience: MountainExperience,
-  mountains: Pick<MountainCatalogEntry, "id" | "name" | "location" | "region" | "difficulty">[],
-  summitedMountainIds: string[] = [],
-  excludedMountainIds: string[] = [],
-  requestedLocation: string | null = null,
-  objective: MountainRecommendation["objective"] = "summit",
-): MountainRecommendation[] {
-  const recommendations = [...current];
-  const alreadyRecommended = new Set([
-    ...current.map(({ mountainId }) => mountainId),
-    ...summitedMountainIds,
-    ...excludedMountainIds,
-  ]);
-  const difficultyCeiling = EXPERIENCE_DIFFICULTY_CEILING[experience];
-  const availableMountains = mountains.filter((mountain) => {
-    return (
-      !alreadyRecommended.has(mountain.id) &&
-      (requestedLocation === null ||
-        matchesRequestedLocation(mountain, requestedLocation)) &&
-      (objective !== "summit" ||
-        DIFFICULTY_RANK[mountain.difficulty.level] <= difficultyCeiling) &&
-      assessTripSuitability({ experience, objective }, mountain) === null
-    );
-  });
-  const candidates =
-    objective === "summit"
-      ? availableMountains.toSorted(
-          (left, right) =>
-            DIFFICULTY_RANK[right.difficulty.level] -
-            DIFFICULTY_RANK[left.difficulty.level],
-        )
-      : availableMountains;
-
-  for (const mountain of candidates) {
-    if (recommendations.length >= MAX_RECOMMENDATIONS) break;
-
-    alreadyRecommended.add(mountain.id);
-    recommendations.push({
-      mountainId: mountain.id,
-      objective,
-      reason: buildFallbackReason(mountain, objective),
-    });
-  }
-
-  return recommendations;
-}
-
-function buildFallbackReason(
-  mountain: Pick<MountainCatalogEntry, "difficulty">,
-  objective: MountainRecommendation["objective"],
-) {
-  if (objective === "summit") {
-    return `A ${mountain.difficulty.level}-rated ascent to build experience progressively. Follow the route’s seasonal guidance and get qualified advice on readiness.`;
-  }
-
-  if (objective === "trek") {
-    return "A trekking alternative matched to your selected experience. Check seasonal route guidance before deciding.";
-  }
-
-  return "A visit-focused alternative matched to your selected experience. Check seasonal access guidance before deciding.";
 }

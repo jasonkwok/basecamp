@@ -5,7 +5,7 @@
   gap: 16px;
   margin: -24px -24px 12px;
   padding: 12px 24px;
-  font-size: 14px;
+  font-size: var(--font-size-body);
   letter-spacing: 0;
   border-bottom: 1px solid #dce3cc;
   /* Keep the mountain label in normal flow so it cannot cover content on scroll. */
@@ -55,7 +55,7 @@
 .form small,
 .status {
   color: #52664c;
-  font-size: 13px;
+  font-size: var(--font-size-label);
   line-height: 1.5;
 }
 .row {
@@ -96,7 +96,7 @@
   flex-basis: 100%;
   margin: 0;
   color: #52664c;
-  font-size: 13px;
+  font-size: var(--font-size-label);
   line-height: 1.5;
 }
 .exportStatus:empty {
@@ -145,7 +145,7 @@
 }
 .result h3 {
   margin: 0 0 18px;
-  font-size: 24px;
+  font-size: var(--font-size-heading);
   font-weight: 900;
   line-height: 1.2;
 }
@@ -155,7 +155,7 @@
 }
 .result .itinerarySectionTitle {
   margin: 32px 0 12px;
-  font-size: 20px;
+  font-size: var(--font-size-heading);
   line-height: 1.25;
 }
 .result ul {
@@ -213,7 +213,7 @@
 }
 .result .equipment h4 {
   margin: 0 0 12px;
-  font-size: 22px;
+  font-size: var(--font-size-heading);
 }
 .equipment > p {
   margin: 10px 0;
@@ -244,7 +244,7 @@
 }
 .equipmentNote {
   color: #52664c;
-  font-size: 14px;
+  font-size: var(--font-size-body);
 }
 .warnings {
   margin: 20px 0;
@@ -261,7 +261,7 @@
 }
 .result .warnings h4 {
   margin-top: 0;
-  font-size: 22px;
+  font-size: var(--font-size-heading);
 }
 .warnings strong {
   display: block;
@@ -279,7 +279,7 @@
 }
 .equipmentGroup h5 {
   margin: 0 0 6px;
-  font-size: 19px;
+  font-size: var(--font-size-heading);
   font-weight: 900;
 }
 .equipmentGroup > p {
@@ -345,5 +345,62 @@
 .movement a {
   color: inherit;
   text-underline-offset: 3px;
-  font-size: 13px;
+  font-size: var(--font-size-label);
+}
+
+/* Keep route information ahead of the full kit and logistical detail. */
+.routeDetails {
+  margin: 14px 0;
+  padding: 12px 14px;
+  border: 1px solid #cbd6c1;
+  border-radius: 10px;
+  background: #f3f6ee;
+  font-size: var(--font-size-body);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.routeDetails p { margin: 0 0 10px; }
+.result .routeDetails ul {
+  display: grid;
+  gap: 10px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.routeDetails li { display: grid; gap: 3px; }
+.routeDetails li > strong { color: #315b44; font-size: var(--font-size-label); }
+.equipment h4 small { font-size: var(--font-size-label); font-weight: 700; color: #52664c; }
+.equipment h5 { margin: 12px 0 0; font-weight: 900; }
+.equipmentDisclosure { margin-top: 16px; }
+.equipmentDisclosure summary,
+.planningNotes summary {
+  padding: 10px 0;
+  color: #315b44;
+  font-weight: 900;
+  cursor: pointer;
+}
+.equipmentDisclosure summary:focus-visible,
+.planningNotes summary:focus-visible {
+  outline: 2px solid #315b44;
+  outline-offset: 3px;
+}
+.planningNotes {
+  margin: 18px 0;
+  padding: 0 14px;
+  border: 1px solid #cbd2c1;
+  border-radius: 12px;
+}
+
+.planner > h2 { font-size: var(--font-size-title); }
+.result h3,
+.result h4 { font-size: var(--font-size-heading); line-height: 1.25; }
+.environment > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+.routeDetails { font-size: var(--font-size-body); }
+.equipmentNote { font-size: var(--font-size-label); }
+.days > li { overflow-wrap: anywhere; }
+.result p,
+.result li { line-height: 1.55; }
+@media (max-width: 480px) {
+  .row { grid-template-columns: minmax(0, 1fr); }
+  .days > li { padding: 16px; }
 }

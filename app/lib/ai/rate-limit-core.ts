@@ -1,4 +1,5 @@
-const REQUESTS_PER_HOUR = 50;
+const DEFAULT_REQUESTS_PER_HOUR = 50;
+const GUIDE_REQUESTS_PER_HOUR = 100;
 const ONE_HOUR_MS = 60 * 60 * 1000;
 
 type RequestBucket = { count: number; expiresAt: number };
@@ -19,7 +20,8 @@ export function allowAiRequest(identity: string, feature: string): boolean {
     expiresAt: now + ONE_HOUR_MS,
   };
 
-  if (bucket.count >= REQUESTS_PER_HOUR) return false;
+  const limit = feature === "mountain-guide" ? GUIDE_REQUESTS_PER_HOUR : DEFAULT_REQUESTS_PER_HOUR;
+  if (bucket.count >= limit) return false;
 
   requestBuckets.set(bucketKey, { ...bucket, count: bucket.count + 1 });
 

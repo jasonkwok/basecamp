@@ -1,3 +1,6 @@
+import { filterClimbingEquipment } from "./equipment-reference.ts";
+import type { RouteProfile } from "../../data/route-profiles";
+import { applyRouteElevationReferences } from "./stage-route-details.ts";
 import {
   applyRoundTripTimings,
   applySummitOutingTimings,
@@ -18,6 +21,7 @@ export type GeneratedItinerary = ReturnType<
 export function prepareGeneratedItinerary(
   itinerary: GeneratedItinerary,
   routeTimes: RouteTime[],
+  routeProfile?: RouteProfile,
 ) {
   if (itinerary.warnings.some((warning) => warning.severity === "critical")) {
     itinerary.status = "needs-changes";
@@ -25,7 +29,9 @@ export function prepareGeneratedItinerary(
     itinerary.phases = [];
     itinerary.equipment = { mustHave: [], importantToHave: [], niceToHave: [] };
   } else if (itinerary.status === "draft") {
+    itinerary.equipment = filterClimbingEquipment(itinerary.equipment);
     const stages = [...itinerary.days, ...itinerary.phases];
+    if (routeProfile) applyRouteElevationReferences(stages, routeProfile);
     applySummitOutingTimings(stages, routeTimes);
     applyRoundTripTimings(stages, routeTimes);
   }

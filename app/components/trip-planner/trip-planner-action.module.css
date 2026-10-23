@@ -17,7 +17,7 @@
   box-shadow: 4px 5px 0 #244737;
   color: #244737;
   font: inherit;
-  font-size: 26px;
+  font-size: var(--font-size-heading);
   font-weight: 900;
   cursor: pointer;
 }
@@ -47,11 +47,11 @@
 }
 .inlineAction > span:first-child {
   flex-shrink: 0;
-  font-size: 18px;
+  font-size: var(--font-size-body);
 }
 .action > span:first-child {
   flex-shrink: 0;
-  font-size: 34px;
+  font-size: var(--font-size-title);
 }
 .copy {
   display: grid;
@@ -59,22 +59,24 @@
   min-width: 0;
 }
 .description {
-  font-size: 14px;
+  font-size: var(--font-size-body);
   font-weight: 600;
   line-height: 1.5;
 }
-:global(.explorer):has(.action) :global(.mountain-profile) {
-  max-height: min(680px, calc(100svh - 490px));
-}
 @media (max-width: 640px) {
   .action {
-    top: max(108px, calc(env(safe-area-inset-top) + 92px));
+    top: max(188px, calc(env(safe-area-inset-top) + 172px));
     width: calc(100% - 32px);
     min-height: 76px;
     padding: 16px 18px;
-    font-size: 21px;
+    font-size: var(--font-size-heading);
   }
-  :global(.explorer):has(.action) :global(.mountain-profile) {
-    max-height: calc(100svh - 470px);
-  }
+}
+
+/* The inline planner remains in Field Notes when the viewport is compact. */
+@media (min-width: 961px) and (min-height: 701px) {
+  :global(.explorer):has(.action) { --field-notes-top: 244px; }
+}
+@media (max-width: 960px), (max-height: 700px) {
+  .action { display: none; }
 }

@@ -88,7 +88,8 @@ export default function MountainPicker({
         🏔️ Mountains · {MOUNTAINS.length} <span aria-hidden="true">⌃</span>
       </summary>
 
-      <div className="summit-menu">
+      <div className="summit-menu" role="region" aria-labelledby="mountain-search-title">
+        <h2 id="mountain-search-title">Search mountains</h2>
         <p>Search peaks, then narrow by tag, challenge, height or region.</p>
         <input
           className="summit-search"

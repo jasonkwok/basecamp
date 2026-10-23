@@ -3,15 +3,17 @@ import styles from "../trip-planner.module.css";
 
 export default function ItineraryEnvironmentNotes({
   environment,
+  showAltitude = true,
 }: {
   environment: ItineraryEnvironment;
+  showAltitude?: boolean;
 }) {
   return (
     <dl className={styles.environment}>
-      <div>
+      {showAltitude ? <div>
         <dt>Altitude</dt>
         <dd>{environment.altitude}</dd>
-      </div>
+      </div> : null}
       <div>
         <dt>Typical temperature</dt>
         <dd>{environment.temperature}</dd>

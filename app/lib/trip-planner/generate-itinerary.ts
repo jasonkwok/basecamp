@@ -1,4 +1,5 @@
 import "server-only";
+import { getRouteProfile } from "../../data/route-profiles";
 import {
   getRouteTimes,
 } from "../../data/route-times";
@@ -35,9 +36,10 @@ export async function generateItinerary(
   const requestedDays =
     timing.kind === "exact" ? dates.length : timing.durationDays;
   const routeTimes = getRouteTimes(summit.id, input.objective);
+  const routeProfile = getRouteProfile(summit, input.objective);
   const prompt = buildItineraryPrompt(input, summit, dates);
   let result = await requestItinerary(prompt, signal);
-  let itinerary = prepareGeneratedItinerary(result.output, routeTimes);
+  let itinerary = prepareGeneratedItinerary(result.output, routeTimes, routeProfile);
 
   // A missing movement estimate gets one focused correction before returning a draft.
   if (hasUnestimatedMovement(itinerary)) {
@@ -46,7 +48,7 @@ export async function generateItinerary(
       signal,
       15_000,
     );
-    itinerary = prepareGeneratedItinerary(result.output, routeTimes);
+    itinerary = prepareGeneratedItinerary(result.output, routeTimes, routeProfile);
   }
 
   const plan = validateGeneratedItinerary({
@@ -74,7 +76,7 @@ function requestItinerary(
   return generateText({
     model: process.env.AI_GATEWAY_MODEL || DEFAULT_TRIP_MODEL,
     output: Output.object({ schema: itineraryGenerationSchema }),
-    maxOutputTokens: 5000,
+    maxOutputTokens: 7000,
     maxRetries: 0,
     timeout,
     abortSignal: signal,

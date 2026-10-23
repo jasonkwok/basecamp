@@ -95,7 +95,7 @@ export function mergeEquipmentReference(
   const requiresSnowGear = reference.mustHave.some((item) =>
     /mountaineering ice axe/i.test(item),
   );
-  const snowGear = /\b(ice ax(?:e|es)|ice tool(?:s)?|crampons?)\b/i;
+  const snowGear = /\b(ice ax(?:e|es)|ice picks?|ice tool(?:s)?|crampons?)\b/i;
   const isRequiredSnowGear = (item: string) =>
     requiresSnowGear && snowGear.test(item);
   const mustHave = [
@@ -118,5 +118,34 @@ export function mergeEquipmentReference(
       !isRequiredSnowGear(item),
   );
 
-  return { mustHave, importantToHave, niceToHave };
+  return filterClimbingEquipment({ mustHave, importantToHave, niceToHave });
+}
+
+// Match the item name, not incidental references in its usage/compatibility note.
+// Keep this view focused on route gear rather than a complete expedition checklist.
+export function filterClimbingEquipment(equipment: Equipment): Equipment {
+  const seen = new Set<string>();
+  const keep = (items: string[]) => items.filter((item) => {
+    const name = item.split(/ — | - |: /, 1)[0].toLowerCase();
+    if (/\b(?:jackets?|trousers?|clothing|gloves|mittens|sunscreen|sunglasses|sleeping|food|toiletries|first[- ]aid|dry bags|spare socks|headlamps?|batteries)\b/i.test(name)) return false;
+    const gear = /\b(?:ice (?:ax(?:e|es)|picks?|tools?|screws?)|crampons?|microspikes|traction|(?:trekking|hiking|walking) poles|helmets?|harness(?:es)?|carabiners?|ascenders?|descenders?|belay|rappel|ropes?|slings?|prusiks?|accessory cord|glacier[- ]rescue|crevasse[- ]rescue|rock protection|snow[ /-]*ice protection|cams|nuts|anchors?|pickets?|mountaineering boots|high[- ]altitude boots|expedition boots|rock[- ]climbing footwear|climbing shoes|supplemental oxygen|oxygen (?:system|mask|regulator))\b/i;
+    if (!gear.test(name)) return false;
+    const families = [
+      [/\b(?:mountaineering|high[- ]altitude|expedition) boots\b/, "mountaineering-boots"],
+      [/\bcrampons?\b/, "crampons"],
+      [/\bice (?:ax(?:e|es)|picks?)\b/, "ice-axe"],
+      [/\bpoles\b/, "poles"],
+      [/\bhelmet\b/, "helmet"],
+      [/\bharness\b/, "harness"],
+    ] as const;
+    const key = families.find(([pattern]) => pattern.test(name))?.[1] ?? name.replace(/[^a-z0-9]+/g, " ").trim();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  return {
+    mustHave: keep(equipment.mustHave),
+    importantToHave: keep(equipment.importantToHave),
+    niceToHave: keep(equipment.niceToHave),
+  };
 }

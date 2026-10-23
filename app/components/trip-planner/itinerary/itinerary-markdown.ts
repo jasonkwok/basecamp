@@ -1,3 +1,5 @@
+import { filterClimbingEquipment } from "../../../lib/trip-planner/equipment-reference.ts";
+import { formatAltitudeChange, getElevationDataNote } from "../../../lib/trip-planner/stage-route-details.ts";
 import { formatMountainBudget, getMountainBudget } from "../../../data/mountain-budgets.ts";
 import { getRouteTimes } from "../../../data/route-times.ts";
 import type { MountainCatalogEntry } from "../../../data/mountains";
@@ -20,6 +22,7 @@ export function buildItineraryMarkdown({
   equipment: Equipment;
 }) {
   const { itinerary } = plan;
+  equipment = filterClimbingEquipment(equipment);
   const mountainBudget = getMountainBudget(summit);
   const lines = [
     `# ${summit.name} adventure plan`,
@@ -93,6 +96,8 @@ function appendSchedule(
   const references = getRouteTimes(summit.id, input.objective);
 
   lines.push("", "## Itinerary", "");
+  const elevationNote = getElevationDataNote([...plan.itinerary.days, ...plan.itinerary.phases]);
+  if (elevationNote) lines.push(elevationNote, "");
 
   if (plan.itinerary.phases.length) {
     for (const phase of plan.itinerary.phases) {
@@ -113,7 +118,8 @@ function appendSchedule(
         ...phase.activities.map((activity) => `- ${activity}`),
       );
 
-      appendEnvironment(lines, phase.environment);
+      appendRouteDetails(lines, phase.routeDetails);
+      appendEnvironment(lines, phase.environment, phase.routeDetails.altitudeChanges.length === 0);
       appendMovement(lines, phase.effort, references);
       lines.push(`- **Stay:** ${phase.overnight}`);
       lines.push(`- **Before moving on:** ${phase.decisionNote}`, "");
@@ -125,7 +131,8 @@ function appendSchedule(
     const date = plan.dates[index] ? ` · ${formatTripDate(plan.dates[index])}` : "";
     lines.push(`### Day ${index + 1}${date}: ${day.title}`, "");
     lines.push(...day.activities.map((activity) => `- ${activity}`));
-    appendEnvironment(lines, day.environment);
+    appendRouteDetails(lines, day.routeDetails);
+    appendEnvironment(lines, day.environment, day.routeDetails.altitudeChanges.length === 0);
     appendMovement(lines, day.effort, references);
     lines.push(`- **Overnight:** ${day.overnight}`, "");
   }
@@ -141,13 +148,30 @@ function getPhaseDateRange(dates: string[], startDay: number, endDay: number) {
   return `${formatTripDate(firstDate)} – ${formatTripDate(lastDate)}`;
 }
 
+function appendRouteDetails(
+  lines: string[],
+  details: TripPlan["itinerary"]["days"][number]["routeDetails"],
+) {
+  lines.push("", `**Difficulty:** ${details.difficulty}`);
+  const elevations = details.altitudeChanges.filter(({ fromMeters, toMeters }) => fromMeters !== null || toMeters !== null);
+  if (!elevations.length) return;
+  const hasChanges = elevations.some(({ fromMeters, toMeters }) => fromMeters !== null && toMeters !== null);
+  lines.push("", hasChanges ? "**Altitude changes**" : "**Known elevations**");
+  for (const movement of elevations) {
+    const formatted = formatAltitudeChange(movement);
+    lines.push(`- ${formatted.route}${formatted.change ? ` · ${formatted.change}` : ""}`);
+  }
+
+}
+
 function appendEnvironment(
   lines: string[],
   environment: TripPlan["itinerary"]["days"][number]["environment"],
+  showAltitude: boolean,
 ) {
   lines.push(
     "",
-    `- **Altitude:** ${environment.altitude}`,
+    ...(showAltitude && /\d/.test(environment.altitude) ? [`- **Altitude:** ${environment.altitude}`] : []),
     `- **Typical temperature:** ${environment.temperature}`,
     `- **Conditions:** ${environment.conditions}`,
   );
@@ -182,7 +206,7 @@ function appendEquipment(lines: string[], equipment: Equipment) {
     { title: "Must have", items: equipment.mustHave },
     { title: "Important to have", items: equipment.importantToHave },
   ];
-  lines.push("", "## Equipment required", "");
+  lines.push("", "## Climbing equipment", "");
 
   for (const group of groups) {
     lines.push(`### ${group.title}`, "");

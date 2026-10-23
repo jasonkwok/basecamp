@@ -3,6 +3,7 @@ import test from "node:test";
 import {
   getEquipmentReference,
   mergeEquipmentReference,
+  filterClimbingEquipment,
 } from "../app/lib/trip-planner/equipment-reference.ts";
 import { readFileSync } from "node:fs";
 const catalog = JSON.parse(
@@ -68,7 +69,8 @@ test("Markdown export includes trip details, schedule, warnings, and equipment",
   assert.match(markdown, /Typical temperature/);
   assert.match(markdown, /Approx\. 3–4 hours/);
   assert.doesNotMatch(markdown, /planning estimate/);
-  assert.match(markdown, /Waterproof hiking boots/);
+  assert.match(markdown, /Trekking poles/);
+  assert.doesNotMatch(markdown, /Waterproof hiking boots/);
   assert.match(markdown, /AI-generated planning draft/);
 });
 
@@ -585,7 +587,7 @@ test("Everest reference specifies technical essentials and promotes optional sno
     importantToHave: [],
     niceToHave: ["Ice axe"],
   });
-  assert.ok(result.mustHave.includes("Ice axe"));
+  assert.equal(result.mustHave.filter((item) => /ice axe/i.test(item)).length, 1);
   assert.ok(!result.niceToHave.includes("Ice axe"));
 });
 
@@ -967,4 +969,139 @@ test("movement references are route-specific and preserve ascent/descent distinc
     ),
     true,
   );
+});
+
+test("every catalog mountain has a route profile without inventing trek elevations", async () => {
+  const { getRouteProfile } = await import("../app/data/route-profiles.ts");
+  for (const mountain of catalog) {
+    const summitProfile = getRouteProfile(mountain, "summit");
+    assert.equal(summitProfile.route, mountain.difficulty.ascent);
+    if (mountain.kind === "mountain") {
+      assert.equal(summitProfile.points[0].elevationMeters, mountain.elevationMeters);
+    }
+    assert.deepEqual(getRouteProfile(mountain, "trek").points, []);
+    assert.deepEqual(getRouteProfile(mountain, "visit").points, []);
+  }
+});
+
+test("route elevation checks clear invented endpoints and retain sourced summit height", async () => {
+  const { getRouteProfile } = await import("../app/data/route-profiles.ts");
+  const { applyRouteElevationReferences, formatAltitudeChange } = await import("../app/lib/trip-planner/stage-route-details.ts");
+  for (const mountain of catalog.filter(m => m.kind === "mountain")) {
+    const stages = [{ routeDetails: { difficulty: mountain.difficulty.rationale, altitudeChanges: [
+      { from: "Unverified trailhead", to: "Summit", fromMeters: 1234, toMeters: 999 },
+    ] } }];
+    applyRouteElevationReferences(stages, getRouteProfile(mountain, "summit"));
+    const movement = stages[0].routeDetails.altitudeChanges[0];
+    assert.equal(movement.fromMeters, null, mountain.id);
+    assert.equal(movement.toMeters, mountain.elevationMeters, mountain.id);
+    assert.equal(formatAltitudeChange(movement).change, null);
+  }
+});
+
+test("a rotation displays ascent and descent separately instead of zero net gain", async () => {
+  const { getRouteProfile } = await import("../app/data/route-profiles.ts");
+  const { applyRouteElevationReferences, formatAltitudeChange } = await import("../app/lib/trip-planner/stage-route-details.ts");
+  const everest = catalog.find(m => m.id === "everest");
+  const stages = [{ routeDetails: { difficulty: "Glacier travel and altitude.", altitudeChanges: [
+    { from: "Base Camp", to: "Camp II", fromMeters: null, toMeters: null },
+    { from: "Camp 2", to: "Base Camp", fromMeters: null, toMeters: null },
+  ] } }];
+  applyRouteElevationReferences(stages, getRouteProfile(everest, "summit"));
+  assert.match(formatAltitudeChange(stages[0].routeDetails.altitudeChanges[0]).change, /^\+1,036 m/);
+  assert.match(formatAltitudeChange(stages[0].routeDetails.altitudeChanges[1]).change, /^−1,036 m/);
+  assert.match(formatAltitudeChange(stages[0].routeDetails.altitudeChanges[0]).route, /5,364 m/);
+});
+
+test("new generated stages require concise activities, difficulty and altitude movements", async () => {
+  const { itineraryGenerationSchema } = await import("../app/lib/trip-planner/schema.ts");
+  const mountain = catalog.find(m => m.id === "mount-fuji");
+  const plan = createMockItinerary({ ...input, objective: "summit" }, mountain, [], 3);
+  const details = { difficulty: "Loose volcanic footing on the named ascent.", altitudeChanges: [
+    { from: "Trailhead", to: "Summit", fromMeters: null, toMeters: mountain.elevationMeters },
+  ] };
+  for (const day of plan.itinerary.days) day.routeDetails = structuredClone(details);
+  assert.equal(itineraryGenerationSchema.safeParse(plan.itinerary).success, true);
+  const missing = structuredClone(plan.itinerary);
+  delete missing.days[0].routeDetails;
+  assert.equal(itineraryGenerationSchema.safeParse(missing).success, false);
+  const verbose = structuredClone(plan.itinerary);
+  verbose.days[0].activities = ["First bullet.", "Second bullet.", "Unnecessary third bullet."];
+  assert.equal(itineraryGenerationSchema.safeParse(verbose).success, false);
+});
+
+test("Markdown preserves stage difficulty and both altitude directions", () => {
+  const mountain = catalog.find(m => m.id === "everest");
+  const plan = createMockItinerary({ ...input, objective: "summit" }, mountain, [], 60);
+  plan.itinerary.phases[0].routeDetails = {
+    difficulty: "Icefall crevasses and unstable ice.",
+    altitudeChanges: [
+      { from: "Base Camp", to: "Camp 1", fromMeters: 5364, toMeters: 5943 },
+      { from: "Camp 1", to: "Base Camp", fromMeters: 5943, toMeters: 5364 },
+    ],
+  };
+  const markdown = buildItineraryMarkdown({ plan, input, summit: mountain, equipment: plan.itinerary.equipment });
+  assert.match(markdown, /\*\*Difficulty:\*\* Icefall crevasses/);
+  assert.match(markdown, /\+579 m/);
+  assert.match(markdown, /−579 m/);
+});
+
+
+test("climbing equipment excludes packing supplies even when notes mention technical gear", () => {
+  const gear = filterClimbingEquipment({
+    mustHave: ["Crampons — fit to boots", "Mountaineering ice axe", "Climbing harness", "Waterproof jacket — room for a harness", "Headlamp — attach to your helmet", "Sunscreen", "Sleeping bag", "Food", "Insulated gloves"],
+    importantToHave: ["Hiking poles", "Locking carabiners", "Dry bags — protect crampons"],
+    niceToHave: ["Camera"],
+  });
+  assert.deepEqual(gear.mustHave, ["Crampons — fit to boots", "Mountaineering ice axe", "Climbing harness"]);
+  assert.deepEqual(gear.importantToHave, ["Hiking poles", "Locking carabiners"]);
+  assert.deepEqual(gear.niceToHave, []);
+});
+
+test("equivalent climbing gear is listed once at its highest priority", () => {
+  const gear = filterClimbingEquipment({
+    mustHave: ["Crampons — steel", "Mountaineering ice axe"],
+    importantToHave: ["12-point crampons", "Ice axe", "Trekking poles"],
+    niceToHave: ["Hiking poles"],
+  });
+  assert.equal(gear.mustHave.length, 2);
+  assert.deepEqual(gear.importantToHave, ["Trekking poles"]);
+  assert.deepEqual(gear.niceToHave, []);
+});
+
+test("climbing-only views preserve the route distinction across every mountain", () => {
+  for (const mountain of catalog) {
+    const trek = mergeEquipmentReference(getEquipmentReference(mountain, "trek"), { mustHave: [], importantToHave: [], niceToHave: [] });
+    assert.deepEqual(trek.mustHave, []);
+    assert.ok(trek.importantToHave.some(item => /poles/i.test(item)));
+    assert.ok(!JSON.stringify(trek).includes("Crampons"));
+    const summit = mergeEquipmentReference(getEquipmentReference(mountain, "summit"), { mustHave: [], importantToHave: [], niceToHave: [] });
+    assert.doesNotMatch(JSON.stringify(summit), /Waterproof jacket|First-aid|Spare socks|Sun protection/);
+  }
+});
+
+test("partial elevations keep known heights without an invented change or repeated warning", async () => {
+  const { formatAltitudeChange, getElevationDataNote } = await import("../app/lib/trip-planner/stage-route-details.ts");
+  const movement = { from: "Trailhead", to: "Summit", fromMeters: null, toMeters: 3776 };
+  const formatted = formatAltitudeChange(movement);
+  assert.equal(formatted.change, null);
+  assert.match(formatted.route, /Summit \(3,776 m/);
+  assert.doesNotMatch(formatted.route, /unverified|unavailable/i);
+  assert.match(getElevationDataNote([{ routeDetails: { difficulty: "Volcanic footing", altitudeChanges: [movement] } }]), /both endpoints/i);
+  assert.equal(getElevationDataNote([]), null);
+  assert.equal(getElevationDataNote([{ routeDetails: { difficulty: "Rest", altitudeChanges: [{ ...movement, fromMeters: 3776 }] } }]), null);
+});
+
+test("exports explain missing elevation data once instead of repeating it per stage", () => {
+  const mountain = catalog.find(m => m.id === "mount-fuji");
+  const plan = createMockItinerary({ ...input, objective: "summit" }, mountain, [], 3);
+  for (const day of plan.itinerary.days) {
+    day.routeDetails = { difficulty: "Route details to confirm", altitudeChanges: [
+      { from: "Stage start", to: "Stage end", fromMeters: null, toMeters: null },
+    ] };
+  }
+  const markdown = buildItineraryMarkdown({ plan, input, summit: mountain, equipment: plan.itinerary.equipment });
+  assert.equal((markdown.match(/Elevation data is unavailable for this route/g) ?? []).length, 1);
+  assert.doesNotMatch(markdown, /Change unverified|elevation unverified|Route elevations unverified|\*\*Altitude changes\*\*/);
+  assert.equal((markdown.match(/\*\*Difficulty:\*\*/g) ?? []).length, 3);
 });

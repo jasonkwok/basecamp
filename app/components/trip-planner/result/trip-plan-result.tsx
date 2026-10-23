@@ -1,7 +1,9 @@
+import { getElevationDataNote } from "../../../lib/trip-planner/stage-route-details";
 import {
   getMountainBudget,
   formatMountainBudget,
 } from "../../../data/mountain-budgets";
+import { getRouteProfile } from "../../../data/route-profiles";
 import { getRouteTimes } from "../../../data/route-times";
 import { useEffect, useRef } from "react";
 import {
@@ -39,14 +41,11 @@ export default function TripPlanResult({
 }) {
   const heading = useRef<HTMLHeadingElement>(null);
   const { itinerary, dates } = plan;
+  const elevationNote = getElevationDataNote([...itinerary.days, ...itinerary.phases]);
   const budget = getMountainBudget(summit);
   const routeTimes = getRouteTimes(summit.id, input.objective);
-  const summitElevationFeet = Math.round(
-    summit.elevationMeters * 3.28084,
-  ).toLocaleString("en-US");
-  const summitElevationMeters = Math.round(
-    summit.elevationMeters,
-  ).toLocaleString("en-US");
+  const routeProfile = getRouteProfile(summit, input.objective);
+  const routeSources = [...new Set(routeProfile.points.map(({ sourceUrl }) => sourceUrl))];
   const isEverestAscent =
     summit.id === "everest" && input.objective === "summit";
   const reference = isEverestAscent
@@ -93,12 +92,6 @@ export default function TripPlanResult({
         {input.travelers === 1 ? "" : "s"}
       </p>
       <p>{itinerary.summary}</p>
-      {input.objective === "summit" ? (
-        <p className={styles.status}>
-          Summit elevation: {summitElevationFeet} ft ({summitElevationMeters} m).
-          Daily route and overnight elevations are listed when verified.
-        </p>
-      ) : null}
 
       {itinerary.status === "draft" ? (
         <ItineraryExportActions
@@ -107,37 +100,8 @@ export default function TripPlanResult({
         />
       ) : null}
 
-      <TripEquipment
-        items={equipment}
-        source={isEverestAscent ? EVEREST_EQUIPMENT_SOURCE : undefined}
-        referenceOnly={itinerary.status === "needs-changes"}
-        route={
-          input.objective === "summit" ? summit.difficulty.ascent : undefined
-        }
-      />
-
-      <h4>Travel timing</h4>
-      <p>{itinerary.timingNote}</p>
-      {input.timing.kind !== "exact" ? (
-        <p className={styles.status}>
-          Flexible draft · Timing is provisional; no travel dates have been
-          assigned.
-        </p>
-      ) : null}
-
-      <h4>Route budget reference</h4>
-      <p>
-        <strong>{formatMountainBudget(budget)}</strong> per person ·{" "}
-        {budget.basis}
-      </p>
-
-      <p className={styles.status}>
-        Planning for {input.travelers} traveler
-        {input.travelers === 1 ? "" : "s"}. The group total can vary because
-        shared costs depend on party size.
-      </p>
-
-      <p>{itinerary.budgetNote}</p>
+      <p className={styles.status}>{itinerary.timingNote}</p>
+      {elevationNote ? <p className={styles.status}>{elevationNote}</p> : null}
 
       {itinerary.phases.length ? (
         <ItineraryPhases
@@ -155,27 +119,36 @@ export default function TripPlanResult({
         />
       ) : null}
 
-      {itinerary.status === "draft" ? (
-        <p className={styles.status}>
-          Movement times are estimates of time on the route; breaks, weather,
-          and conditions can change the total day length.
-        </p>
-      ) : null}
+      <TripEquipment
+        items={equipment}
+        source={isEverestAscent ? EVEREST_EQUIPMENT_SOURCE : undefined}
+        referenceOnly={itinerary.status === "needs-changes"}
+        route={
+          input.objective === "summit" ? summit.difficulty.ascent : undefined
+        }
+      />
 
-      {itinerary.assumptions.length ? (
-        <>
-          <h4>Assumptions &amp; things to confirm</h4>
-          <ul>
-            {itinerary.assumptions.map((item, index) => (
-              <li key={index}>{item}</li>
+      <details className={styles.planningNotes}>
+        <summary>Budget &amp; planning notes</summary>
+        <p>
+          <strong>{formatMountainBudget(budget)}</strong> per person · {budget.basis}
+        </p>
+        <p>{itinerary.budgetNote}</p>
+        {itinerary.assumptions.length ? (
+          <ul>{itinerary.assumptions.map((item, index) => <li key={index}>{item}</li>)}</ul>
+        ) : null}
+        {routeSources.length ? (
+          <p>
+            Elevations are route benchmarks; camp locations can vary.{" "}
+            {routeSources.map((url, index) => (
+              <a key={url} href={url} target="_blank" rel="noreferrer">Source {index + 1} ↗{" "}</a>
             ))}
-          </ul>
-        </>
-      ) : null}
+          </p>
+        ) : null}
+      </details>
       <p className={styles.status}>
-        AI-generated planning draft. Transport, prices, route access, and
-        conditions have not been checked live. Export a copy to keep it; Basecamp
-        does not retain plans after closing.
+        Planning draft; route access and conditions are not checked live.
+        Export to keep a copy.
       </p>
     </section>
   );

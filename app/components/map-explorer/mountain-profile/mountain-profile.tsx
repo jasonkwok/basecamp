@@ -71,8 +71,6 @@ export default function MountainProfile({
         </button>
       </div>
 
-      <div className="profile-illustration" aria-hidden="true" />
-
       <h2 id="mountain-profile-title" ref={heading} tabIndex={-1}>
         {summit.name}
       </h2>

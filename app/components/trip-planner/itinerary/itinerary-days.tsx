@@ -1,3 +1,4 @@
+import ItineraryRouteDetails from "./itinerary-route-details";
 import type { RouteTime } from "../../../data/route-times";
 import MovementTimes from "./movement-times";
 import ItineraryEnvironmentNotes from "./itinerary-environment";
@@ -17,7 +18,7 @@ export default function ItineraryDays({
   return (
     <section aria-labelledby="daily-itinerary-title">
       <h4 id="daily-itinerary-title" className={styles.itinerarySectionTitle}>
-        Day-by-day itinerary
+        Route itinerary
       </h4>
       <ol className={styles.days}>
         {days.map((day, index) => (
@@ -34,7 +35,8 @@ export default function ItineraryDays({
               ))}
             </ul>
 
-            <ItineraryEnvironmentNotes environment={day.environment} />
+            <ItineraryRouteDetails details={day.routeDetails} />
+            <ItineraryEnvironmentNotes environment={day.environment} showAltitude={day.routeDetails.altitudeChanges.length === 0 && /\d/.test(day.environment.altitude)} />
             <MovementTimes items={day.effort} references={routeTimes} />
 
             <p>

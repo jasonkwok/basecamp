@@ -20,7 +20,7 @@
   grid-template-columns: 42px minmax(0, 1fr) 20px;
   align-items: center;
   gap: 12px;
-  width: min(390px, calc(100vw - 100px));
+  width: min(460px, calc(100vw - 112px));
   min-height: 74px;
   padding: 11px 17px;
   border: 2px solid #315b44;
@@ -40,7 +40,7 @@
 
 .triggerIcon {
   display: block;
-  font-size: 35px;
+  font-size: var(--font-size-title);
   line-height: 1;
 }
 
@@ -50,21 +50,21 @@
 }
 
 .triggerCopy strong {
-  font-size: 15px;
+  font-size: var(--font-size-body);
   font-weight: 900;
   line-height: 1.2;
 }
 
 .triggerCopy small {
   color: #66836c;
-  font-size: 11px;
+  font-size: var(--font-size-label);
   font-weight: 700;
   line-height: 1.25;
 }
 
 .triggerArrow {
   color: #b66a3c;
-  font-size: 22px;
+  font-size: var(--font-size-heading);
   font-weight: 900;
   line-height: 1;
 }
@@ -77,8 +77,8 @@
 .panel {
   display: flex;
   flex-direction: column;
-  width: min(420px, calc(100vw - 56px));
-  max-height: min(660px, calc(100svh - 150px));
+  width: min(480px, calc(100vw - 112px));
+  max-height: min(780px, calc(100svh - 130px));
   overflow: hidden;
   border: 2px solid #315b44;
   border-radius: 22px;
@@ -89,6 +89,7 @@
 
 .header {
   display: flex;
+  flex-shrink: 0;
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
@@ -99,14 +100,14 @@
 .eyebrow {
   margin: 0 0 4px;
   color: #66836c;
-  font-size: 10px;
+  font-size: var(--font-size-label);
   font-weight: 900;
   letter-spacing: 1.2px;
 }
 
 .header h2 {
   margin: 0;
-  font-size: 21px;
+  font-size: var(--font-size-heading);
   line-height: 1.2;
 }
 
@@ -123,7 +124,7 @@
   background: transparent;
   color: #315b44;
   font: inherit;
-  font-size: 11px;
+  font-size: var(--font-size-label);
   font-weight: 900;
   cursor: pointer;
 }
@@ -139,7 +140,7 @@
   border-radius: 50%;
   background: transparent;
   color: inherit;
-  font-size: 23px;
+  font-size: var(--font-size-heading);
   line-height: 1;
   cursor: pointer;
 }
@@ -172,7 +173,7 @@
   background: #f5f7eb;
   color: #315b44;
   font: inherit;
-  font-size: 11px;
+  font-size: var(--font-size-label);
   font-weight: 900;
   text-align: left;
   cursor: pointer;
@@ -190,7 +191,7 @@
   padding: 11px 13px;
   border-radius: 14px 14px 14px 4px;
   background: #edf3e5;
-  font-size: 14px;
+  font-size: var(--font-size-body);
   line-height: 1.45;
   white-space: pre-wrap;
 }
@@ -208,7 +209,7 @@
 .thinking {
   margin: 0;
   color: #66836c;
-  font-size: 13px;
+  font-size: var(--font-size-label);
   font-weight: 700;
 }
 
@@ -240,19 +241,19 @@
   display: flex;
   justify-content: space-between;
   color: #66836c;
-  font-size: 10px;
+  font-size: var(--font-size-label);
   font-weight: 900;
   letter-spacing: 0.7px;
 }
 
 .recommendationCard strong {
-  font-size: 17px;
+  font-size: var(--font-size-body);
   line-height: 1.2;
 }
 
 .cardLocation,
 .cardReason {
-  font-size: 12px;
+  font-size: var(--font-size-label);
   line-height: 1.4;
 }
 
@@ -263,7 +264,7 @@
 .cardAction {
   margin-top: 3px;
   color: #315b44;
-  font-size: 12px;
+  font-size: var(--font-size-label);
   font-weight: 900;
 }
 
@@ -275,7 +276,7 @@
   background: #edf3e5;
   color: #315b44;
   font: inherit;
-  font-size: 12px;
+  font-size: var(--font-size-label);
   font-weight: 900;
   cursor: pointer;
 }
@@ -291,7 +292,7 @@
   border-radius: 8px;
   background: #f1f5e9;
   color: #526e59;
-  font-size: 12px;
+  font-size: var(--font-size-label);
   line-height: 1.45;
 }
 
@@ -305,7 +306,7 @@
   border-radius: 12px;
   background: #fae9dd;
   color: #793e28;
-  font-size: 12px;
+  font-size: var(--font-size-label);
 }
 
 .error p {
@@ -338,7 +339,7 @@
 }
 
 .experienceField > span {
-  font-size: 12px;
+  font-size: var(--font-size-label);
   font-weight: 900;
 }
 
@@ -350,7 +351,7 @@
   background: white;
   color: #244737;
   font: inherit;
-  font-size: 13px;
+  font-size: var(--font-size-label);
 }
 
 .experienceField select {
@@ -379,7 +380,7 @@
 
 .formFooter > span {
   color: #66836c;
-  font-size: 10px;
+  font-size: var(--font-size-label);
   line-height: 1.3;
 }
 
@@ -392,7 +393,7 @@
   background: #315b44;
   color: white;
   font: inherit;
-  font-size: 13px;
+  font-size: var(--font-size-label);
   font-weight: 900;
   cursor: pointer;
 }
@@ -421,38 +422,38 @@
   }
 
   .panel {
-    width: min(420px, calc(100vw - 32px));
+    width: calc(100vw - 72px);
     max-height: calc(100svh - 110px);
   }
 
-  .withProfile {
+  .withProfile[data-open="true"] {
     right: 14px;
     top: max(12px, env(safe-area-inset-top));
     bottom: auto;
   }
 
   .withProfile .panel {
-    max-height: 32svh;
+    max-height: calc(100svh - 110px);
   }
 
   .trigger {
     grid-template-columns: 36px minmax(0, 1fr) 18px;
     gap: 9px;
-    width: calc(100vw - 64px);
+    width: calc(100vw - 72px);
     min-height: 68px;
     padding: 9px 13px;
   }
 
   .triggerIcon {
-    font-size: 30px;
+    font-size: var(--font-size-title);
   }
 
   .triggerCopy strong {
-    font-size: 14px;
+    font-size: var(--font-size-body);
   }
 
   .triggerCopy small {
-    font-size: 10px;
+    font-size: var(--font-size-label);
   }
 }
 
@@ -460,4 +461,94 @@
   .trigger:hover {
     transform: none;
   }
+}
+
+.matchBadge {
+  justify-self: start;
+  margin: 4px 0;
+  padding: 5px 9px;
+  border: 1px solid;
+  border-radius: 6px;
+  font-size: var(--font-size-label);
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.matchBadge[data-rating="low"] {
+  border-color: #adbac4;
+  background: #edf1f4;
+  color: #465561;
+}
+
+.matchBadge[data-rating="medium"] {
+  border-color: #c9a452;
+  background: #fff3d4;
+  color: #755018;
+}
+
+.matchBadge[data-rating="strong"] {
+  border-color: #78a482;
+  background: #e2f0e3;
+  color: #285837;
+}
+
+.matchBadge[data-rating="very strong"] {
+  border-color: #174936;
+  background: #205c43;
+  color: #fff;
+}
+
+.header {
+  position: relative;
+  display: block;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding-right: 145px;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+.header h2 {
+  font-size: var(--font-size-title);
+  line-height: 1.15;
+  letter-spacing: -0.6px;
+  text-wrap: balance;
+}
+.headerActions { position: absolute; top: 16px; right: 16px; }
+.newChat { min-height: 44px; }
+.close { width: 44px; height: 44px; flex: 0 0 auto; }
+.triggerCopy { min-width: 0; }
+.triggerCopy strong { font-size: var(--font-size-heading); line-height: 1.25; }
+.triggerCopy small { line-height: 1.4; }
+.messages { flex: 1 1 auto; min-height: 0; }
+.form { flex: 0 0 auto; }
+.cardReason { font-size: var(--font-size-body); line-height: 1.5; }
+.cardTopline { flex-wrap: wrap; gap: 6px; letter-spacing: 0.3px; }
+.formFooter { flex-wrap: wrap; }
+.formFooter > span { flex: 1 1 180px; }
+.experienceField select,
+.formFooter button,
+.download { min-height: 48px; }
+.experienceField select,
+.messageField textarea { font-size: var(--font-size-body); }
+@media (max-width: 640px) {
+  .trigger { grid-template-columns: 36px minmax(0, 1fr) 18px; }
+  .triggerCopy strong { font-size: var(--font-size-heading); }
+  .error { flex-wrap: wrap; }
+}
+
+@media (max-height: 700px) {
+  .panel {
+    max-height: calc(100svh - 100px);
+    overflow-y: auto;
+  }
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #fffbee;
+  }
+  .messages { flex: 0 0 auto; overflow-y: visible; }
 }

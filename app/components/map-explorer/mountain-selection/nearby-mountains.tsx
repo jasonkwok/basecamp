@@ -30,6 +30,7 @@ export default function NearbyMountains({
     <section
       className="nearby-panel"
       aria-labelledby="nearby-heading"
+      onWheel={(event) => event.stopPropagation()}
       onKeyDown={(event) => {
         if (event.key === "Escape") {
           onClose();
@@ -56,7 +57,7 @@ export default function NearbyMountains({
       ) : null}
       <p>Pick a mountain to bring it into view.</p>
 
-      <ul>
+      <ul tabIndex={0} aria-label="Peaks in this group">
         {nearbySummits.map((summit) => (
           <li key={summit.id}>
             <button

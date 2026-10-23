@@ -12,10 +12,10 @@ import {
   type MountainGuideMessage,
 } from "../../lib/mountain-guide/schema";
 
-export const maxDuration = 30;
+export const maxDuration = 60;
 
-const MAX_REQUEST_BYTES = 24_000;
-const MAX_MESSAGES = 12;
+const MAX_REQUEST_BYTES = 160_000;
+const MAX_MESSAGES = 60;
 const MAX_MESSAGE_CHARACTERS = 1_200;
 const NO_STORE_HEADERS = { "Cache-Control": "no-store" };
 
@@ -77,7 +77,7 @@ export async function POST(request: Request) {
     const requesterId =
       request.headers.get("x-forwarded-for")?.split(",")[0].trim() || "local";
     if (!allowAiRequest(requesterId, "mountain-guide")) {
-      return failure("You’ve reached the limit of 50 guide replies per hour.", 429);
+      return failure("You’ve reached the limit of 100 guide replies per hour.", 429);
     }
 
     const output = await generateMountainRecommendations({

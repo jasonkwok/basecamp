@@ -35,7 +35,7 @@ export default function MapExplorer() {
     returnToSearch,
     closeSummitProfile,
     nearbySummits,
-    setNearbySummits,
+    closePeakGroup,
     visitSummit,
     focusMap,
     retry,
@@ -58,19 +58,16 @@ export default function MapExplorer() {
 
       <MountainGuideChat
         open={mountainGuideOpen}
-        available={
-          !profileSummit && nearbySummits.length === 0
-        }
         onToggle={toggleMountainGuide}
         onOpenSearch={() => toggleMountainPicker(true)}
         hasSelectedMountain={profileSummit !== null}
         onSelectMountain={(summit, experience) => {
           setPlannerExperience(experience);
-          visitSummit(summit, undefined, { keepGuideOpen: true });
+          visitSummit(summit);
         }}
       />
 
-      {profileSummit && showTripPlanner && !mountainGuideOpen ? (
+      {profileSummit && showTripPlanner ? (
         <TripPlannerAction
           key={profileSummit.id}
           summit={profileSummit}
@@ -91,7 +88,7 @@ export default function MapExplorer() {
         <NearbyMountains
           nearbySummits={nearbySummits}
           onClose={() => {
-            setNearbySummits([]);
+            closePeakGroup();
 
             // Return keyboard navigation to the globe after leaving a panel.
             focusMap();

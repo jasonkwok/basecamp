@@ -10,7 +10,7 @@ Just as base camp is the starting point for a mountain climb, Basecamp is where 
 
 I love adventures that challenge me. Completing something difficult gives me a sense of accomplishment and pride, and I wanted to help others discover adventures that give them that same feeling. I hiked Machu Picchu in 2024 and was hooked ever since. I went on to summit Kilimanjaro in 2025, and hopefully there are many more adventures to come :).
 
-One thing I realized along the way is that finding the right adventure isn't always easy. There are incredible mountains everywhere, but figuring out which ones match your interests and experience takes a lot of research. You can ask ChatGPT/Claude for recommendations, but the experience isn't particularly visual or tailored to your hiking background and goals. On the other hand, tour operators typically have websites that can be difficult to navigate and are often focused on selling specific trips, rather than helping you explore your options. I wanted something that made discovering your next adventure feel just as exciting as planning it.
+Along the way, I couldn't find a one-stop shop for discovering mountaineering trips and longer treks. Strava helped me look back on my activities, and AllTrails helped me find individual trails, while tour operator websites tended to focus on selling specific trips. Choosing a bigger adventure that matched my experience and goals still took a lot of research. I wanted to make that discovery feel as exciting as the adventure itself.
 
 I built Basecamp to make it easier to discover mountains that match your interests and experience, learn what each climb involves, and put together an initial trip plan.
 

@@ -34,7 +34,8 @@ export default function MountainProfile({
   const heading = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    heading.current?.focus();
+    heading.current?.closest(".mountain-profile")?.scrollTo(0, 0);
+    heading.current?.focus({ preventScroll: true });
   }, [summit.id]);
 
   const [longitude, latitude] = summit.coordinates;
@@ -53,27 +54,29 @@ export default function MountainProfile({
         }
       }}
     >
-      <div className="profile-topline">
-        {onBack ? (
-          <button
-            type="button"
-            aria-label={backLabel}
-            title={backLabel}
-            onClick={onBack}
-          >
-            ←
+      <header className="profile-header">
+        <div className="profile-topline">
+          {onBack ? (
+            <button
+              type="button"
+              aria-label={backLabel}
+              title={backLabel}
+              onClick={onBack}
+            >
+              ←
+            </button>
+          ) : (
+            <span>FIELD NOTES</span>
+          )}
+          <button aria-label="Close mountain details" onClick={onClose}>
+            ×
           </button>
-        ) : (
-          <span>FIELD NOTES</span>
-        )}
-        <button aria-label="Close mountain details" onClick={onClose}>
-          ×
-        </button>
-      </div>
+        </div>
 
-      <h2 id="mountain-profile-title" ref={heading} tabIndex={-1}>
-        {summit.name}
-      </h2>
+        <h2 id="mountain-profile-title" ref={heading} tabIndex={-1}>
+          {summit.name}
+        </h2>
+      </header>
 
       <p className="profile-location">
         {summit.location} · {summit.region}

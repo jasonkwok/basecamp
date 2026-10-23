@@ -1110,7 +1110,7 @@ button:focus-visible,
   border-color: #a65c4f;
   box-shadow: 0 2px 0 #a65c4f;
 }
-.profile-topline {
+.profile-header {
   position: sticky;
   z-index: 1;
   background: #fffbee;
@@ -1420,12 +1420,14 @@ button:focus-visible,
   scrollbar-gutter: stable;
   scroll-padding-top: 88px;
 }
-.profile-topline {
-  top: 0;
+.profile-header {
+  top: calc(-1 * var(--field-notes-padding));
   margin: calc(-1 * var(--field-notes-padding)) calc(-1 * var(--field-notes-padding)) 20px;
   padding: 12px var(--field-notes-padding);
   border-bottom: 1px solid #d8e2cb;
 }
+.profile-header .profile-topline { margin: 0 0 12px; }
+.profile-header h2 { margin: 0; }
 .profile-actions { gap: 16px; }
 .profile-sources a { overflow-wrap: anywhere; }
 @container field-notes (max-width: 400px) {

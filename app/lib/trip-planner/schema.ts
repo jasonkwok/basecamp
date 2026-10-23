@@ -160,10 +160,13 @@ const unavailableRouteDetails = {
 };
 export type StageRouteDetails = z.infer<typeof stageRouteDetailsSchema>;
 
+const requiredEquipmentSchema = z.array(z.string().min(1).max(200)).max(16);
+
 const itineraryDaySchema = z.object({
   title: z.string().min(1).max(120),
   activities: z.array(shortTextSchema).min(1).max(4),
   overnight: z.string().min(1).max(200),
+  requiredEquipment: requiredEquipmentSchema.nullable().default(null),
   routeDetails: stageRouteDetailsSchema.default(unavailableRouteDetails),
   environment: itineraryEnvironmentSchema.default(unavailableEnvironment),
   effort: effortSchema.default([]),
@@ -194,6 +197,7 @@ export const itinerarySchema = z.object({
         endDay: z.number().int().min(1).max(MAX_TRIP_DAYS),
         activities: z.array(z.string().min(1).max(240)).min(1).max(3),
         overnight: z.string().min(1).max(200),
+        requiredEquipment: requiredEquipmentSchema.nullable().default(null),
         routeDetails: stageRouteDetailsSchema.default(unavailableRouteDetails),
         environment: itineraryEnvironmentSchema.default(unavailableEnvironment),
         decisionNote: z.string().min(1).max(300),
@@ -220,6 +224,7 @@ export const itineraryGenerationSchema = itinerarySchema.extend({
     .array(
       itineraryDaySchema.extend({
         activities: z.array(z.string().min(1).max(160)).min(1).max(2),
+        requiredEquipment: requiredEquipmentSchema,
         routeDetails: stageRouteGenerationSchema,
         environment: itineraryEnvironmentSchema,
         effort: effortSchema.min(1),
@@ -232,6 +237,7 @@ export const itineraryGenerationSchema = itinerarySchema.extend({
         .removeDefault()
         .element.extend({
           activities: z.array(z.string().min(1).max(160)).min(1).max(2),
+          requiredEquipment: requiredEquipmentSchema,
           routeDetails: stageRouteGenerationSchema,
           environment: itineraryEnvironmentSchema,
           effort: effortSchema.min(1),

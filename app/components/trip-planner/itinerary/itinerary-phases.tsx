@@ -1,3 +1,4 @@
+import ItineraryStageEquipment from "./itinerary-stage-equipment";
 import ItineraryRouteDetails from "./itinerary-route-details";
 import type { RouteTime } from "../../../data/route-times";
 import MovementTimes from "./movement-times";
@@ -43,6 +44,7 @@ export default function ItineraryPhases({
             <ItineraryRouteDetails details={phase.routeDetails} />
             <ItineraryEnvironmentNotes environment={phase.environment} showAltitude={phase.routeDetails.altitudeChanges.length === 0 && /\d/.test(phase.environment.altitude)} />
             <MovementTimes items={phase.effort} references={routeTimes} />
+            <ItineraryStageEquipment items={phase.requiredEquipment} />
 
             <p>
               <b>Stay:</b> {phase.overnight}

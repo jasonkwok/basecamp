@@ -121,6 +121,7 @@ function appendSchedule(
       appendRouteDetails(lines, phase.routeDetails);
       appendEnvironment(lines, phase.environment, phase.routeDetails.altitudeChanges.length === 0);
       appendMovement(lines, phase.effort, references);
+      appendStageEquipment(lines, phase.requiredEquipment);
       lines.push(`- **Stay:** ${phase.overnight}`);
       lines.push(`- **Before moving on:** ${phase.decisionNote}`, "");
     }
@@ -134,6 +135,7 @@ function appendSchedule(
     appendRouteDetails(lines, day.routeDetails);
     appendEnvironment(lines, day.environment, day.routeDetails.altitudeChanges.length === 0);
     appendMovement(lines, day.effort, references);
+    appendStageEquipment(lines, day.requiredEquipment);
     lines.push(`- **Overnight:** ${day.overnight}`, "");
   }
 }
@@ -199,6 +201,15 @@ function appendMovement(
       : `Approx. ${item.estimatedHours?.replace("-", "–")} hours`;
     lines.push(`- **${timing?.label ?? item.label}:** ${hours}`);
   }
+}
+
+function appendStageEquipment(lines: string[], items: string[] | null) {
+  const description = items === null
+    ? "Not specified in this draft."
+    : items.length
+      ? items.join("; ")
+      : "No climbing equipment required for this stage.";
+  lines.push(`- **Required equipment:** ${description}`);
 }
 
 function appendEquipment(lines: string[], equipment: Equipment) {

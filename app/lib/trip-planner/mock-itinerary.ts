@@ -62,6 +62,7 @@ export function createMockItinerary(
                 "Placeholder activity for testing the itinerary layout.",
               ],
               overnight: "Placeholder accommodation — not researched",
+              requiredEquipment: [],
               routeDetails: { difficulty: "Mock terrain — not route guidance.", altitudeChanges: [] },
               environment: MOCK_ENVIRONMENT,
               effort: [
@@ -117,6 +118,7 @@ function createMockPhases(
         "Mock stage description — confirm the real plan with your operator.",
       ],
       overnight: "Accommodation or camp type to confirm",
+      requiredEquipment: [],
       routeDetails: { difficulty: "Mock terrain — not route guidance.", altitudeChanges: [] },
       environment: MOCK_ENVIRONMENT,
       effort:

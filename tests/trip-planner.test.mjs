@@ -1105,3 +1105,20 @@ test("exports explain missing elevation data once instead of repeating it per st
   assert.doesNotMatch(markdown, /Change unverified|elevation unverified|Route elevations unverified|\*\*Altitude changes\*\*/);
   assert.equal((markdown.match(/\*\*Difficulty:\*\*/g) ?? []).length, 3);
 });
+
+test("stage equipment exports preserve daily and phase requirements and missing legacy data", () => {
+  const mountain = catalog.find(m => m.id === "mount-fuji");
+  for (const duration of [3, 30]) {
+    const plan = createMockItinerary({ ...input, objective: "summit" }, mountain, [], duration);
+    const stages = plan.itinerary.phases.length ? plan.itinerary.phases : plan.itinerary.days;
+    stages[0].requiredEquipment = ["Crampons — only if confirmed conditions require them"];
+    stages[1].requiredEquipment = [];
+    delete stages[2].requiredEquipment;
+    const parsed = tripPlanSchema.parse(plan);
+    assert.equal((parsed.itinerary.phases.length ? parsed.itinerary.phases : parsed.itinerary.days)[2].requiredEquipment, null);
+    const markdown = buildItineraryMarkdown({ plan: parsed, input, summit: mountain, equipment: parsed.itinerary.equipment });
+    assert.match(markdown, /\*\*Required equipment:\*\* Crampons — only if confirmed conditions require them/);
+    assert.match(markdown, /\*\*Required equipment:\*\* No climbing equipment required for this stage/);
+    assert.match(markdown, /\*\*Required equipment:\*\* Not specified in this draft/);
+  }
+});

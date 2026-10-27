@@ -1,14 +1,15 @@
 .action {
   position: absolute;
   top: max(132px, calc(env(safe-area-inset-top) + 108px));
-  left: 50%;
+  /* Center in the map space beside the left panel, with a 28px gap. */
+  left: calc((100% + var(--explorer-panel-width) + 28px) / 2);
   transform: translateX(-50%);
   z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 14px;
-  width: min(560px, calc(100% - 56px));
+  width: min(560px, calc(100% - var(--explorer-panel-width) - 84px));
   min-height: 84px;
   padding: 20px 28px;
   border: 2px solid #244737;
@@ -74,9 +75,6 @@
 }
 
 /* The inline planner remains in Field Notes when the viewport is compact. */
-@media (min-width: 961px) and (min-height: 701px) {
-  :global(.explorer):has(.action) { --field-notes-top: 244px; }
-}
 @media (max-width: 960px), (max-height: 700px) {
   .action { display: none; }
 }

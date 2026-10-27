@@ -1403,7 +1403,7 @@ button:focus-visible,
 
 /* Field Notes uses the available map viewport instead of a narrow fixed card. */
 .explorer {
-  --explorer-panel-width: clamp(400px, 34vw, 520px);
+  --explorer-panel-width: clamp(320px, 30vw, 460px);
   --field-notes-top: 160px;
   --field-notes-bottom: 120px;
   min-height: 0;
